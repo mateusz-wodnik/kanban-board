@@ -1,28 +1,62 @@
-.App {
-  text-align: center;
+.app {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr 1fr;
+    grid-template-rows: 10vh 90vh;
+    grid-template-areas: "toggle navbar navbar navbar navbar"
+"sidebar content content content content";
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.sidebar {
+    grid-area: sidebar;
+    width: 50px;
+    transition: 1s;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.sidebar * {
+    background: none!important;
 }
 
-.App-title {
-  font-size: 1.5em;
+.sidebar {
+    background: linear-gradient(to right, lightgrey 90%, rgba(0,0,0,0.3));
 }
 
-.App-intro {
-  font-size: large;
+.sidebar__link {
+    display: flex!important;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.sidebar__text {
+    padding-left: 20px;
+}
+
+.navbar {
+    grid-area: navbar;
+}
+
+.kanban {
+    grid-area: content;
+}
+
+#toggleSidebar {
+    appearance: button;
+    background-color: lightgrey;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/220px-Hamburger_icon.svg.png")!important;
+    background-size: 50px!important;
+    background-repeat: no-repeat!important;
+    background-position: center;
+}
+
+#toggleSidebar:checked ~ .sidebar {
+    width: 200px;
+}
+
+.pop {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 200px;
+    height: 200px;
+    background: coral;
 }
