@@ -6,9 +6,6 @@ import { createLane } from '../lane/LaneActions'
 const Kanban = (props) => {
 	return (
 		<div className="kanban">
-			<header>
-				<h2>Kanban Board</h2>
-			</header>
 			<Lanes lanes={props.lanes}/>
 		</div>
 	)

@@ -1,50 +1,77 @@
 import React from 'react'
 import Notes from '../note/Notes'
+import './Lane.css'
 
 class Lane extends React.Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			modal: false
+			isAddVisible: false
 		}
 	}
 
-	handleNewNote = () => {
-		this.props.addNote({header: 'New Note', task: 'Task to do'}, this.props.lane.id)
-		this.setState({modal: !this.state.modal})
+	handleAddNote = () => {
+		if(this.state.isAddVisible) {
+			const header = document.querySelector('#newNoteHeader').value
+			const task = document.querySelector('#newNoteTask').value
+			const laneId = this.props.lane.id
+			this.props.addNote({header, task}, laneId)
+			this.setState({isAddVisible: false})
+		} else {
+			this.setState({isAddVisible: true})
+		}
 	}
+
 	render() {
-		const { lane, addNote, deleteLane, laneNotes } = this.props;
+		const { lane, deleteLane, laneNotes } = this.props;
 		const laneId = lane.id
 		return (
-			<section className="card w-25">
+			<section className="lane card">
 				<header className="card-header">
-					<h5>Lane header</h5>
-					<div className="btn-group btn-group-sm" role="group" aria-label="Lane actions">
+					<h5 className="lane__name">{lane.name}<span className="lane__count badge badge-light">{laneNotes.length}</span></h5>
+					<button
+						onClick={() => deleteLane(laneId)}
+						className="lane__delete btn btn-light btn-sm"
+					>x</button>
+					<div className="lane__add-container" role="group" aria-label="Lane actions">
 						<button
-							onClick={this.handleNewNote}
-							className="btn btn-success btn-sm"
-						>Add note</button>
-						{this.state.modal ? <Edit/> : null}
-						<button
-							onClick={() => deleteLane(laneId)}
-							className="btn btn-danger btn-sm"
-						>Delete lane</button>
+							onClick={this.handleAddNote}
+							className="lane__add btn btn-success btn-sm"
+						>{this.state.isAddVisible ? 'Add note' : 'New note'}</button>
+						{this.state.isAddVisible ? this.AddNoteModal() : null}
 					</div>
 				</header>
 				<Notes laneId={laneId} notes={laneNotes}/>
 			</section>
 		)
 	}
-}
 
-export default Lane
-
-const Edit = () => {
-	return (
-		<div className="pop">
-			<input type="text" name="elo" id="mordo"/>
-			<p>ELOELOELOELO</p>
+	AddNoteModal = () => (
+		<div className="add-note-modal">
+			<input
+				onKeyDown={e => {
+					if(e.keyCode === 13) this.handleAddNote()
+				}}
+				id="newNoteHeader"
+				type="text"
+				className="form-control"
+				placeholder="Name"
+				aria-label="Name"
+				aria-describedby="basic-addon1"
+			/>
+			<input
+				onKeyDown={e => {
+					if(e.keyCode === 13) this.handleAddNote()
+				}}
+				id="newNoteTask"
+				type="text"
+				className="form-control"
+				placeholder="Task"
+				aria-label="Task"
+				aria-describedby="basic-addon1"
+			/>
 		</div>
 	)
 }
+
+export default Lane;

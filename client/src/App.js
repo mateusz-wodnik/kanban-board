@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom'
-import logo from './logo.svg';
+import { Route } from 'react-router-dom'
 import './App.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
-import Main from './modules/main/main';
-import Lanes from './modules/lane/Lanes'
 import Kanban from './modules/kanban/Kanban'
 import Navbar from './modules/navbar/Navbar'
 import Sidebar from './modules/sidebar/Sidebar'

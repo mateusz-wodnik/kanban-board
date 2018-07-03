@@ -1,0 +1,36 @@
+.sidebar {
+    grid-area: sidebar;
+    width: 50px;
+    transition: 1s;
+}
+
+.sidebar * {
+    background: none!important;
+}
+
+.sidebar {
+    background: linear-gradient(to right, lightgrey 90%, rgba(0,0,0,0.3));
+}
+
+.sidebar__link {
+    display: flex!important;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.sidebar__text {
+    padding-left: 20px;
+}
+
+#toggleSidebar {
+    appearance: button;
+    background-color: lightgrey;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/220px-Hamburger_icon.svg.png")!important;
+    background-size: 50px!important;
+    background-repeat: no-repeat!important;
+    background-position: center;
+}
+
+#toggleSidebar:checked ~ .sidebar {
+    width: 200px;
+}

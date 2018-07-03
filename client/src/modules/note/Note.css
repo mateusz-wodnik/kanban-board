@@ -1,0 +1,45 @@
+.note {
+    margin: 10px 15px;
+    padding: 0 10px;
+    background: white;
+}
+
+.note:first-child {
+    margin-top: 0;
+}
+
+.note .btn-group {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.note .btn-group .btn {
+    background: white;
+    border: 0;
+    transition: 0.5s;
+}
+
+.note .btn-group .btn:hover {
+    filter: brightness(90%);
+}
+
+.note__delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.check {
+    background: gold!important;
+}
+
+.edit {
+    background: white;
+    animation: edit 2s forwards;
+}
+
+@keyframes edit {
+    0% {filter: brightness(1);}
+    50% {filter: brightness(0.7);}
+    100% {filter: brightness(0.8);}
+}

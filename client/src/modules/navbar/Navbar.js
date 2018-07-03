@@ -1,30 +1,55 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../logo.svg'
 import { createLane } from '../lane/LaneActions'
 import { connect } from 'react-redux';
 
-const Navbar = (props) => {
-	return (
-		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a className="navbar-brand" href="#">
-				<img src={logo} alt="logo" width="50" height="50" className="d-inline-block align-top"/>
-			</a>
-			<button className="navbar-toggler" type="checkbox" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span className="navbar-toggler-icon"></span>
-			</button>
-			<div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div className="navbar-nav">
-					{/*<Link to='/' class="nav-item nav-link disabled">Disabled</Link>*/}
+class Navbar extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isAddVisible: false
+		}
+	}
+
+	handleAddLane = () => {
+		if(this.state.isAddVisible) {
+			const name = document.querySelector('#newLaneName').value
+			this.props.createLane({name})
+			this.setState({isAddVisible: false})
+		} else {
+			this.setState({isAddVisible: true})
+		}
+	}
+
+	render() {
+		return (
+			<nav className="navbar navbar-dark bg-dark">
+				<Link to="/" className="navbar-brand">
+					<h2>Kanban Board</h2>
+				</Link>
+				<div className="navbar-nav flex-row">
+					{this.state.isAddVisible ? this.AddNameModal() : null}
 					<button
-						onClick={() => props.createLane({
-							name: 'New Lane',
-						})}
+						onClick={this.handleAddLane}
 						className="btn btn-success nav-item"
-					>Add lane</button>
+					>{this.state.isAddVisible ? 'Add lane' : 'New lane'}</button>
 				</div>
-			</div>
-		</nav>
+			</nav>
+		)
+	}
+
+	AddNameModal = () => (
+			<input
+				onKeyDown={e => {
+					if(e.keyCode === 13) this.handleAddLane()
+				}}
+				id="newLaneName"
+				type="text"
+				className="form-control"
+				placeholder="Lane name"
+				aria-label="Lane name"
+				aria-describedby="basic-addon1"
+			/>
 	)
 }
 

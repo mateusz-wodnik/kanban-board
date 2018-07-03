@@ -1,0 +1,36 @@
+.lane {
+    background: lightgrey;
+    padding-bottom: 20px;
+}
+
+.lane .card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-note-modal {
+    z-index: 1;
+    position: absolute;
+    left: 110%;
+    top: 0;
+    width: 100%;
+}
+
+.lane__delete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    border: 0;
+}
+
+.lane__add {
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    margin-left: 10px;
+}
+
+.lane__count {
+    margin-left: 10px;
+}
