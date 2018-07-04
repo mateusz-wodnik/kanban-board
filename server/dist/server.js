@@ -12,9 +12,17 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _example = require('./routes/example.routes');
+var _lane = require('./routes/lane.routes');
 
-var _example2 = _interopRequireDefault(_example);
+var _lane2 = _interopRequireDefault(_lane);
+
+var _note = require('./routes/note.routes');
+
+var _note2 = _interopRequireDefault(_note);
+
+var _kanban = require('./routes/kanban.routes');
+
+var _kanban2 = _interopRequireDefault(_kanban);
 
 require('./mongoConfig.js');
 
@@ -30,7 +38,9 @@ app.use(_bodyParser2.default.json());
 
 // Router
 
-app.use('/api', _example2.default);
+app.use('/api', _lane2.default);
+app.use('/api', _note2.default);
+app.use('/api', _kanban2.default);
 
 // Database config
 

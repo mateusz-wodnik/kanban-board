@@ -11,8 +11,12 @@ const server = http.Server(app);
 app.use(bodyParser.json());
 
 // Router
-import examples from './routes/example.routes'
-app.use('/api', examples);
+import lanes from './routes/lane.routes'
+import notes from './routes/note.routes'
+import kanbans from './routes/kanban.routes'
+app.use('/api', lanes);
+app.use('/api', notes);
+app.use('/api', kanbans);
 
 // Database config
 import './mongoConfig.js'

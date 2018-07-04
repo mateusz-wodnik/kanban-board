@@ -6,23 +6,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _express = require('express');
 
-var _example = require('../controllers/example.controller');
+var _kanban = require('../controllers/kanban.controller');
 
-var ExampleController = _interopRequireWildcard(_example);
+var KanbanController = _interopRequireWildcard(_kanban);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var router = new _express.Router();
 
 // Get all Posts
-router.route('/examples').get(ExampleController.getExamples);
+router.route('/kanbans').get(KanbanController.getKanbans);
 
-router.route('/examples').post(ExampleController.addExample);
+router.route('/kanbans').post(KanbanController.addKanban);
 
-router.route('/examples/:id').put(ExampleController.updateExample);
+router.route('/kanbans/:id').put(KanbanController.updateKanban);
 
-router.route('/examples/:id').delete(ExampleController.deleteExample);
+router.route('/kanbans/:id').delete(KanbanController.deleteKanban);
 
-router.route('/examples/:id').get(ExampleController.getExample);
+router.route('/kanbans/:id').get(KanbanController.getKanban);
 
 exports.default = router;
