@@ -1,6 +1,4 @@
 import { createNotes } from '../note/NoteActions'
-import { lanes } from '../../util/schema';
-import { normalize } from 'normalizr';
 
 export const CREATE_LANE = 'CREATE_LANE';
 export const CREATE_LANES = 'CREATE_LANES';
@@ -18,27 +16,25 @@ export function createLane(lane) {
 	}
 }
 
-export function createLaneRequest(lane) {
+export function createLaneRequest(kanbanId, lane) {
 	return (dispatch) => {
 		const body = {
 			lane,
-			kanbanId: "5b3d38a01209cf202abbeb65"
+			kanbanId
 		}
-		return fetch('http://localhost:3000/api/lanes',
-			{ method: "POST",
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(body)
-			})
+		return fetch('http://localhost:3000/api/lanes', {
+			method: "POST",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(body)
+		})
 			.then(res => {
 				if(!res.ok) throw Error('Cannot create new lane')
 				return res.json()
 			})
-			.then(res => {
-				dispatch(createLane(res))
-			})
+			.then(res => dispatch(createLane(res)))
 			.catch(err => console.log(err))
 	}
 }
@@ -78,26 +74,6 @@ export function deleteLaneRequest(laneId) {
 			.then(() => dispatch(deleteLane(laneId)))
 	}
 }
-
-export function fetchLanes() {
-	return (dispatch) => {
-		return fetch('http://localhost:3000/api/lanes')
-			.then(res => res.json())
-			.then(res => {
-				let notes = []
-				res.map(lane => {
-					lane.notes = lane.notes.map(note => {
-						notes.push(note)
-						return note._id
-					})
-					return lane
-				})
-				dispatch(createNotes(notes));
-				dispatch(createLanes(res));
-			})
-	};
-}
-
 
 export function createLanes(lanes) {
 	return {

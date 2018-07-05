@@ -2,6 +2,8 @@ import { CREATE_LANE, UPDATE_LANE, DELETE_LANE, CREATE_LANES } from './LaneActio
 
 import { CREATE_NOTE, DELETE_NOTE } from '../note/NoteActions'
 
+import { CREATE_KANBAN } from '../kanban/KanbanActions'
+
 const initialState = [];
 
 export default function lanes(state = initialState, action) {
@@ -9,8 +11,9 @@ export default function lanes(state = initialState, action) {
 		case CREATE_LANE:
 			return [...state, action.lane];
 
+		case CREATE_KANBAN:
 		case CREATE_LANES:
-			return [...action.lanes]
+			return action.lanes
 
 		case UPDATE_LANE:
 			return state.map(lane => {
@@ -22,7 +25,6 @@ export default function lanes(state = initialState, action) {
 			return state.filter(lane => lane._id !== action.laneId);
 
 		case CREATE_NOTE:
-			console.log(action)
 			return state.map(lane => {
 				if(lane._id === action.laneId) {
 					const notes = [...lane.notes, action.note._id];

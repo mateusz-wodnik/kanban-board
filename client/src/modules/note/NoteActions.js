@@ -42,7 +42,6 @@ export function createNotes(notes) {
 }
 
 export function updateNote(_id, note) {
-	console.log(note)
 	return {
 		type: UPDATE_NOTE,
 		_id,
@@ -52,7 +51,6 @@ export function updateNote(_id, note) {
 
 export function updateNoteRequest(_id, note) {
 	return (dispatch) => {
-		console.log(JSON.stringify(note))
 		return fetch(`http://localhost:3000/api/notes/${_id}`, {
 			method: "PUT",
 			headers: {

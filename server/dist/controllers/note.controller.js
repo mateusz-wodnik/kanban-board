@@ -50,7 +50,6 @@ function addNote(req, res) {
 
 function updateNote(req, res) {
 	console.log('Received PUT');
-	console.log(req.body);
 	_note2.default.update({ _id: req.params.id }, req.body, function (err) {
 		return res.send({ _id: req.params.id });
 	});
