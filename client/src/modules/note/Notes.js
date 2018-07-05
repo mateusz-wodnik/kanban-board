@@ -4,12 +4,13 @@ import Note from './NoteContainer'
 const Notes = ({ notes, laneId }) => {
 	return (
 		<div className="list-group">
+			{/*{console.log({notes, laneId})}*/}
 			{notes.map(note => (
 				<Note
-					id={note.id}
+					id={note._id}
 					laneId={laneId}
-					key={note.id}
-					header={note.header}
+					key={note._id}
+					header={note.name}
 				>{note.task}</Note>
 			))}
 		</div>

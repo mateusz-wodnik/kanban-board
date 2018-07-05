@@ -20,7 +20,7 @@ class Note extends React.Component {
 
 		if(this.state.isEditable) {
 			const values = items.map(item => item.innerText)
-			this.props.updateNote({id: this.props.id, header: values[0], task: values[1]})
+			this.props.updateNoteRequest(this.props.id, {name: values[0], task: values[1]})
 			this.setState({isEditable: false})
 			items.forEach(item => {
 				item.contentEditable = false
@@ -54,7 +54,7 @@ class Note extends React.Component {
 					<button type="button" className="btn btn-light">1</button>
 					<button type="button" className="btn btn-light">2</button>
 					<button
-						onClick={() => props.deleteNote(props.id, props.laneId)}
+						onClick={() => props.deleteNoteRequest(props.id, props.laneId)}
 						type="button"
 						className="note__delete btn btn-light"
 					>🛇</button>

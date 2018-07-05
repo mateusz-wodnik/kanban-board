@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { createLane } from '../lane/LaneActions'
+import { createLaneRequest } from '../lane/LaneActions'
 import { connect } from 'react-redux';
 
 class Navbar extends React.Component {
@@ -14,12 +14,13 @@ class Navbar extends React.Component {
 	handleAddLane = () => {
 		if(this.state.isAddVisible) {
 			const name = document.querySelector('#newLaneName').value
-			this.props.createLane({name})
+			this.props.addLane({name})
 			this.setState({isAddVisible: false})
 		} else {
 			this.setState({isAddVisible: true})
 		}
 	}
+
 
 	render() {
 		return (
@@ -54,7 +55,7 @@ class Navbar extends React.Component {
 }
 
 const mapDispatchToProps = {
-	createLane
+	addLane: createLaneRequest
 }
 
 export default connect(null, mapDispatchToProps)(Navbar);

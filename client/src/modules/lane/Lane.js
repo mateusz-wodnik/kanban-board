@@ -12,10 +12,10 @@ class Lane extends React.Component {
 
 	handleAddNote = () => {
 		if(this.state.isAddVisible) {
-			const header = document.querySelector('#newNoteHeader').value
+			const name = document.querySelector('#newNoteHeader').value
 			const task = document.querySelector('#newNoteTask').value
-			const laneId = this.props.lane.id
-			this.props.addNote({header, task}, laneId)
+			const laneId = this.props.lane._id
+			this.props.addNote(laneId, {name, task, importance: "important"})
 			this.setState({isAddVisible: false})
 		} else {
 			this.setState({isAddVisible: true})
@@ -23,14 +23,14 @@ class Lane extends React.Component {
 	}
 
 	render() {
-		const { lane, deleteLane, laneNotes } = this.props;
-		const laneId = lane.id
+		const { lane, deleteLaneRequest, laneNotes } = this.props;
+		const laneId = lane._id
 		return (
 			<section className="lane card">
 				<header className="card-header">
 					<h5 className="lane__name">{lane.name}<span className="lane__count badge badge-light">{laneNotes.length}</span></h5>
 					<button
-						onClick={() => deleteLane(laneId)}
+						onClick={() => deleteLaneRequest(laneId)}
 						className="lane__delete btn btn-light btn-sm"
 					>x</button>
 					<div className="lane__add-container" role="group" aria-label="Lane actions">
