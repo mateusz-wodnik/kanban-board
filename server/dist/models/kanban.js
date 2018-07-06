@@ -13,8 +13,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Schema = _mongoose2.default.Schema;
 
 var Kanban = new Schema({
-	name: { type: 'String', required: true },
-	lanes: [{ type: Schema.ObjectId, ref: 'Lane', required: true }]
+	name: { type: 'String', default: 'New board' },
+	lanes: [{ type: Schema.ObjectId, ref: 'Lane', required: true }],
+	description: { type: 'String', default: '' }
 });
 
 Kanban.pre('find', function (next) {

@@ -2,15 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { createLaneRequest } from '../lane/LaneActions'
 import { connect } from 'react-redux';
-import { fetchKanban } from '../kanban/KanbanActions';
-import * as laneActions from '../lane/LaneActions'
+import { fetchKanban, getKanbansRequest } from '../kanban/KanbanActions';
 import { bindActionCreators } from 'redux'
-import { createNoteRequest } from '../note/NoteActions'
 
 class Navbar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			kanbans: [],
 			isAddVisible: false
 		}
 	}
@@ -25,16 +24,25 @@ class Navbar extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		fetch(`http://localhost:3000/api/kanbans`)
+			.then(res => res.json())
+			.then(kanbans => this.setState({kanbans}))
+	}
+
 	render() {
 		return (
 			<nav className="navbar navbar-dark bg-dark">
 				<Link to="/" className="navbar-brand">
-					<h2>Kanban Board</h2>
+					<h2>{this.props.kanban.name}</h2>
 				</Link>
 				<div className="navbar-nav flex-row">
 					{this.state.isAddVisible ? this.AddNameModal() : null}
-					<button onClick={() => this.props.fetchKanban("5b3d38a01209cf202abbeb65")} className="btn">1</button>
-					<button onClick={() => this.props.fetchKanban("5b3d8607120a77520aa2dc96")} className="btn">2</button>
+					<select
+						onChange={e => this.props.fetchKanban(e.target.value)}
+						class="custom-select nav-item"
+						id="selectBoard"
+					>{this.state.kanbans.map(kanban => <option value={kanban._id}>{kanban.name}</option>)}</select>
 					<button
 						onClick={this.handleAddLane}
 						className="btn btn-success nav-item"
@@ -57,20 +65,19 @@ class Navbar extends React.Component {
 				aria-describedby="basic-addon1"
 			/>
 	)
+
 }
 
 const mapStateToProps = state => ({
+	kanbans: [],
 	kanban: state.kanban
 })
-// const mapDispatchToProps = {
-// 	addLane: createLaneRequest,
-// 	fetchKanban
-// }
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		addLane: createLaneRequest,
-		fetchKanban
+		fetchKanban,
+		getKanbansRequest
 	}, dispatch);
 }
 

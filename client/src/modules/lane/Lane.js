@@ -26,7 +26,7 @@ class Lane extends React.Component {
 		const { lane, deleteLaneRequest, laneNotes } = this.props;
 		const laneId = lane._id
 		return (
-			<section className="lane card">
+			<section className="lane card" style={{background: lane.color}}>
 				<header className="card-header">
 					<h5 className="lane__name">{lane.name}<span className="lane__count badge badge-light">{laneNotes.length}</span></h5>
 					<button

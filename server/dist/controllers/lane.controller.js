@@ -42,6 +42,7 @@ function addLane(req, res) {
 
 	var newLane = new _lane2.default(lane);
 	newLane.save(function (err, docs) {
+		console.log(docs);
 		if (err) res.status(500).send(err);
 		_kanban2.default.findOne({ _id: kanbanId }).then(function (kanban) {
 			kanban.lanes.push(docs);

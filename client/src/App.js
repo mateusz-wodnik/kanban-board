@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import './App.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 import Kanban from './modules/kanban/Kanban'
 import Navbar from './modules/navbar/Navbar'
 import Sidebar from './modules/sidebar/Sidebar'
+import BoardEditor from './modules/boardEditor/BoardEditor'
 
 class App extends Component {
   render() {
@@ -14,7 +15,8 @@ class App extends Component {
 				<input id="toggleSidebar" className="btn btn-primary" type="checkbox" />
 				<Navbar />
 				<Sidebar />
-				<Route path='/' component={Kanban}/>
+				<Route path='/board' component={Kanban}/>
+				<Route path='/board-editor' component={BoardEditor}/>
 			</div>
     );
   }

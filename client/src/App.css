@@ -17,3 +17,7 @@
 .kanban {
     grid-area: content;
 }
+
+.board-editor {
+    grid-area: content;
+}

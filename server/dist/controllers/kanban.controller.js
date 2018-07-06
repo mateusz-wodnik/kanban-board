@@ -31,9 +31,15 @@ function getKanbans(req, res) {
 
 function addKanban(req, res) {
 	console.log('Received POST');
-	var newKanban = new _kanban2.default(req.body);
+	var newKanban = new _kanban2.default(req.body.kanban);
+	var newLanes = req.body.lanes.map(function (lane) {
+		var newLane = new _lane2.default(lane);
+		newKanban.lanes.push(newLane);
+		return newLane;
+	});
 	newKanban.save(function (err, docs) {
 		if (err) res.status(500).send(err);
+		_lane2.default.collection.insert(newLanes);
 		res.send(docs);
 	});
 }

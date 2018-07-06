@@ -13,8 +13,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Schema = _mongoose2.default.Schema;
 
 var Lane = new Schema({
-	name: { type: 'String', required: true },
-	notes: [{ type: Schema.ObjectId, ref: 'Note', required: true }]
+	name: { type: 'String', default: 'New lane' },
+	notes: [{ type: Schema.ObjectId, ref: 'Note', required: true }],
+	color: { type: 'String', default: '#ffffff' },
+	active: { type: 'Boolean', default: true }
 });
 
 Lane.pre('find', function (next) {

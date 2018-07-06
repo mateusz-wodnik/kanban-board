@@ -18,6 +18,7 @@ export function addLane(req, res) {
 
 	const newLane = new Lane(lane);
 	newLane.save((err, docs) => {
+		console.log(docs)
 		if(err) res.status(500).send(err);
 		Kanban.findOne({ _id: kanbanId })
 			.then(kanban => {

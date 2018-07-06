@@ -57,6 +57,16 @@ export function fetchKanban(id) {
 	};
 }
 
+export function getKanbansRequest() {
+	return (dispatch) => {
+		return fetch(`http://localhost:3000/api/kanbans`)
+			.then(res => res.json())
+			.then(res => {
+				console.log(res)
+			})
+	}
+}
+
 export function updateKanban(kanban) {
 	return {
 		type: UPDATE_KANBAN,

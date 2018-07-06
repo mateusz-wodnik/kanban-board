@@ -13,9 +13,15 @@ export function getKanbans(req, res) {
 
 export function addKanban(req, res) {
 	console.log(`Received POST`)
-	const newKanban = new Kanban(req.body);
+	const newKanban = new Kanban(req.body.kanban);
+	const newLanes = req.body.lanes.map(lane => {
+		const newLane = new Lane(lane)
+		newKanban.lanes.push(newLane)
+		return newLane
+	})
 	newKanban.save((err, docs) => {
 		if(err) res.status(500).send(err);
+		Lane.collection.insert(newLanes)
 		res.send(docs)
 	})
 }
