@@ -3,7 +3,7 @@ import Note from './NoteContainer'
 
 const Notes = ({ notes, laneId }) => {
 	return (
-		<div className="list-group">
+		<div className="card-body">
 			{notes.map(note => (
 				<Note
 					id={note._id}

@@ -46,9 +46,9 @@ export function updateLane(lane) {
 	}
 }
 
-export function updateLaneRequest(lane) {
+export function updateLaneRequest(id, lane) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/lanes/${lane._id}`,
+		return fetch(`http://localhost:3000/api/lanes/${id}`,
 			{ method: "PUT",
 				headers: {
 					'Accept': 'application/json',
@@ -56,7 +56,7 @@ export function updateLaneRequest(lane) {
 				},
 				body: JSON.stringify(lane)
 			})
-			.then(() => dispatch(updateLane(lane)))
+			.then(() => dispatch(updateLane(id, lane)))
 	}
 }
 

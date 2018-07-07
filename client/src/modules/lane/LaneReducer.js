@@ -17,7 +17,7 @@ export default function lanes(state = initialState, action) {
 
 		case UPDATE_LANE:
 			return state.map(lane => {
-				return lane.id === action.id ? {...lane, ...action.lane} : lane;
+				return lane._id === action.id ? {...lane, ...action.lane} : lane;
 			});
 
 		case DELETE_LANE:

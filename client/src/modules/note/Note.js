@@ -35,7 +35,7 @@ class Note extends React.Component {
 	render() {
 		const props = this.props
 		return (
-			<div className="note card list-group-item">
+			<div className="note card">
 				<div className="btn-group" role="group" aria-label="First group">
 					<button
 						onClick={this.handleUpdate}

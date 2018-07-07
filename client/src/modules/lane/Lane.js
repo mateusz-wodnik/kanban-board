@@ -22,26 +22,61 @@ class Lane extends React.Component {
 		}
 	}
 
+	handleEditLane = (e) => {
+		const lane = e.target.closest('.lane')
+		const laneUpdates = lane.querySelectorAll('.editLane')
+		const laneBody = {
+			name: laneUpdates[0].textContent,
+			color: laneUpdates[1].value
+		}
+		this.props.updateLaneRequest(lane.id, laneBody)
+	}
+
+	handleColorChange = (e) => {
+		e.target.closest('.lane').style.backgroundColor = e.target.value
+	}
+
 	render() {
 		const { lane, deleteLaneRequest, laneNotes } = this.props;
 		const laneId = lane._id
 		return (
-			<section className="lane card" style={{background: lane.color}}>
+			<section id={laneId} className="lane card" style={{background: lane.color}}>
 				<header className="card-header">
-					<h5 className="lane__name">{lane.name}<span className="lane__count badge badge-light">{laneNotes.length}</span></h5>
-					<button
-						onClick={() => deleteLaneRequest(laneId)}
-						className="lane__delete btn btn-light btn-sm"
-					>x</button>
-					<div className="lane__add-container" role="group" aria-label="Lane actions">
-						<button
-							onClick={this.handleAddNote}
-							className="lane__add btn btn-success btn-sm"
-						>{this.state.isAddVisible ? 'Add note' : 'New note'}</button>
-						{this.state.isAddVisible ? this.AddNoteModal() : null}
-					</div>
+					<h5
+						name="name" className={`lane__name${this.props.edit ? ' edit editLane' : ''}`}
+						contentEditable={!!this.props.edit}
+					>{lane.name}</h5>
+					<span className="lane__count badge badge-pill badge-light">{laneNotes.length}</span>
+					{this.props.edit ?
+						<React.Fragment>
+							<button
+								onClick={() => deleteLaneRequest(laneId)}
+								className="lane__delete btn btn-light btn-sm"
+							>x</button>
+							<button
+								onClick={this.handleAddNote}
+								className="lane__add btn btn-success btn-sm"
+							>{this.state.isAddVisible ? 'Add note' : 'New note'}</button>
+							{this.state.isAddVisible ? this.AddNoteModal() : null}
+						</React.Fragment> : null
+					}
 				</header>
 				<Notes laneId={laneId} notes={laneNotes}/>
+					{this.props.edit ?
+						<div className="card-footer">
+							<input
+								onChange={this.handleColorChange}
+								id="laneColor"
+								className={`${this.props.edit ? ' editLane' : ''}`}
+								type="color"
+								defaultValue={lane.color}
+							/>
+							<button
+								onClick={this.handleEditLane}
+								className="btn"
+							>'✓' : '✎'</button>
+						</div> : null}
+
 			</section>
 		)
 	}

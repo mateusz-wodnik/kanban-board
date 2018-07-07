@@ -2,13 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Lanes from '../lane/Lanes';
 import { createLane } from '../lane/LaneActions';
+import { editStart } from '../_edit/EditActions';
 
-const Kanban = (props) => {
-	return (
-		<div className="kanban">
-			<Lanes lanes={props.lanes}/>
-		</div>
-	)
+class Kanban extends React.Component {
+	// componentDidMount() {
+	// 	this.props.location.pathname === '/board-editor' ? this.props.editStart(true) : this.props.editStart(false)
+	// }
+	//
+	// componentWillUnmount() {
+	// 	this.props.editStart(false)
+	// }
+
+	render() {
+		return (
+			<div className="kanban">
+				<Lanes lanes={this.props.lanes}/>
+			</div>
+		)
+	}
 }
 
 // Kanban.need = [() => getKanbansRequest() ]
@@ -18,7 +29,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-	createLane
+	createLane,
+	editStart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Kanban);
