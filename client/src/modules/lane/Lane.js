@@ -10,12 +10,14 @@ class Lane extends React.Component {
 		}
 	}
 
-	handleAddNote = () => {
+	handleAddNote = (e) => {
 		if(this.state.isAddVisible) {
+			console.log(e.target.closest('#addNoteForm'))
 			const name = document.querySelector('#newNoteHeader').value
 			const task = document.querySelector('#newNoteTask').value
+			const priority = document.querySelector('#newNotePriority').value
 			const laneId = this.props.lane._id
-			this.props.addNote(laneId, {name, task, importance: "important"})
+			this.props.addNote(laneId, {name, task, priority})
 			this.setState({isAddVisible: false})
 		} else {
 			this.setState({isAddVisible: true})
@@ -82,7 +84,7 @@ class Lane extends React.Component {
 	}
 
 	AddNoteModal = () => (
-		<div className="add-note-modal">
+		<form className="add-note-modal form-group" id="addNoteForm">
 			<input
 				onKeyDown={e => {
 					if(e.keyCode === 13) this.handleAddNote()
@@ -105,7 +107,13 @@ class Lane extends React.Component {
 				aria-label="Task"
 				aria-describedby="basic-addon1"
 			/>
-		</div>
+			<select class="form-control" id="newNotePriority" defaultValue="normal">
+				<option value="normal">Normal</option>
+				<option value="high">High</option>
+				<option value="low">Low</option>
+				<option value="critical">Critical</option>
+			</select>
+		</form>
 	)
 }
 

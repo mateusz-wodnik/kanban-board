@@ -6,11 +6,10 @@ const Notes = ({ notes, laneId }) => {
 		<div className="card-body">
 			{notes.map(note => (
 				<Note
-					id={note._id}
 					laneId={laneId}
 					key={note._id}
-					header={note.name}
-				>{note.task}</Note>
+					note={note}
+				/>
 			))}
 		</div>
 	)

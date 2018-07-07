@@ -1,7 +1,9 @@
 .note {
     margin: 10px 0;
-    padding: 0 10px;
-    background: white;
+    background: #ffffff;
+    border: 0;
+    border-bottom: 10px solid;
+    border-radius: 20px 20px 0 0;
 }
 
 .note:first-child {
@@ -10,13 +12,22 @@
 
 .note .btn-group {
     width: 100%;
-    justify-content: space-between;
+    padding: 0;
 }
 
 .note .btn-group .btn {
-    background: white;
     border: 0;
     transition: 0.5s;
+    flex: 1;
+}
+
+.note .card-header .btn:first-child {
+    border-radius: 20px 0 0 0;
+}
+
+.note .card-header .btn:last-child {
+    border-radius: 0 20px 0 0;
+
 }
 
 .note .btn-group .btn:hover {
@@ -44,4 +55,20 @@
     0% {filter: brightness(1);}
     50% {filter: brightness(0.7);}
     100% {filter: brightness(0.8);}
+}
+
+.note--normal {
+    border-color: blue;
+}
+
+.note--low {
+    border-color: green;
+}
+
+.note--high {
+    border-color: yellow;
+}
+
+.note--critical {
+    border-color: red;
 }

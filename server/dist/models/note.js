@@ -13,9 +13,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Schema = _mongoose2.default.Schema;
 
 var Note = new Schema({
-	name: { type: 'String', required: true },
-	task: { type: 'String', required: true },
-	importance: { type: 'String', required: true }
+	name: { type: 'String', default: 'New note' },
+	task: { type: 'String', default: 'New task' },
+	priority: { type: 'String', default: 'normal' }
 });
 
 exports.default = _mongoose2.default.model('Note', Note);

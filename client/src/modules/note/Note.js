@@ -33,10 +33,10 @@ class Note extends React.Component {
 	}
 
 	render() {
-		const props = this.props
+		const {note, laneId, deleteNoteRequest} = this.props
 		return (
-			<div className="note card">
-				<div className="btn-group" role="group" aria-label="First group">
+			<div className={`note card note--${note.priority}`}>
+				<div className="btn-group card-header" role="group" aria-label="First group">
 					<button
 						onClick={this.handleUpdate}
 						type="button"
@@ -47,14 +47,14 @@ class Note extends React.Component {
 					<button type="button" className="btn btn-light">4</button>
 				</div>
 				<div className="card-body">
-					<h5 className="note__header card-title">{props.header}</h5>
-					<p className="note__task card-text">{props.children}</p>
+					<h5 className="note__header card-title">{note.name}</h5>
+					<p className="note__task card-text">{note.task}</p>
 				</div>
-				<div className="btn-group" role="group" aria-label="First group">
+				<div className="btn-group card-footer" role="group" aria-label="First group">
 					<button type="button" className="btn btn-light">1</button>
 					<button type="button" className="btn btn-light">2</button>
 					<button
-						onClick={() => props.deleteNoteRequest(props.id, props.laneId)}
+						onClick={() => deleteNoteRequest(note._id, laneId)}
 						type="button"
 						className="note__delete btn btn-light"
 					>🛇</button>
