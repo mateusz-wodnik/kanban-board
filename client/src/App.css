@@ -1,9 +1,16 @@
 .app {
+    height: 100vh;
+    overflow: hidden;
     display: grid;
     grid-template-columns: auto 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 90vh;
     grid-template-areas: "toggle navbar navbar navbar navbar"
 "sidebar content content content content";
+}
+
+.content {
+    grid-area: content;
+    overflow: auto;
 }
 
 .sidebar {
@@ -14,14 +21,14 @@
     grid-area: navbar;
 }
 
-.kanban {
-    grid-area: content;
-}
+/*.kanban {*/
+    /*grid-area: content;*/
+/*}*/
 
-.board-editor {
-    grid-area: content;
-}
+/*.board-editor {*/
+    /*grid-area: content;*/
+/*}*/
 
-.analytics {
-    grid-area: content;
-}
+/*.analytics {*/
+    /*grid-area: content;*/
+/*}*/

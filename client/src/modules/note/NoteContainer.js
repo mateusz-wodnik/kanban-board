@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 
 const mapStateToProps = (state) => {
 	return {
-		edit: state.edit
+		edit: state.edit,
+		priority: state.kanban.priority
 	}
 }
 

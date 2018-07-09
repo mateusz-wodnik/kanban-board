@@ -15,6 +15,7 @@ class BoardForm extends React.Component {
 		super(props)
 		this.state = {
 			lanes: [],
+			priority: { normal: '#0000FF', low: '#00FF00', high: '#FFFF00', critical: '#FF0000' }
 		}
 	}
 
@@ -45,7 +46,13 @@ class BoardForm extends React.Component {
 		this.setState({
 			lanes
 		})
-		console.log(this.state.lanes[0])
+	}
+
+	handleColorChange = (e) => {
+		e.target.parentNode.style.backgroundColor = e.target.value
+		this.setState({
+			priority: {...this.state.priority, [e.target.id]: e.target.value}
+		})
 	}
 
 	handleSave = (e) => {
@@ -54,11 +61,11 @@ class BoardForm extends React.Component {
 		const body = {
 			kanban: {
 				name: form.boardName.value,
-				description: form.boardDescription.value
+				description: form.boardDescription.value,
+				priority: this.state.priority
 			},
-			lanes: this.state.lanes
+			lanes: this.state.lanes,
 		}
-		console.log(body)
 		fetch('http://localhost:3000/api/kanbans', {
 			method: "POST",
 			headers: {
@@ -99,6 +106,9 @@ class BoardForm extends React.Component {
 						rows="3"
 					></textarea>
 				</div>
+				<div className="form-group">
+					{Object.keys(this.state.priority).map((name, idx) => <Priority key={idx} name={name} color={this.state.priority[name]} handleColorChange={this.handleColorChange} />)}
+				</div>
 				<button onClick={this.handleSave} className="btn">Create board</button>
 			</form>
 		)
@@ -134,6 +144,28 @@ const NewLane = ({lane, handleChange, id}) => (
 			</div>
 		</div>
 	</fieldset>
+)
+
+const Priority = ({name, color, handleColorChange}) => (
+	<div className="input-group">
+		<div className="input-group-prepend">
+			<span className="input-group-text" id="basic-addon1">{name}</span>
+		</div>
+		<div className="input-group-prepend">
+			<div className="input-group-text" style={{background: color}}>
+				<input
+					onChange={handleColorChange}
+					type="color"
+					name="priority"
+					className="form-control priority"
+					id={name}
+					aria-label="Username"
+					aria-describedby="basic-addon1"
+					defaultValue={color}
+				/>
+			</div>
+		</div>
+	</div>
 )
 
 const mapStateToProps = state => ({

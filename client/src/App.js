@@ -20,10 +20,12 @@ class App extends Component {
 				<input id="toggleSidebar" className="btn btn-primary" type="checkbox" />
 				<Navbar />
 				<Sidebar />
-				<Route path='/board' component={Kanban}/>
-				<Route path='/board-editor' component={Kanban}/>
-				<Route path='/create-board' component={BoardEditor}/>
-				<Route path='/analytics' component={AnalyticsContainer}/>
+				<div className="content">
+					<Route path='/board' component={Kanban}/>
+					<Route path='/board-editor' component={Kanban}/>
+					<Route path='/create-board' component={BoardEditor}/>
+					<Route path='/analytics' component={AnalyticsContainer}/>
+				</div>
 			</div>
     );
   }

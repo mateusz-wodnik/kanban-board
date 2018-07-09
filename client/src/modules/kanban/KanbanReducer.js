@@ -1,4 +1,4 @@
-import { CREATE_KANBAN, UPDATE_KANBAN, DELETE_KANBAN, CREATE_KANBANS } from './KanbanActions'
+import { CREATE_KANBAN, UPDATE_KANBAN, DELETE_KANBAN } from './KanbanActions'
 
 import { CREATE_LANE, DELETE_LANE } from '../lane/LaneActions'
 

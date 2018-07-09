@@ -31,6 +31,7 @@ function getKanbans(req, res) {
 
 function addKanban(req, res) {
 	console.log('Received POST');
+	console.log(req.body);
 	var newKanban = new _kanban2.default(req.body.kanban);
 	var newLanes = req.body.lanes.map(function (lane) {
 		var newLane = new _lane2.default(lane);
