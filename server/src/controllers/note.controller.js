@@ -32,6 +32,7 @@ export function addNote(req, res) {
 export function updateNote(req, res) {
 	console.log(`Received PUT`)
 	console.log(req.body)
+	console.log(req.params._id)
 	Note.update(
 		{_id: req.params.id},
 		req.body,

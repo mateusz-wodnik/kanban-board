@@ -20,7 +20,7 @@ class Note extends React.Component {
 
 		if(this.state.isEditable) {
 			const values = items.map(item => item.innerText)
-			this.props.updateNoteRequest(this.props.id, {name: values[0], task: values[1]})
+			this.props.updateNoteRequest(this.props.note._id, {name: values[0], task: values[1]})
 			this.setState({isEditable: false})
 			items.forEach(item => {
 				item.contentEditable = false
