@@ -107,7 +107,7 @@ class Lane extends React.Component {
 				aria-label="Task"
 				aria-describedby="basic-addon1"
 			/>
-			<select class="form-control" id="newNotePriority" defaultValue="normal">
+			<select className="form-control" id="newNotePriority" defaultValue="normal">
 				<option value="normal">Normal</option>
 				<option value="high">High</option>
 				<option value="low">Low</option>

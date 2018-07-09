@@ -21,3 +21,7 @@
 .board-editor {
     grid-area: content;
 }
+
+.analytics {
+    grid-area: content;
+}

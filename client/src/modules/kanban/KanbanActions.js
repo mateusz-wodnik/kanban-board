@@ -7,12 +7,13 @@ export const UPDATE_KANBAN = 'UPDATE_KANBAN';
 export const DELETE_KANBAN = 'DELETE_KANBAN';
 
 
-export function createKanban(kanban, lanes, notes) {
+export function createKanban(raw, kanban, lanes, notes) {
 	return {
 		type: CREATE_KANBAN,
 		kanban,
 		lanes,
-		notes
+		notes,
+		raw
 	}
 }
 
@@ -42,17 +43,18 @@ export function fetchKanban(id) {
 		return fetch(`http://localhost:3000/api/kanbans/${id}`)
 			.then(res => res.json())
 			.then(res => {
+				const raw = {...res}
 				let lanes = []
 				let notes = []
-					res.lanes = res.lanes.map(lane => {
-						lane.notes = lane.notes.map(note => {
-							notes.push(note)
-							return note._id
-						})
-						lanes.push(lane)
-						return lane._id
+				res.lanes = res.lanes.map(lane => {
+					lane.notes = lane.notes.map(note => {
+						notes.push(note)
+						return note._id
 					})
-				dispatch(createKanban(res, lanes, notes));
+					lanes.push(lane)
+					return lane._id
+				})
+				dispatch(createKanban(raw, res, lanes, notes));
 			})
 	};
 }

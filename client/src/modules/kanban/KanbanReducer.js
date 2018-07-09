@@ -7,7 +7,7 @@ const initialState = [];
 export default function lanes(state = initialState, action) {
 	switch (action.type) {
 		case CREATE_KANBAN:
-			return action.kanban;
+			return {...action.kanban, raw: action.raw};
 
 		case UPDATE_KANBAN:
 			return state.map(lane => {

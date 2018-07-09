@@ -8,7 +8,9 @@ import Kanban from './modules/kanban/Kanban'
 import Navbar from './modules/navbar/Navbar'
 import Sidebar from './modules/sidebar/Sidebar'
 import BoardEditor from './modules/boardEditor/BoardEditor'
+
 import { editStart } from './modules/_edit/EditActions';
+import AnalyticsContainer from './modules/analytics/AnalyticsContainer'
 
 class App extends Component {
   render() {
@@ -21,6 +23,7 @@ class App extends Component {
 				<Route path='/board' component={Kanban}/>
 				<Route path='/board-editor' component={Kanban}/>
 				<Route path='/create-board' component={BoardEditor}/>
+				<Route path='/analytics' component={AnalyticsContainer}/>
 			</div>
     );
   }
