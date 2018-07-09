@@ -5,6 +5,7 @@ const Note = new Schema({
 	name: { type: 'String', default: 'New note' },
 	task: { type: 'String', default: 'New task' },
 	priority: { type: 'String', default: 'normal' },
+	creationDate: { type: Date, default: Date.now }
 });
 
 export default mongoose.model('Note', Note);

@@ -1,0 +1,13 @@
+/*Charts responsivity*/
+.chart {
+    border: 1px solid;
+    width: 100%!important;
+}
+
+.chart svg {
+    width: 100%;
+}
+
+.analytics {
+    display: flex;
+}

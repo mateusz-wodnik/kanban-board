@@ -4,20 +4,30 @@ import {
 	PieChart, Pie,
 	XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell
 } from 'recharts'
+import './Analytics.css'
+
 
 const Analytics = ({lanes, priority }) => (
 	<section className="analytics">
-		<button
-			onClick={() => console.log(priority)}
-			className="btn"
-		>Log data</button>
-		<Lanes data={lanes}/>
-		<Priority data={priority}/>
+		<div className="card">
+				<LanesChart data={lanes}/>
+				<div className="card-body">
+					<h5 className="card-title">Card title</h5>
+					<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				</div>
+		</div>
+		<div className="card">
+			<PriorityChart data={priority}/>
+			<div className="card-body">
+				<h5 className="card-title">Card title</h5>
+				<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
 	</section>
 )
 
-const Lanes = ({data}) => (
-	<BarChart width={600} height={300} data={data}>
+const LanesChart = ({data, className}) => (
+	<BarChart className={`chart ${className}`} width={600} height={300} data={data}>
 		<XAxis dataKey="name"/>
 		<Tooltip formatter={(val, name, props) => {
 			if(name === 'notes') {
@@ -35,12 +45,11 @@ const Lanes = ({data}) => (
 )
 
 
-const Priority = ({data}) => (
-	<PieChart width={600} height={300}>
+const PriorityChart = ({data}) => (
+	<PieChart className="chart" width={600} height={300}>
 		<Pie
 			data={data}
-			cx={500} cy={200}
-			innerRadius={40} outerRadius={80}
+			innerRadius={0} outerRadius={80}
 			fill="#82ca9d"
 			label
 		>

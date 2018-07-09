@@ -15,7 +15,8 @@ var Schema = _mongoose2.default.Schema;
 var Note = new Schema({
 	name: { type: 'String', default: 'New note' },
 	task: { type: 'String', default: 'New task' },
-	priority: { type: 'String', default: 'normal' }
+	priority: { type: 'String', default: 'normal' },
+	creationDate: { type: Date, default: Date.now }
 });
 
 exports.default = _mongoose2.default.model('Note', Note);

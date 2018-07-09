@@ -6,6 +6,7 @@ const Lane = new Schema({
 	notes: [{ type: Schema.ObjectId, ref: 'Note', required: true }],
 	color: { type: 'String', default: '#ffffff' },
 	active: { type: 'Boolean', default: true },
+	creationDate: { type: Date, default: Date.now }
 });
 
 Lane.pre('find', function(next) {

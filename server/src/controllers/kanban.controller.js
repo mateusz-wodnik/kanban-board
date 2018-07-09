@@ -13,7 +13,6 @@ export function getKanbans(req, res) {
 
 export function addKanban(req, res) {
 	console.log(`Received POST`)
-	console.log(req.body)
 	const newKanban = new Kanban(req.body.kanban);
 	const newLanes = req.body.lanes.map(lane => {
 		const newLane = new Lane(lane)
