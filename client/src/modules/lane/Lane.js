@@ -13,14 +13,11 @@ class Lane extends React.Component {
 	handleAddNote = (e) => {
 		if(this.state.isAddVisible) {
 			const data = document.querySelector('#addNoteForm').elements.newNote
-			const name = data[0].value
-			const task = data[1].value
-			const priority = data[2].value
-			const dueDate = data[3].value.trim().replace(' ', 'T')
 			const output = {}
 			data.forEach(input => output[input.id] = input.value)
+			output.dueDate = output.dueDate.trim().replace(' ', 'T')
 			const laneId = this.props.lane._id
-			this.props.addNote(laneId, {name, task, priority, dueDate})
+			this.props.addNote(laneId, output)
 			this.setState({isAddVisible: false})
 		} else {
 			this.setState({isAddVisible: true})
@@ -48,7 +45,8 @@ class Lane extends React.Component {
 			<section id={laneId} className="lane card" style={{background: lane.color}}>
 				<header className="card-header">
 					<h5
-						name="name" className={`lane__name${this.props.edit ? ' edit editLane' : ''}`}
+						name="name"
+						className={`lane__name${this.props.edit ? ' edit editLane' : ''}`}
 						contentEditable={!!this.props.edit} suppressContentEditableWarning
 					>{lane.name}</h5>
 					<span className="lane__count badge badge-pill badge-light">{laneNotes.length}</span>
@@ -92,7 +90,7 @@ class Lane extends React.Component {
 				onKeyDown={e => {
 					if(e.keyCode === 13) this.handleAddNote()
 				}}
-				id="newNoteHeader"
+				id="name"
 				type="text"
 				name="newNote"
 				className="form-control"
@@ -104,7 +102,7 @@ class Lane extends React.Component {
 				onKeyDown={e => {
 					if(e.keyCode === 13) this.handleAddNote()
 				}}
-				id="newNoteTask"
+				id="task"
 				type="text"
 				name="newNote"
 				className="form-control"
@@ -114,7 +112,7 @@ class Lane extends React.Component {
 			/>
 			<select
 				className="form-control"
-				id="newNotePriority"
+				id="priority"
 				defaultValue="normal"
 				name="newNote"
 			>
@@ -126,7 +124,7 @@ class Lane extends React.Component {
 			<input
 				className="form-control"
 				type="datetime-local"
-				id="newNoteDueDate"
+				id="dueDate"
 				name="newNote"
 				placeholder="Due date: 2018-06-12 19:30"/>
 		</form>
