@@ -16,7 +16,7 @@ var Note = new Schema({
 	name: { type: 'String', default: 'New note' },
 	task: { type: 'String', default: 'New task' },
 	priority: { type: 'String', default: 'normal' },
-	dueDate: { type: Date, default: Date.now },
+	dueDate: { type: Date },
 	creationDate: { type: Date, default: Date.now }
 });
 

@@ -43,7 +43,7 @@ class Navbar extends React.Component {
 				<Link
 					to="/"
 					className={`navbar-brand ${this.props.edit ? ' edit editKanban' : ''}`}
-					contentEditable={!!this.props.edit}
+					contentEditable={!!this.props.edit} suppressContentEditableWarning
 				>{this.props.kanban.name}</Link>
 				<div className="navbar-nav flex-row">
 					{this.state.isAddVisible ? this.AddNameModal() : null}

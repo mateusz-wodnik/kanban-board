@@ -12,12 +12,15 @@ class Lane extends React.Component {
 
 	handleAddNote = (e) => {
 		if(this.state.isAddVisible) {
-			console.log(e.target.closest('#addNoteForm'))
-			const name = document.querySelector('#newNoteHeader').value
-			const task = document.querySelector('#newNoteTask').value
-			const priority = document.querySelector('#newNotePriority').value
+			const data = document.querySelector('#addNoteForm').elements.newNote
+			const name = data[0].value
+			const task = data[1].value
+			const priority = data[2].value
+			const dueDate = data[3].value.trim().replace(' ', 'T')
+			const output = {}
+			data.forEach(input => output[input.id] = input.value)
 			const laneId = this.props.lane._id
-			this.props.addNote(laneId, {name, task, priority})
+			this.props.addNote(laneId, {name, task, priority, dueDate})
 			this.setState({isAddVisible: false})
 		} else {
 			this.setState({isAddVisible: true})
@@ -46,7 +49,7 @@ class Lane extends React.Component {
 				<header className="card-header">
 					<h5
 						name="name" className={`lane__name${this.props.edit ? ' edit editLane' : ''}`}
-						contentEditable={!!this.props.edit}
+						contentEditable={!!this.props.edit} suppressContentEditableWarning
 					>{lane.name}</h5>
 					<span className="lane__count badge badge-pill badge-light">{laneNotes.length}</span>
 					{this.props.edit ?
@@ -91,6 +94,7 @@ class Lane extends React.Component {
 				}}
 				id="newNoteHeader"
 				type="text"
+				name="newNote"
 				className="form-control"
 				placeholder="Name"
 				aria-label="Name"
@@ -102,17 +106,29 @@ class Lane extends React.Component {
 				}}
 				id="newNoteTask"
 				type="text"
+				name="newNote"
 				className="form-control"
 				placeholder="Task"
 				aria-label="Task"
 				aria-describedby="basic-addon1"
 			/>
-			<select className="form-control" id="newNotePriority" defaultValue="normal">
+			<select
+				className="form-control"
+				id="newNotePriority"
+				defaultValue="normal"
+				name="newNote"
+			>
 				<option value="normal">Normal</option>
 				<option value="high">High</option>
 				<option value="low">Low</option>
 				<option value="critical">Critical</option>
 			</select>
+			<input
+				className="form-control"
+				type="datetime-local"
+				id="newNoteDueDate"
+				name="newNote"
+				placeholder="Due date: 2018-06-12 19:30"/>
 		</form>
 	)
 }
