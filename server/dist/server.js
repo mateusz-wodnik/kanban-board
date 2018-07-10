@@ -12,6 +12,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _expressSession = require('express-session');
+
+var _expressSession2 = _interopRequireDefault(_expressSession);
+
 var _lane = require('./routes/lane.routes');
 
 var _lane2 = _interopRequireDefault(_lane);
@@ -23,6 +27,10 @@ var _note2 = _interopRequireDefault(_note);
 var _kanban = require('./routes/kanban.routes');
 
 var _kanban2 = _interopRequireDefault(_kanban);
+
+var _user = require('./routes/user.routes');
+
+var _user2 = _interopRequireDefault(_user);
 
 require('./mongoConfig.js');
 
@@ -36,11 +44,20 @@ var server = _http2.default.Server(app);
 // Body parser
 app.use(_bodyParser2.default.json());
 
+// Login tracking
+app.use((0, _expressSession2.default)({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: false
+}));
+
 // Router
+
 
 app.use('/api', _lane2.default);
 app.use('/api', _note2.default);
 app.use('/api', _kanban2.default);
+app.use('/api', _user2.default);
 
 // Database config
 
@@ -49,5 +66,5 @@ app.use('/api', _kanban2.default);
 app.use(_express2.default.static(__dirname + '/../public'));
 
 server.listen(port, function () {
-  console.log('server listens on port: ' + port);
+	console.log('server listens on port: ' + port);
 });
