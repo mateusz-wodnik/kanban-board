@@ -1,5 +1,4 @@
 import { CREATE_NOTE, CREATE_NOTES, UPDATE_NOTE, DELETE_NOTE } from './NoteActions'
-import { DELETE_LANE } from '../lane/LaneActions'
 import { CREATE_KANBAN } from '../kanban/KanbanActions'
 
 const initialState = [];

@@ -1,6 +1,3 @@
-import { createNotes } from '../note/NoteActions'
-import { createLanes } from '../lane/LaneActions'
-
 export const CREATE_KANBAN = 'CREATE_KANBAN';
 export const CREATE_KANBANS = 'CREATE_KANBANS';
 export const UPDATE_KANBAN = 'UPDATE_KANBAN';

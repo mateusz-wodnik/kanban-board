@@ -10,4 +10,21 @@
 
 .analytics {
     display: flex;
+    flex-flow: row wrap;
+}
+
+.analytics .card:not(:last-child) {
+    width: 50%;
+}
+
+.card.notes-timeline .recharts-wrapper {
+    width: 100%!important;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .card:not(:last-child) {
+        width: 100%;
+    }
 }

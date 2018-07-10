@@ -1,5 +1,3 @@
-import { createNotes } from '../note/NoteActions'
-
 export const CREATE_LANE = 'CREATE_LANE';
 export const CREATE_LANES = 'CREATE_LANES';
 export const UPDATE_LANE = 'UPDATE_LANE';
