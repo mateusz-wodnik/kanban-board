@@ -31,13 +31,12 @@ class AnalyticsContainer extends Component {
 
 	handleDate = () => {
 		const toHours = (diff) => Math.ceil(diff / (1000 * 3600));
-		const notes = this.props.notes.map(note => toHours(new Date(note.creationDate)))
-		const minimum = Math.min(...notes)
-		const not = this.props.notes.map(note => {
-			const hours = [toHours(new Date(note.creationDate)) - minimum, toHours(new Date(note.dueDate)) - minimum]
+		const output = this.props.notes.map(note => {
+			const hours = [0, toHours(new Date(note.dueDate)) - toHours(new Date())]
 			return {name: note.name, hours}
-		})
-		return not
+		}).sort((a, b) => a.hours[1] < b.hours[1])
+		console.log(output)
+		return output
 	}
 
 	render() {
