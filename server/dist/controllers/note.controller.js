@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function getNotes(req, res) {
 	console.log('Received GET request');
-	_note2.default.find(function (err, docs) {
+	_note2.default.find({ $or: [{ admins: req.session.userId }, { users: req.session.userId }] }, function (err, docs) {
 		if (err) {
 			res.status(500).send(err);
 		}
@@ -35,38 +35,39 @@ function addNote(req, res) {
 	    note = _req$body.note,
 	    laneId = _req$body.laneId;
 
-
-	var newNote = new _note2.default(note);
-	newNote.save(function (err, docs) {
-		if (err) res.status(500).send(err);
-		_lane2.default.findOne({ _id: laneId }).then(function (lane) {
-			lane.notes.push(docs);
-			return lane.save();
-		}).then(function () {
-			res.json(docs);
+	_lane2.default.findOne({ $and: [{ _id: laneId }, { admins: req.session.userId }] }, function (err, lane) {
+		note.admins = req.session.userId;
+		var newNote = new _note2.default(note);
+		newNote.save(function (err, note) {
+			if (err) return res.status(500).send(err);
+			lane.notes.push(note);
+			lane.save(function (err, lane) {
+				if (err) return res.status(500).send(err);
+				res.send('Add note');
+			});
 		});
 	});
 }
 
 function updateNote(req, res) {
 	console.log('Received PUT');
-	console.log(req.body);
-	console.log(req.params._id);
-	_note2.default.update({ _id: req.params.id }, req.body, function (err) {
-		return res.send({ _id: req.params.id });
+	_note2.default.update({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, req.body, function (err) {
+		return res.send(err || { _id: req.params.id });
 	});
 }
 
 function deleteNote(req, res) {
 	console.log('Received DELETE');
-	_note2.default.remove({ _id: req.params.id }, function (err) {
-		return res.send({ _id: req.params.id });
+	_note2.default.findOne({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, function (err, note) {
+		if (err || !note) return res.status(500).send(err ? err : 'Note not found');
+		note.remove();
+		res.status(200).end();
 	});
 }
 
 function getNote(req, res) {
 	console.log('Received GET for single example');
-	_note2.default.findById(req.params.id, function (err, doc) {
+	_note2.default.findOne({ $and: [{ _id: req.params.id }, { $or: [{ admins: req.session.userId }, { users: req.session.userId }] }] }, function (err, doc) {
 		res.send(doc);
 	});
 }

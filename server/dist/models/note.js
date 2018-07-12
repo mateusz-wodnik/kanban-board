@@ -17,7 +17,16 @@ var Note = new Schema({
 	task: { type: 'String', default: 'New task' },
 	priority: { type: 'String', default: 'normal' },
 	dueDate: { type: Date },
-	creationDate: { type: Date, default: Date.now }
+	creationDate: { type: Date, default: Date.now },
+	admins: [{ type: Schema.ObjectId, ref: 'User' }],
+	users: [{ type: Schema.ObjectId, ref: 'User' }]
 });
 
 exports.default = _mongoose2.default.model('Note', Note);
+
+
+Note.pre('remove', function (next) {
+	console.log('elesdo');
+	this.model('Lane').update({ notes: this._id }, { $pull: { notes: this._id } });
+	next();
+});

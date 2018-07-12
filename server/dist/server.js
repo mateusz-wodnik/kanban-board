@@ -59,6 +59,17 @@ app.use('/api', _note2.default);
 app.use('/api', _kanban2.default);
 app.use('/api', _user2.default);
 
+function requiresLogin(req, res, next) {
+	console.log('elo');
+	if (req.session && req.session.userId) {
+		return next();
+	} else {
+		var err = new Error('You must be logged in to view this page.');
+		err.status = 401;
+		return next(err);
+	}
+}
+
 // Database config
 
 

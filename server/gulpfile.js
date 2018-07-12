@@ -11,7 +11,8 @@ gulp.task('default', ['server', 'nodemon'], function () {
 gulp.task('server', function() {
 	gulp.src('src/**/*.js')
 		.pipe(babel({
-			presets: ['env']
+			presets: ['env'],
+			plugins: ['transform-object-rest-spread']
 		}))
 		// .pipe(concat('server.js'))
 		.pipe(gulp.dest('dist'))

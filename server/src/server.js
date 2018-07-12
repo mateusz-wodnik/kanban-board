@@ -29,6 +29,17 @@ app.use('/api', notes);
 app.use('/api', kanbans);
 app.use('/api', users);
 
+function requiresLogin(req, res, next) {
+	console.log('elo')
+	if (req.session && req.session.userId) {
+		return next();
+	} else {
+		var err = new Error('You must be logged in to view this page.');
+		err.status = 401;
+		return next(err);
+	}
+}
+
 // Database config
 import './mongoConfig.js'
 

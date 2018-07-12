@@ -1,61 +1,60 @@
 import Lane from '../models/lane';
 import Kanban from '../models/kanban';
-import Note from '../models/note'
+import User from '../models/user';
 
 export function getLanes(req, res) {
 	console.log('Received GET request')
-	Lane.find((err, docs) => {
-		if (err) {
-			res.status(500).send(err);
+	Lane.find({$or: [{admins: req.session.userId}, {users: req.session.userId}]},
+		(err, docs) => {
+			if (err) res.status(500).send(err);
+			res.send(docs);
 		}
-		res.send(docs);
-	});
+	);
 }
 
 export function addLane(req, res) {
-	console.log(`Received POST`)
+	console.log(`Received POST`);
 	const { lane, kanbanId } = req.body;
-
-	const newLane = new Lane(lane);
-	newLane.save((err, docs) => {
-		console.log(docs)
-		if(err) res.status(500).send(err);
-		Kanban.findOne({ _id: kanbanId })
-			.then(kanban => {
-				kanban.lanes.push(docs)
-				return kanban.save()
+	Kanban.findOne({$and: [{_id: kanbanId}, {admins: req.session.userId}]})
+		.then(kanban => {
+			if(!kanban) return res.status(500).send('No authorisation');
+			const newLane = new Lane(lane);
+			newLane.admins.addToSet(req.session.userId);
+			newLane.save((err, lane) => {
+				if(err) return res.status(500).send(err);
+				kanban.lanes.addToSet(lane._id)
+				kanban.save()
+				res.send(lane)
 			})
-			.then(() => {
-				res.json(docs)
-			})
-	})
+		})
 }
 
 export function updateLane(req, res) {
 	console.log(`Received PUT`)
 	Lane.update(
-		{_id: req.params.id},
+		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},
 		req.body,
-		err => res.send({_id: req.params.id})
+		err => res.send(err || {_id: req.params.id})
 	)
 }
 
 export function deleteLane(req, res) {
 	console.log(`Received DELETE`)
-	Lane.findOne({ _id: req.params.id }, (err, lane) => {
-		if (err) {
-			res.status(500).send(err);
+	Lane.findOne(
+		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},
+		(err, lane) => {
+			if (err) return res.status(500).send(err);
+			if(!lane) return res.status(500).send('Lane not found');
+			lane.remove(() => res.status(200).end());
 		}
-
-		lane.remove(() => {
-			res.status(200).end();
-		});
-	});
+	);
 }
 
 export function getLane(req, res) {
 	console.log(`Received GET for single example`)
-	Lane.findById(req.params.id, (err, doc) => {
-		res.send(doc)
-	})
+	Lane.findOne({$and: [{_id: req.params.id}, {$or: [{admins: req.session.userId}, {users: req.session.userId}]}]},
+		(err, doc) => {
+			res.send(doc)
+		}
+	)
 }

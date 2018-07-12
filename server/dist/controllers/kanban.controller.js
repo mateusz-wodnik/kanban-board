@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.getKanbans = getKanbans;
 exports.addKanban = addKanban;
 exports.updateKanban = updateKanban;
@@ -17,26 +20,36 @@ var _lane = require('../models/lane');
 
 var _lane2 = _interopRequireDefault(_lane);
 
+var _note = require('../models/note');
+
+var _note2 = _interopRequireDefault(_note);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 function getKanbans(req, res) {
 	console.log('Received GET request');
-	_kanban2.default.find(function (err, docs) {
-		if (err) {
-			res.status(500).send(err);
-		}
-		res.send(docs);
+	_kanban2.default.find({ $or: [{ admins: req.session.userId }, { users: req.session.userId }] }).populate('lanes').then(function (docs) {
+		return res.send(docs);
+	}).catch(function (err) {
+		return res.send(err);
 	});
 }
 
 function addKanban(req, res) {
 	console.log('Received POST');
+	if (!req.session.userId) return res.status(500).send('You have to log in');
 	var newKanban = new _kanban2.default(req.body.kanban);
+	newKanban.admins.push(req.session.userId);
 	var newLanes = req.body.lanes.map(function (lane) {
 		var newLane = new _lane2.default(lane);
-		newKanban.lanes.push(newLane);
+		newLane.admins.push(req.session.userId);
 		return newLane;
 	});
+	newKanban.lanes = newLanes;
 	newKanban.save(function (err, docs) {
 		if (err) res.status(500).send(err);
 		_lane2.default.collection.insert(newLanes);
@@ -46,26 +59,50 @@ function addKanban(req, res) {
 
 function updateKanban(req, res) {
 	console.log('Received PUT');
-	_kanban2.default.update({ _id: req.params.id }, req.body, function (err) {
-		return res.send({ _id: req.params.id });
+
+	var _req$body = req.body,
+	    _req$body$admins = _req$body.admins,
+	    admins = _req$body$admins === undefined ? '' : _req$body$admins,
+	    _req$body$users = _req$body.users,
+	    users = _req$body$users === undefined ? '' : _req$body$users,
+	    body = _objectWithoutProperties(_req$body, ['admins', 'users']);
+
+	_kanban2.default.findOneAndUpdate({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, { $set: _extends({}, body), $addToSet: { admins: admins, users: users } }).populate('lanes').then(function (kanban) {
+		var notes = [];
+		kanban.lanes.forEach(function (lane) {
+			return notes.push.apply(notes, _toConsumableArray(lane.notes));
+		});
+		_lane2.default.update({ _id: { $in: kanban.lanes } }, { $addToSet: { admins: admins, users: users } }, { multi: true }, function (err) {
+			if (err) throw err;
+		});
+		_note2.default.update({ _id: { $in: notes } }, { $addToSet: { admins: admins, users: users } }, { multi: true }, function (err) {
+			if (err) throw err;
+		});
+		res.send('Kanban updated');
+	}).catch(function (err) {
+		return res.send('No match found');
 	});
 }
 
 function deleteKanban(req, res) {
 	console.log('Received DELETE');
-	_kanban2.default.findOne({ _id: req.params.id }, function (err, kanban) {
-		if (err) {
-			res.status(500).send(err);
-		}
-
-		// Delete reference lanes
+	_kanban2.default.findOne({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }).populate('lanes').then(function (kanban) {
+		var notes = [];
 		kanban.lanes.forEach(function (lane) {
-			return lane.remove();
+			return notes.push.apply(notes, _toConsumableArray(lane.notes));
 		});
-
+		// Delete reference lanes and notes
+		_lane2.default.remove({ _id: { $in: kanban.lanes } }).catch(function (err) {
+			return console.error(err);
+		});
+		_note2.default.remove({ _id: { $in: notes } }).catch(function (err) {
+			return console.error(err);
+		});
 		kanban.remove(function () {
-			res.status(200).end();
+			res.status(200).send('Kanban removed');
 		});
+	}).catch(function (err) {
+		return res.status(500).send('Wrong kanban id or lack of credentials');
 	});
 }
 

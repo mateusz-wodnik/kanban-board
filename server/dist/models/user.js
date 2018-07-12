@@ -25,15 +25,13 @@ var UserSchema = new Schema({
 	lastname: { type: 'String', required: true }
 }, { timestamps: true });
 
-// TODO Encryption password method
 UserSchema.statics.authentication = function (email, password, callback) {
 	User.findOne({ email: email }).exec(function (err, user) {
 		if (err) {
 			return callback(err);
 		} else if (!user) {
-			var err = new Error('User not found.');
-			err.status = 401;
-			return callback(err);
+			var _err = new Error('User not found.');
+			return callback(_err);
 		}
 		_bcrypt2.default.compare(password, user.password, function (err, result) {
 			if (result === true) {
@@ -53,6 +51,13 @@ UserSchema.pre('save', function (next) {
 		_this.password = hash;
 		next();
 	});
+});
+
+UserSchema.pre('deleteOne', function (next) {
+	console.log('elo');
+	this.model('Kanban').update({ users: this._id }, { $pull: { users: this._id } });
+	this.model('Kanban').update({ admins: this._id }, { $pull: { admins: this._id } });
+	next();
 });
 
 var User = _mongoose2.default.model('User', UserSchema);

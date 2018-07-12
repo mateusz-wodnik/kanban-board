@@ -17,5 +17,7 @@ var router = new _express.Router();
 // Get all Posts
 router.route('/users/register').post(UserController.registerUser);
 router.route('/users/login').post(UserController.loginUser);
+router.route('/users/logout').get(UserController.logoutUser);
+router.route('/users/:userId').delete(UserController.deleteUser);
 
 exports.default = router;

@@ -17,18 +17,16 @@ var _kanban = require('../models/kanban');
 
 var _kanban2 = _interopRequireDefault(_kanban);
 
-var _note = require('../models/note');
+var _user = require('../models/user');
 
-var _note2 = _interopRequireDefault(_note);
+var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getLanes(req, res) {
 	console.log('Received GET request');
-	_lane2.default.find(function (err, docs) {
-		if (err) {
-			res.status(500).send(err);
-		}
+	_lane2.default.find({ $or: [{ admins: req.session.userId }, { users: req.session.userId }] }, function (err, docs) {
+		if (err) res.status(500).send(err);
 		res.send(docs);
 	});
 }
@@ -39,43 +37,40 @@ function addLane(req, res) {
 	    lane = _req$body.lane,
 	    kanbanId = _req$body.kanbanId;
 
-
-	var newLane = new _lane2.default(lane);
-	newLane.save(function (err, docs) {
-		console.log(docs);
-		if (err) res.status(500).send(err);
-		_kanban2.default.findOne({ _id: kanbanId }).then(function (kanban) {
-			kanban.lanes.push(docs);
-			return kanban.save();
-		}).then(function () {
-			res.json(docs);
+	_kanban2.default.findOne({ $and: [{ _id: kanbanId }, { admins: req.session.userId }] }).then(function (kanban) {
+		if (!kanban) return res.status(500).send('No authorisation');
+		var newLane = new _lane2.default(lane);
+		newLane.admins.addToSet(req.session.userId);
+		newLane.save(function (err, lane) {
+			if (err) return res.status(500).send(err);
+			kanban.lanes.addToSet(lane._id);
+			kanban.save();
+			res.send(lane);
 		});
 	});
 }
 
 function updateLane(req, res) {
 	console.log('Received PUT');
-	_lane2.default.update({ _id: req.params.id }, req.body, function (err) {
-		return res.send({ _id: req.params.id });
+	_lane2.default.update({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, req.body, function (err) {
+		return res.send(err || { _id: req.params.id });
 	});
 }
 
 function deleteLane(req, res) {
 	console.log('Received DELETE');
-	_lane2.default.findOne({ _id: req.params.id }, function (err, lane) {
-		if (err) {
-			res.status(500).send(err);
-		}
-
+	_lane2.default.findOne({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, function (err, lane) {
+		if (err) return res.status(500).send(err);
+		if (!lane) return res.status(500).send('Lane not found');
 		lane.remove(function () {
-			res.status(200).end();
+			return res.status(200).end();
 		});
 	});
 }
 
 function getLane(req, res) {
 	console.log('Received GET for single example');
-	_lane2.default.findById(req.params.id, function (err, doc) {
+	_lane2.default.findOne({ $and: [{ _id: req.params.id }, { $or: [{ admins: req.session.userId }, { users: req.session.userId }] }] }, function (err, doc) {
 		res.send(doc);
 	});
 }
