@@ -11,6 +11,13 @@ const Note = new Schema({
 	users: [{ type: Schema.ObjectId, ref: 'User' }]
 });
 
+// Note.methods.toJSON = function() {
+// 	const obj = this.toObject();
+// 	delete obj.admins;
+// 	delete obj.users;
+// 	return obj;
+// }
+
 export default mongoose.model('Note', Note);
 
 Note.pre('remove', function (next) {

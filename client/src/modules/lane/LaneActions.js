@@ -22,6 +22,7 @@ export function createLaneRequest(kanbanId, lane) {
 		}
 		return fetch('http://localhost:3000/api/lanes', {
 			method: "POST",
+			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
@@ -46,15 +47,16 @@ export function updateLane(lane) {
 
 export function updateLaneRequest(id, lane) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/lanes/${id}`,
-			{ method: "PUT",
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(lane)
-			})
-			.then(() => dispatch(updateLane(id, lane)))
+		return fetch(`http://localhost:3000/api/lanes/${id}`, {
+			method: "PUT",
+			credentials: 'include',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(lane)
+		})
+		.then(() => dispatch(updateLane(id, lane)))
 	}
 }
 
@@ -67,8 +69,10 @@ export function deleteLane(laneId) {
 
 export function deleteLaneRequest(laneId) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/lanes/${laneId}`,
-			{ method: "DELETE"})
+		return fetch(`http://localhost:3000/api/lanes/${laneId}`, {
+			credentials: 'include',
+			method: "DELETE"
+		})
 			.then(() => dispatch(deleteLane(laneId)))
 	}
 }

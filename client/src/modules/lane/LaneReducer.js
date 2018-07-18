@@ -3,6 +3,7 @@ import { CREATE_LANE, UPDATE_LANE, DELETE_LANE, CREATE_LANES } from './LaneActio
 import { CREATE_NOTE, DELETE_NOTE } from '../note/NoteActions'
 
 import { CREATE_KANBAN } from '../kanban/KanbanActions'
+import { USER_LOGOUT } from '../_user/UserActions'
 
 const initialState = [];
 
@@ -41,6 +42,9 @@ export default function lanes(state = initialState, action) {
 				}
 				return lane
 			})
+
+		case USER_LOGOUT:
+			return initialState
 
 		default:
 			return state;

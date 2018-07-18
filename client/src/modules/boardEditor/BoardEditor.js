@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createLaneRequest } from '../lane/LaneActions'
+import { createKanbanRequest } from '../kanban/KanbanActions'
 
 import './BoardEditor.css'
 
 const BoardEditor = (props) => (
 	<section className="board-editor">
-		<BoardForm lanes={props.lanes} kanban={props.kanban} createLaneRequest={props.createLaneRequest}/>
+		<BoardForm lanes={props.lanes} kanban={props.kanban} createKanbanRequest={props.createKanbanRequest}/>
 	</section>
 )
 
@@ -66,14 +66,7 @@ class BoardForm extends React.Component {
 			},
 			lanes: this.state.lanes,
 		}
-		fetch('http://localhost:3000/api/kanbans', {
-			method: "POST",
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(body)
-		})
+		this.props.createKanbanRequest(body)
 	}
 
 	render() {
@@ -174,7 +167,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-	createLaneRequest
+	createKanbanRequest
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardEditor);

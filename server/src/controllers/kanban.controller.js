@@ -4,13 +4,23 @@ import Note from '../models/note'
 
 export function getKanbans(req, res) {
 	console.log('Received GET request')
+	const user = req.session.userId
+	console.log(req.session)
 	Kanban.find({$or: [{admins: req.session.userId}, {users: req.session.userId}]})
-		.populate('lanes')
+		.populate({
+			path: 'lanes',
+			// select: ['-admins', '-users'],
+			populate: {
+				path: 'notes',
+				// select: ['-admins', '-users'],
+			}
+		})
 		.then(docs => res.send(docs))
 		.catch(err => res.send(err))
 }
 
 export function addKanban(req, res) {
+	console.log('eloeloelo')
 	console.log(`Received POST`)
 	if(!req.session.userId) return res.status(500).send('You have to log in');
 	const newKanban = new Kanban(req.body.kanban);
@@ -76,7 +86,22 @@ export function deleteKanban(req, res) {
 
 export function getKanban(req, res) {
 	console.log(`Received GET for single example`)
-	Kanban.findById(req.params.id, (err, doc) => {
-		res.send(doc)
-	})
+	Kanban.findById(req.params.id)
+		.populate({
+			path: 'lanes',
+			// select: ['-admins', '-users'],
+			populate: {
+				path: 'notes',
+				// select: ['-admins', '-users'],
+			}
+		})
+		.then(kanban => {
+			console.log(req.session.userId)
+			console.log(kanban.admins[0])
+			console.log(kanban.admins.includes(req.session.userId))
+			kanban.isAdmin = kanban.admins.some(admin => admin == req.session.userId)
+			kanban.save()
+			res.send(kanban)
+		})
+		.catch(err => console.error(err))
 }

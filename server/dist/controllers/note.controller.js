@@ -35,15 +35,17 @@ function addNote(req, res) {
 	    note = _req$body.note,
 	    laneId = _req$body.laneId;
 
+	console.log(note, laneId, req.session.userId);
 	_lane2.default.findOne({ $and: [{ _id: laneId }, { admins: req.session.userId }] }, function (err, lane) {
 		note.admins = req.session.userId;
 		var newNote = new _note2.default(note);
 		newNote.save(function (err, note) {
+			console.log(lane);
 			if (err) return res.status(500).send(err);
 			lane.notes.push(note);
 			lane.save(function (err, lane) {
 				if (err) return res.status(500).send(err);
-				res.send('Add note');
+				res.send(note);
 			});
 		});
 	});

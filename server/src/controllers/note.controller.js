@@ -18,17 +18,19 @@ export function getNotes(req, res) {
 export function addNote(req, res) {
 	console.log(`Received POST`)
 	const { note, laneId } = req.body;
+	console.log(note, laneId, req.session.userId)
 	Lane.findOne(
 		{$and: [{_id: laneId}, {admins: req.session.userId}]},
 		(err, lane) => {
 			note.admins = req.session.userId
 			const newNote = new Note(note);
 			newNote.save((err, note) => {
+				console.log(lane)
 				if (err) return res.status(500).send(err);
 				lane.notes.push(note)
 				lane.save((err, lane) => {
 					if (err) return res.status(500).send(err);
-					res.send('Add note')
+					res.send(note)
 				})
 			})
 		}

@@ -1,5 +1,6 @@
 import { CREATE_NOTE, CREATE_NOTES, UPDATE_NOTE, DELETE_NOTE } from './NoteActions'
 import { CREATE_KANBAN } from '../kanban/KanbanActions'
+import { USER_LOGOUT } from '../_user/UserActions'
 
 const initialState = [];
 
@@ -19,6 +20,9 @@ export default function notes(state= initialState, action) {
 
 		case DELETE_NOTE:
 			return state.filter(note => note.id !== action.noteId)
+
+		case USER_LOGOUT:
+			return initialState
 
 		default:
 			return state;

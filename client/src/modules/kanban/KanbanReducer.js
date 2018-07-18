@@ -1,6 +1,6 @@
 import { CREATE_KANBAN, UPDATE_KANBAN, DELETE_KANBAN } from './KanbanActions'
-
 import { CREATE_LANE, DELETE_LANE } from '../lane/LaneActions'
+import { USER_LOGOUT } from '../_user/UserActions'
 
 const initialState = [];
 
@@ -22,6 +22,9 @@ export default function lanes(state = initialState, action) {
 
 		case DELETE_LANE:
 			return {...state, lanes: state.lanes.filter(lane => lane !== action.laneId)}
+
+		case USER_LOGOUT:
+			return initialState
 
 		default:
 			return state;

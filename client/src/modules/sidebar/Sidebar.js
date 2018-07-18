@@ -10,7 +10,7 @@ const Sidebar = () => {
 				<Link to="/create-board" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">Create Board</p></Link>
 				<Link to="/board-editor" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">Board Editor</p></Link>
 				<Link to="/analytics" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">Analytics</p></Link>
-				<Link to="/" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">Activity Log</p></Link>
+				<Link to="/auth" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">Register</p></Link>
 				<Link to="/" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">Calendar</p></Link>
 				<Link to="/" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">ESP</p></Link>
 				<Link to="/" className=" sidebar__link list-group-item list-group-item-action">||| <p className="sidebar__text">Team</p></Link>

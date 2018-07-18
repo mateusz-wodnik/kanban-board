@@ -11,6 +11,14 @@ const Lane = new Schema({
 	users: [{ type: Schema.ObjectId, ref: 'User'}]
 });
 
+// Lane.methods.toJSON = function() {
+// 	const obj = this.toObject();
+// 	delete obj.admins;
+// 	delete obj.users;
+// 	return obj;
+// }
+
+
 Lane.pre('findOne', function(next) {
 	this.populate('notes')
 	next()

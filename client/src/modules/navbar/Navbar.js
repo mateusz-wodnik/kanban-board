@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { createLaneRequest } from '../lane/LaneActions'
+import { createLaneRequest } from '../lane/LaneActions';
 import { connect } from 'react-redux';
 import { fetchKanban, getKanbansRequest } from '../kanban/KanbanActions';
-import { bindActionCreators } from 'redux'
+import { userLogoutRequest } from '../_user/UserActions';
+import { bindActionCreators } from 'redux';
 
 class Navbar extends React.Component {
 	constructor(props) {
@@ -24,38 +25,31 @@ class Navbar extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		fetch(`http://localhost:3000/api/kanbans`)
-			.then(res => res.json())
-			.then(kanbans => {
-				this.setState({kanbans})
-				this.props.fetchKanban(kanbans[0]._id)
-			})
-	}
-
-	handleKanbanUpdate = () => {
-
-	}
-
 	render() {
+		const {user, edit, fetchKanban, kanbans} = this.props
 		return (
 			<nav className="navbar navbar-dark bg-dark">
 				<Link
-					to="/"
-					className={`navbar-brand ${this.props.edit ? ' edit editKanban' : ''}`}
-					contentEditable={!!this.props.edit} suppressContentEditableWarning
-				>{this.props.kanban.name}</Link>
+					to="/user"
+					className={`navbar-brand ${edit ? ' edit editKanban' : ''}`}
+					contentEditable={!!edit} suppressContentEditableWarning
+				>{user.username}</Link>
 				<div className="navbar-nav flex-row">
+					<button
+						onClick={e => this.props.userLogoutRequest()}
+						className="btn btn-warning nav-item"
+					>logout</button>
 					{this.state.isAddVisible ? this.AddNameModal() : null}
 					<select
-						onChange={e => this.props.fetchKanban(e.target.value)}
+						onChange={e => fetchKanban(e.target.value)}
 						className="custom-select nav-item"
 						id="selectBoard"
-					>{this.state.kanbans.map(kanban => <option key={kanban._id} value={kanban._id}>{kanban.name}</option>)}</select>
-					<button
-						onClick={this.handleAddLane}
-						className="btn btn-success nav-item"
-					>{this.state.isAddVisible ? 'Add lane' : 'New lane'}</button>
+					>{kanbans.map(kanban => <option key={kanban._id} value={kanban._id}>{kanban.name}</option>)}</select>
+					{this.props.kanban.admins && this.props.kanban.admins.includes(this.props.user._id) ?
+						<button
+							onClick={this.handleAddLane}
+							className="btn btn-success nav-item"
+						>{this.state.isAddVisible ? 'Add lane' : 'New lane'}</button> : null}
 				</div>
 			</nav>
 		)
@@ -79,15 +73,17 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => ({
 	edit: state.edit,
-	kanbans: [],
-	kanban: state.kanban
+	kanbans: state.user.kanbans || [],
+	kanban: state.kanban ,
+	user: state.user
 })
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		addLane: createLaneRequest,
 		fetchKanban,
-		getKanbansRequest
+		getKanbansRequest,
+		userLogoutRequest
 	}, dispatch);
 }
 

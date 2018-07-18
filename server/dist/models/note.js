@@ -22,6 +22,13 @@ var Note = new Schema({
 	users: [{ type: Schema.ObjectId, ref: 'User' }]
 });
 
+// Note.methods.toJSON = function() {
+// 	const obj = this.toObject();
+// 	delete obj.admins;
+// 	delete obj.users;
+// 	return obj;
+// }
+
 exports.default = _mongoose2.default.model('Note', Note);
 
 

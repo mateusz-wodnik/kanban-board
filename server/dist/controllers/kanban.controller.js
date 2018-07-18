@@ -32,7 +32,16 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 function getKanbans(req, res) {
 	console.log('Received GET request');
-	_kanban2.default.find({ $or: [{ admins: req.session.userId }, { users: req.session.userId }] }).populate('lanes').then(function (docs) {
+	var user = req.session.userId;
+	console.log(req.session);
+	_kanban2.default.find({ $or: [{ admins: req.session.userId }, { users: req.session.userId }] }).populate({
+		path: 'lanes',
+		// select: ['-admins', '-users'],
+		populate: {
+			path: 'notes'
+			// select: ['-admins', '-users'],
+		}
+	}).then(function (docs) {
 		return res.send(docs);
 	}).catch(function (err) {
 		return res.send(err);
@@ -40,6 +49,7 @@ function getKanbans(req, res) {
 }
 
 function addKanban(req, res) {
+	console.log('eloeloelo');
 	console.log('Received POST');
 	if (!req.session.userId) return res.status(500).send('You have to log in');
 	var newKanban = new _kanban2.default(req.body.kanban);
@@ -108,7 +118,23 @@ function deleteKanban(req, res) {
 
 function getKanban(req, res) {
 	console.log('Received GET for single example');
-	_kanban2.default.findById(req.params.id, function (err, doc) {
-		res.send(doc);
+	_kanban2.default.findById(req.params.id).populate({
+		path: 'lanes',
+		// select: ['-admins', '-users'],
+		populate: {
+			path: 'notes'
+			// select: ['-admins', '-users'],
+		}
+	}).then(function (kanban) {
+		console.log(req.session.userId);
+		console.log(kanban.admins[0]);
+		console.log(kanban.admins.includes(req.session.userId));
+		kanban.isAdmin = kanban.admins.some(function (admin) {
+			return admin == req.session.userId;
+		});
+		kanban.save();
+		res.send(kanban);
+	}).catch(function (err) {
+		return console.error(err);
 	});
 }

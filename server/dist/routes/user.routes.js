@@ -15,6 +15,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var router = new _express.Router();
 
 // Get all Posts
+router.route('/users').get(UserController.getUser);
 router.route('/users/register').post(UserController.registerUser);
 router.route('/users/login').post(UserController.loginUser);
 router.route('/users/logout').get(UserController.logoutUser);

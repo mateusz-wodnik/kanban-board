@@ -19,6 +19,7 @@ export function createNoteRequest(laneId, note) {
 		}
 		return fetch(`http://localhost:3000/api/notes`, {
 			method: "POST",
+			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
@@ -29,7 +30,10 @@ export function createNoteRequest(laneId, note) {
 				if(!res.ok) throw Error('Cannot create new note')
 				return res.json()
 			})
-			.then(res => dispatch(createNote(laneId, res)))
+			.then(res => {
+				console.log(res)
+				dispatch(createNote(laneId, res))
+			})
 			.catch(err => console.log(err))
 	}
 }
@@ -54,6 +58,7 @@ export function updateNoteRequest(_id, note) {
 	return (dispatch) => {
 		return fetch(`http://localhost:3000/api/notes/${_id}`, {
 			method: "PUT",
+			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
@@ -75,6 +80,7 @@ export function deleteNote(noteId, laneId) {
 export function deleteNoteRequest(noteId, laneId) {
 	return (dispatch) => {
 		return fetch(`http://localhost:3000/api/notes/${noteId}`, {
+			credentials: 'include',
 			method: "DELETE"
 		})
 			.then(res => dispatch(deleteNote(noteId, laneId)))

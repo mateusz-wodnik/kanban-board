@@ -5,8 +5,8 @@ import * as laneActions from './LaneActions';
 import { createNote, createNoteRequest } from '../note/NoteActions'
 
 const mapStateToProps = (state, ownProps) => {
+	console.log(state)
 	return {
-		edit: state.edit,
 		laneNotes: ownProps.lane.notes.map(noteId => state.notes.find(note => note._id === noteId))
 	};
 }

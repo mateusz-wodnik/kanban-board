@@ -21,6 +21,10 @@
     grid-area: navbar;
 }
 
+/*.auth {*/
+    /*grid-area: content;*/
+/*}*/
+
 /*.kanban {*/
     /*grid-area: content;*/
 /*}*/

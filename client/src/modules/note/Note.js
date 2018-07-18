@@ -53,6 +53,8 @@ class Note extends React.Component {
 
 	render() {
 		const {note, laneId, deleteNoteRequest, priority} = this.props
+		{console.log(note)}
+		{console.log(priority)}
 		return (
 			<div className={`note card`} style={{borderColor: priority[note.priority]}}>
 				<div className="btn-group card-header" role="group" aria-label="First group">
