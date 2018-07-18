@@ -27,6 +27,13 @@ export function getUser (req, res) {
 		})
 }
 
+export function getUsers(req, res) {
+	console.log("GET users")
+	User.find({}, ['-password', '-createdAt', '-updatedAt'])
+		.then(users => res.send(users))
+		.catch(err => console.log(err))
+}
+
 export function loginUser (req, res) {
 	console.log('Received User POST login request')
 	User.authentication(req.body.email, req.body.password, (err, user) => {

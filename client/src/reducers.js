@@ -8,11 +8,13 @@ import lanes from './modules/lane/LaneReducer';
 import notes from './modules/note/NoteReducer';
 import kanban from './modules/kanban/KanbanReducer';
 import user from './modules/_user/UserReducer';
+import team from './modules/team/TeamReducer';
 
 // Combine all reducers into one root reducer
 export default combineReducers({
 	lanes,
 	notes,
 	kanban,
-	user
+	user,
+	team
 });

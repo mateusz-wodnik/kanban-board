@@ -80,24 +80,42 @@ export function getKanbansRequest() {
 	}
 }
 
-export function updateKanban(kanban) {
+export function updateKanban(kanban, kanbanId) {
 	return {
 		type: UPDATE_KANBAN,
 		kanban,
+		kanbanId
 	}
 }
 
-export function updateKanbanRequest(kanban) {
+export function updateKanbanRequest(kanban, kanbanId) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/kanbans/${kanban._id}`,
-			{ method: "PUT",
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(kanban)
+		return fetch(`http://localhost:3000/api/kanbans/${kanbanId}`, {
+			method: "PUT",
+			credentials: 'include',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(kanban)
+		})
+			.then(res => res.json())
+			.then(res => {
+				const raw = {...res}
+				let lanes = []
+				let notes = []
+				console.log(res)
+				res.lanes = res.lanes.map(lane => {
+					lane.notes = lane.notes.map(note => {
+						notes.push(note)
+						return note._id
+					})
+					lanes.push(lane)
+					return lane._id
+				})
+				dispatch(createKanban(raw, res, lanes, notes));
 			})
-			.then(() => dispatch(updateKanban(kanban)))
+			.catch(err => console.log(err))
 	}
 }
 

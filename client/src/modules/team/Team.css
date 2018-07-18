@@ -1,0 +1,18 @@
+.manage-users {
+    display: flex;
+    justify-content: space-between;
+}
+
+.manage-users__col {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.manage-users__col--in {
+    justify-content: flex-start;
+}
+
+.manage-users__col--out {
+    justify-content: flex-end;
+
+}

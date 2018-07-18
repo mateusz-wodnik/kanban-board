@@ -41,11 +41,13 @@ export function addKanban(req, res) {
 export function updateKanban(req, res) {
 	console.log(`Received PUT`)
 	const {admins= '', users= '', ...body} = req.body
+	console.log(req.body, req.params.id, req.session.userId)
 	Kanban.findOneAndUpdate(
-		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},
+		{$and: [{_id: req.params.id}, {admins:req.session.userId}]},
 		{$set: {...body}, $addToSet: {admins, users}})
 		.populate('lanes')
 		.then(kanban => {
+				console.log(kanban)
 				const notes = []
 				kanban.lanes.forEach(lane => notes.push(...lane.notes))
 				Lane.update(
@@ -62,7 +64,7 @@ export function updateKanban(req, res) {
 				);
 				res.send('Kanban updated')
 		})
-		.catch(err => res.send('No match found'))
+		.catch(err => console.log(err))
 }
 
 export function deleteKanban(req, res) {

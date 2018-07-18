@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.getUser = getUser;
+exports.getUsers = getUsers;
 exports.loginUser = loginUser;
 exports.registerUser = registerUser;
 exports.logoutUser = logoutUser;
@@ -46,6 +47,15 @@ function getUser(req, res) {
 	}).catch(function (err) {
 		console.log(err);
 		res.status(500).json(err);
+	});
+}
+
+function getUsers(req, res) {
+	console.log("GET users");
+	_user2.default.find({}, ['-password', '-createdAt', '-updatedAt']).then(function (users) {
+		return res.send(users);
+	}).catch(function (err) {
+		return console.log(err);
 	});
 }
 

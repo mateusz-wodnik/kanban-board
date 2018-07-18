@@ -14,6 +14,7 @@ import BoardEditor from './modules/boardEditor/BoardEditor'
 import { userAuth, userGet } from './modules/_user/UserActions'
 import AnalyticsContainer from './modules/analytics/AnalyticsContainer'
 import Auth from './modules/auth/Auth'
+import TeamContainer from './modules/team/TeamContainer'
 
 class App extends Component {
 	componentDidMount() {
@@ -38,6 +39,7 @@ class App extends Component {
 					<Route path='/board-editor' component={this.isUserLogged(Kanban)}/>
 					<Route path='/create-board' component={this.isUserLogged(BoardEditor)}/>
 					<Route path='/analytics' component={this.isUserLogged(AnalyticsContainer)}/>
+					<Route path='/team' component={this.isUserLogged(TeamContainer)}/>
 				</div>
 			</div>
 		);

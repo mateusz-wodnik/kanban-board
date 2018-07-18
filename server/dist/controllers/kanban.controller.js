@@ -77,7 +77,9 @@ function updateKanban(req, res) {
 	    users = _req$body$users === undefined ? '' : _req$body$users,
 	    body = _objectWithoutProperties(_req$body, ['admins', 'users']);
 
+	console.log(req.body, req.params.id, req.session.userId);
 	_kanban2.default.findOneAndUpdate({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, { $set: _extends({}, body), $addToSet: { admins: admins, users: users } }).populate('lanes').then(function (kanban) {
+		console.log(kanban);
 		var notes = [];
 		kanban.lanes.forEach(function (lane) {
 			return notes.push.apply(notes, _toConsumableArray(lane.notes));
@@ -90,7 +92,7 @@ function updateKanban(req, res) {
 		});
 		res.send('Kanban updated');
 	}).catch(function (err) {
-		return res.send('No match found');
+		return console.log(err);
 	});
 }
 
