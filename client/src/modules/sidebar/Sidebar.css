@@ -1,11 +1,7 @@
 .sidebar {
     grid-area: sidebar;
-    width: 50px;
+    width: 55px;
     transition: 1s;
-}
-
-.sidebar * {
-    background: none!important;
 }
 
 .sidebar {
@@ -16,10 +12,24 @@
     display: flex!important;
     overflow: hidden;
     white-space: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.2em;
+    background: transparent;
+    border-right: 0;
+}
+
+.sidebar__link:active {
+    background: inherit;
+}
+
+.sidebar__link--active {
+    background: #f8f9fa;
 }
 
 .sidebar__text {
     padding-left: 20px;
+    margin: 0;
 }
 
 #toggleSidebar {

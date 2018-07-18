@@ -8,3 +8,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var database = 'kanban';
 _mongoose2.default.connect('mongodb://localhost/' + database);
+// mongoose.connect(`mongodb://mateusz.wodnik:qwerty14@ds235711.mlab.com:35711/kanban`);
