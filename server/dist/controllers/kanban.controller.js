@@ -72,14 +72,16 @@ function updateKanban(req, res) {
 
 	var _req$body = req.body,
 	    _req$body$admins = _req$body.admins,
-	    admins = _req$body$admins === undefined ? '' : _req$body$admins,
+	    admins = _req$body$admins === undefined ? req.session.userId : _req$body$admins,
 	    _req$body$users = _req$body.users,
 	    users = _req$body$users === undefined ? '' : _req$body$users,
-	    body = _objectWithoutProperties(_req$body, ['admins', 'users']);
+	    _req$body$remove = _req$body.remove,
+	    remove = _req$body$remove === undefined ? false : _req$body$remove,
+	    body = _objectWithoutProperties(_req$body, ['admins', 'users', 'remove']);
 
-	console.log(req.body, req.params.id, req.session.userId);
-	_kanban2.default.findOneAndUpdate({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, { $set: _extends({}, body), $addToSet: { admins: admins, users: users } }).populate('lanes').then(function (kanban) {
-		console.log(kanban);
+	var update = remove ? { $set: _extends({}, body), $pull: { users: users } } : { $set: _extends({}, body), $addToSet: { admins: admins, users: users } };
+	_kanban2.default.findOneAndUpdate({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, update).populate('lanes').then(function (kanban) {
+		if (!kanban) throw Error('kanban not found // you have no credentials to modify');
 		var notes = [];
 		kanban.lanes.forEach(function (lane) {
 			return notes.push.apply(notes, _toConsumableArray(lane.notes));
@@ -128,9 +130,6 @@ function getKanban(req, res) {
 			// select: ['-admins', '-users'],
 		}
 	}).then(function (kanban) {
-		console.log(req.session.userId);
-		console.log(kanban.admins[0]);
-		console.log(kanban.admins.includes(req.session.userId));
 		kanban.isAdmin = kanban.admins.some(function (admin) {
 			return admin == req.session.userId;
 		});

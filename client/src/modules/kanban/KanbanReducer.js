@@ -1,7 +1,7 @@
 import { CREATE_KANBAN, UPDATE_KANBAN, DELETE_KANBAN } from './KanbanActions'
 import { CREATE_LANE, DELETE_LANE } from '../lane/LaneActions'
 import { USER_LOGOUT } from '../_user/UserActions'
-import { ADD_TEAM_USER } from '../team/TeamActions'
+import { ADD_TEAM_USER, REMOVE_TEAM_USER } from '../team/TeamActions'
 
 const initialState = [];
 
@@ -14,7 +14,12 @@ export default function lanes(state = initialState, action) {
 			return {...state, ...action.kanban};
 
 		case ADD_TEAM_USER:
-			return {...state, users: state.users.push(action.users)}
+			console.log(action)
+			return {...state, users: [...state.users, action.user]}
+
+		case REMOVE_TEAM_USER:
+			console.log(action)
+			return {...state, users: state.users.filter(user => user !== action.user)}
 
 		case DELETE_KANBAN:
 			return state.filter(lane => lane._id !== action.laneId);

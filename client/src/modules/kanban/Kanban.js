@@ -7,13 +7,16 @@ class Kanban extends React.Component {
 	render() {
 		return (
 			<div className="kanban">
-				<Lanes lanes={this.props.lanes} userId={this.props.userId} isEditor={this.props.location.pathname === '/board-editor'}/>
+				<Lanes
+					lanes={this.props.lanes}
+					userId={this.props.userId}
+					isEditor={this.props.location.pathname === '/board-editor'}
+					isAdmin={this.props.isAdmin}
+				/>
 			</div>
 		)
 	}
 }
-
-// Kanban.need = [() => getKanbansRequest() ]
 
 const mapStateToProps = state => ({
 	lanes: state.lanes,

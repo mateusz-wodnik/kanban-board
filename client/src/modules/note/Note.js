@@ -52,7 +52,7 @@ class Note extends React.Component {
 	}
 
 	render() {
-		const {note, laneId, deleteNoteRequest, priority} = this.props
+		const {note, laneId, deleteNoteRequest, priority, isAdmin} = this.props
 		{console.log(note)}
 		{console.log(priority)}
 		return (
@@ -61,7 +61,7 @@ class Note extends React.Component {
 					<button
 						onClick={this.handleUpdate}
 						type="button"
-						className="btn btn-light"
+						className={`btn btn-light${isAdmin ? '' : ' disabled'}`}
 					>{this.state.isEditable ? '✓' : '✎'}</button>
 					<button type="button" className="btn btn-light">2</button>
 					<button type="button" className="btn btn-light">3</button>

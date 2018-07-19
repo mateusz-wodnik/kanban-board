@@ -40,14 +40,14 @@ export function addKanban(req, res) {
 
 export function updateKanban(req, res) {
 	console.log(`Received PUT`)
-	const {admins= '', users= '', ...body} = req.body
-	console.log(req.body, req.params.id, req.session.userId)
+	const {admins= req.session.userId, users= '', remove=false, ...body} = req.body
+	const update = remove ? {$set: {...body}, $pull: {users}} : {$set: {...body}, $addToSet: {admins, users}};
 	Kanban.findOneAndUpdate(
-		{$and: [{_id: req.params.id}, {admins:req.session.userId}]},
-		{$set: {...body}, $addToSet: {admins, users}})
+		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},
+		update)
 		.populate('lanes')
 		.then(kanban => {
-				console.log(kanban)
+				if(!kanban) throw Error('kanban not found // you have no credentials to modify')
 				const notes = []
 				kanban.lanes.forEach(lane => notes.push(...lane.notes))
 				Lane.update(
@@ -98,9 +98,6 @@ export function getKanban(req, res) {
 			}
 		})
 		.then(kanban => {
-			console.log(req.session.userId)
-			console.log(kanban.admins[0])
-			console.log(kanban.admins.includes(req.session.userId))
 			kanban.isAdmin = kanban.admins.some(admin => admin == req.session.userId)
 			kanban.save()
 			res.send(kanban)

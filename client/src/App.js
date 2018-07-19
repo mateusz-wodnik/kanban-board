@@ -28,11 +28,12 @@ class App extends Component {
 	)
 
 	render() {
+		const {isLogged, isAdmin, user} = this.props
 		return (
 			<div className="app container-fluid p-0">
 				<input id="toggleSidebar" className="btn btn-primary" type="checkbox" />
 				<Navbar />
-				<Sidebar />
+				<Sidebar isAdmin={isAdmin}/>
 				<div className="content">
 					<Route exact path='/' component={this.isUserLogged(Kanban)}/>
 					<Route path='/board' component={this.isUserLogged(Kanban)}/>
@@ -47,6 +48,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
+	isLogged: Object.keys(state.user).length,
+	isAdmin: state.kanban.admins ? state.kanban.admins.includes(state.user._id) : false,
 	user: state.user
 })
 

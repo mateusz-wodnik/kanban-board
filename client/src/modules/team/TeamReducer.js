@@ -7,8 +7,8 @@ export default function notes(state= initialState, action) {
 		case CREATE_TEAM:
 			return action.team;
 
-		case ADD_TEAM_USER:
-			return [...state, action.user]
+		// case ADD_TEAM_USER:
+		// 	return [...state, action.user]
 
 		default:
 			return state;

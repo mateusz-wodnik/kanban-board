@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createTeam, addTeamUser, createTeamRequest, addTeamUserRequest } from './TeamActions';
+import { createTeamRequest, addTeamUserRequest, removeTeamUserRequest } from './TeamActions';
 import Team from './Team';
 
 class TeamContainer extends Component {
@@ -12,8 +12,10 @@ class TeamContainer extends Component {
 	render() {
 		return(
 			<Team
-				team={this.props.team}
+				teamUsers={this.props.teamUsers}
+				allUsers={this.props.allUsers}
 				addTeamUser={this.props.addTeamUserRequest}
+				removeTeamUser={this.props.removeTeamUserRequest}
 				kanbanId={this.props.kanbanId}
 			/>
 		)
@@ -21,14 +23,24 @@ class TeamContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
+	// Dynamic state instead of async
+	const users = () => state.kanban.users ? {
+		// return only users in team
+		teamUsers: state.team.filter(user => state.kanban.users.includes(user._id)),
+		// return only users not in team
+		allUsers: state.team.filter(user => !state.kanban.users.includes(user._id)),
+	} : {
+		teamUsers: [],
+		allUsers: [],
+	}
 	return {
-		team: state.team,
+		...users(),
 		kanbanId: state.kanban._id
 	};
 }
 
 const mapDispathToProps = (dispatch) => {
-	return bindActionCreators({ addTeamUserRequest, createTeamRequest}, dispatch);
+	return bindActionCreators({ addTeamUserRequest, removeTeamUserRequest, createTeamRequest}, dispatch);
 }
 
 export default connect(

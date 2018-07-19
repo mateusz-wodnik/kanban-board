@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux'
 const mapStateToProps = (state) => {
 	return {
 		edit: state.edit,
-		priority: state.kanban.priority
+		priority: state.kanban.priority,
+		isAdmin: state.kanban.admins ? state.kanban.admins.includes(state.user._id) : false,
 	}
 }
 
