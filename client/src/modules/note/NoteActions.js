@@ -69,6 +69,21 @@ export function updateNoteRequest(_id, note) {
 	}
 }
 
+export function takeTask(_id, taken) {
+	return (dispatch) => {
+		return fetch(`http://localhost:3000/api/notes/${_id}/takeTask`, {
+			method: "PUT",
+			credentials: 'include',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(taken)
+		})
+			.then(res => dispatch(updateNote(_id, taken)))
+	}
+}
+
 export function deleteNote(noteId, laneId) {
 	return {
 		type: DELETE_NOTE,

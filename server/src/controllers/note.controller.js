@@ -46,6 +46,17 @@ export function updateNote(req, res) {
 	)
 }
 
+export function takeTask(req, res) {
+	console.log(`Received PUT`)
+	const taken = req.body
+	console.log(req.body)
+	Note.update(
+		{$and: [{_id: req.params.id}, {$or: [{users: req.session.userId},{admins: req.session.userId}]}]},
+		taken,
+		err => res.send(err || {_id: req.params.id})
+	)
+}
+
 export function deleteNote(req, res) {
 	console.log(`Received DELETE`)
 	Note.findOne(

@@ -14,6 +14,7 @@ import BoardEditor from './modules/boardEditor/BoardEditor'
 import { userAuth, userGet } from './modules/_user/UserActions'
 import AnalyticsContainer from './modules/analytics/AnalyticsContainer'
 import Auth from './modules/auth/Auth'
+import { createTeamRequest } from './modules/team/TeamActions'
 import TeamContainer from './modules/team/TeamContainer'
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
 		console.log('mounted')
 		console.log('elo')
 		this.props.userGet()
+		this.props.createTeamRequest()
 	}
 
 	isUserLogged = (component) => (
@@ -55,7 +57,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	userAuth,
-	userGet
+	userGet,
+	createTeamRequest
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(hot(module)(App));

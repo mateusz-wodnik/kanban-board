@@ -21,6 +21,8 @@ router.route('/notes').post(NoteController.addNote);
 
 router.route('/notes/:id').put(NoteController.updateNote);
 
+router.route('/notes/:id/takeTask').put(NoteController.takeTask);
+
 router.route('/notes/:id').delete(NoteController.deleteNote);
 
 router.route('/notes/:id').get(NoteController.getNote);

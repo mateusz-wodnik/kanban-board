@@ -51,10 +51,12 @@ class Note extends React.Component {
 		})
 	}
 
+	handleTaken = () => {
+		this.props.takeTask(this.props.note._id, {taken: this.props.user._id})
+	}
+
 	render() {
-		const {note, laneId, deleteNoteRequest, priority, isAdmin} = this.props
-		{console.log(note)}
-		{console.log(priority)}
+		const {note, laneId, deleteNoteRequest, priority, isAdmin, team} = this.props
 		return (
 			<div className={`note card`} style={{borderColor: priority[note.priority]}}>
 				<div className="btn-group card-header" role="group" aria-label="First group">
@@ -63,7 +65,11 @@ class Note extends React.Component {
 						type="button"
 						className={`btn btn-light${isAdmin ? '' : ' disabled'}`}
 					>{this.state.isEditable ? '✓' : '✎'}</button>
-					<button type="button" className="btn btn-light">2</button>
+					<button
+						onClick={this.handleTaken}
+						type="button"
+						className={`btn btn-light${!note.taken ? '' : ' disabled'}`}
+					>{note.taken ? team.find(user => user._id === note.taken).username : 'take'}</button>
 					<button type="button" className="btn btn-light">3</button>
 					<button type="button" className="btn btn-light">4</button>
 				</div>
@@ -77,7 +83,7 @@ class Note extends React.Component {
 					<button
 						onClick={() => deleteNoteRequest(note._id, laneId)}
 						type="button"
-						className="note__delete btn btn-light"
+						className={`note__delete btn btn-light${isAdmin ? '' : ' disabled'}`}
 					>🛇</button>
 					<button type="button" className="btn btn-light">4</button>
 				</div>

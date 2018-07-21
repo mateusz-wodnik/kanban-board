@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getNotes = getNotes;
 exports.addNote = addNote;
 exports.updateNote = updateNote;
+exports.takeTask = takeTask;
 exports.deleteNote = deleteNote;
 exports.getNote = getNote;
 
@@ -54,6 +55,15 @@ function addNote(req, res) {
 function updateNote(req, res) {
 	console.log('Received PUT');
 	_note2.default.update({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, req.body, function (err) {
+		return res.send(err || { _id: req.params.id });
+	});
+}
+
+function takeTask(req, res) {
+	console.log('Received PUT');
+	var taken = req.body;
+	console.log(req.body);
+	_note2.default.update({ $and: [{ _id: req.params.id }, { $or: [{ users: req.session.userId }, { admins: req.session.userId }] }] }, taken, function (err) {
 		return res.send(err || { _id: req.params.id });
 	});
 }

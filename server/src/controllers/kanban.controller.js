@@ -48,6 +48,7 @@ export function updateKanban(req, res) {
 		.populate('lanes')
 		.then(kanban => {
 				if(!kanban) throw Error('kanban not found // you have no credentials to modify')
+				console.log(kanban)
 				const notes = []
 				kanban.lanes.forEach(lane => notes.push(...lane.notes))
 				Lane.update(
@@ -64,7 +65,7 @@ export function updateKanban(req, res) {
 				);
 				res.send('Kanban updated')
 		})
-		.catch(err => console.log(err))
+		.catch(err => res.send(err))
 }
 
 export function deleteKanban(req, res) {

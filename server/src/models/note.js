@@ -7,6 +7,7 @@ const Note = new Schema({
 	priority: { type: 'String', default: 'normal' },
 	dueDate: { type: Date },
 	creationDate: { type: Date, default: Date.now },
+	taken: { type: Schema.ObjectId, ref: 'User' },
 	admins: [{ type: Schema.ObjectId, ref: 'User' }],
 	users: [{ type: Schema.ObjectId, ref: 'User' }]
 });
@@ -21,7 +22,6 @@ const Note = new Schema({
 export default mongoose.model('Note', Note);
 
 Note.pre('remove', function (next) {
-	console.log('elesdo')
 	this.model('Lane').update({notes: this._id}, {$pull: { notes: this._id }})
 	next()
 })

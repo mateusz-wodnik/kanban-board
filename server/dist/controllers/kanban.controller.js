@@ -82,6 +82,7 @@ function updateKanban(req, res) {
 	var update = remove ? { $set: _extends({}, body), $pull: { users: users } } : { $set: _extends({}, body), $addToSet: { admins: admins, users: users } };
 	_kanban2.default.findOneAndUpdate({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, update).populate('lanes').then(function (kanban) {
 		if (!kanban) throw Error('kanban not found // you have no credentials to modify');
+		console.log(kanban);
 		var notes = [];
 		kanban.lanes.forEach(function (lane) {
 			return notes.push.apply(notes, _toConsumableArray(lane.notes));
@@ -94,7 +95,7 @@ function updateKanban(req, res) {
 		});
 		res.send('Kanban updated');
 	}).catch(function (err) {
-		return console.log(err);
+		return res.send(err);
 	});
 }
 
