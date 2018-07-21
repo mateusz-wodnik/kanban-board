@@ -4,7 +4,7 @@ import Kanban from '../models/kanban'
 import Lane from '../models/lane'
 
 export function getUser (req, res) {
-	if(req.session && req.session.userId) return res.status(401).send('You are not logged in')
+	if(!req.session.userId) return res.status(401).send('You are not logged in')
 	User.findById(req.session.userId)
 		.then(user => {
 			if(!user) throw Error("User not found // Not logged")
@@ -29,7 +29,8 @@ export function getUser (req, res) {
 
 export function getUsers(req, res) {
 	console.log("GET users")
-	User.find({}, ['-password', '-createdAt', '-updatedAt'])
+	if(!req.session.userId) return res.status(401).send("You're not logged")
+	User.find({}, ['-password', '-createdAt', '-updatedAt', '-email'])
 		.then(users => res.send(users))
 		.catch(err => console.log(err))
 }

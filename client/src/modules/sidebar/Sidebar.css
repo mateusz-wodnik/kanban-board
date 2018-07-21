@@ -1,10 +1,7 @@
 .sidebar {
     grid-area: sidebar;
-    width: 55px;
-    transition: 1s;
-}
-
-.sidebar {
+    display: flex;
+    flex-flow: column;
     background: linear-gradient(to right, lightgrey 90%, rgba(0,0,0,0.3));
 }
 
@@ -32,15 +29,50 @@
     margin: 0;
 }
 
-#toggleSidebar {
-    appearance: button;
-    background-color: lightgrey;
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/220px-Hamburger_icon.svg.png")!important;
-    background-size: 50px!important;
-    background-repeat: no-repeat!important;
-    background-position: center;
+.sidebar__nav {
+    width: 55px;
+    transition: 0.8s;
 }
 
-#toggleSidebar:checked ~ .sidebar {
+#toggleSidebar {
+    appearance: button;
+    margin-left: auto;
+    border: none;
+    background-color: lightgrey;
+    background-image: url("./hamburger.svg")!important;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat!important;
+    background-position: 0 0;
+    animation-name: play60reverse;
+    animation-duration: 0.3s;
+    animation-timing-function: steps(60);
+}
+
+#toggleSidebar:checked {
+    background-position: 100%;
+    animation-name: play60;
+    animation-fill-mode: forwards;
+}
+
+#toggleSidebar:checked ~ .sidebar__nav {
     width: 200px;
+}
+
+@keyframes play60 {
+    0% {
+        background-position: 0px 0px
+    }
+    100% {
+        background-position: -2880px 0px
+    }
+}
+
+@keyframes play60reverse {
+    0% {
+        background-position: -2880px 0px
+    }
+    100% {
+        background-position: 0px 0px
+    }
 }

@@ -29,7 +29,7 @@ var _lane2 = _interopRequireDefault(_lane);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getUser(req, res) {
-	if (req.session && req.session.userId) return res.status(401).send('You are not logged in');
+	if (!req.session.userId) return res.status(401).send('You are not logged in');
 	_user2.default.findById(req.session.userId).then(function (user) {
 		if (!user) throw Error("User not found // Not logged");
 		_kanban2.default.find({ $or: [{ admins: req.session.userId }, { users: req.session.userId }] }, ['_id', 'name']).then(function (kanbans) {
@@ -52,7 +52,8 @@ function getUser(req, res) {
 
 function getUsers(req, res) {
 	console.log("GET users");
-	_user2.default.find({}, ['-password', '-createdAt', '-updatedAt']).then(function (users) {
+	if (!req.session.userId) return res.status(401).send("You're not logged");
+	_user2.default.find({}, ['-password', '-createdAt', '-updatedAt', '-email']).then(function (users) {
 		return res.send(users);
 	}).catch(function (err) {
 		return console.log(err);

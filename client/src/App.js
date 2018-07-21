@@ -33,7 +33,6 @@ class App extends Component {
 		const {isLogged, isAdmin, user} = this.props
 		return (
 			<div className="app container-fluid p-0">
-				<input id="toggleSidebar" className="btn btn-primary" type="checkbox" />
 				<Navbar />
 				<Sidebar isAdmin={isAdmin}/>
 				<div className="content">

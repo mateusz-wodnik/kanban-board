@@ -5,9 +5,9 @@ import { createTeamRequest, addTeamUserRequest, removeTeamUserRequest } from './
 import Team from './Team';
 
 class TeamContainer extends Component {
-	// componentDidMount() {
-	// 	this.props.createTeamRequest()
-	// }
+	componentDidMount() {
+		this.props.createTeamRequest()
+	}
 
 	render() {
 		return(

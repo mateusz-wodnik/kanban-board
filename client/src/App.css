@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: auto 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 90vh;
-    grid-template-areas: "toggle navbar navbar navbar navbar"
+    grid-template-areas: "sidebar navbar navbar navbar navbar"
 "sidebar content content content content";
 }
 

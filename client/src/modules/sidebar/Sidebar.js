@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,8 +6,10 @@ import { faPlus, faEdit, faUserEdit, faChartPie, faColumns, faCalendarAlt, faCog
 
 const Sidebar = ({isAdmin}) => {
 	return (
+		<Fragment>
 		<section className="sidebar">
-			<div className="list-group">
+		<input id="toggleSidebar" className="btn btn-primary" type="checkbox" />
+			<div className="sidebar__nav list-group">
 				<NavLink to="/board" activeClassName="sidebar__link--active" className="sidebar__link list-group-item list-group-item-action"><FontAwesomeIcon icon={faColumns} /> <p className="sidebar__text">Current Board</p></NavLink>
 				<NavLink to="/create-board" activeClassName="sidebar__link--active" className="sidebar__link list-group-item list-group-item-action"><FontAwesomeIcon icon={faPlus} /> <p className="sidebar__text">Create Board</p></NavLink>
 				<NavLink to="/board-editor" activeClassName="sidebar__link--active" className={`sidebar__link list-group-item list-group-item-action${isAdmin ? '' :' disabled'}`}><FontAwesomeIcon icon={faEdit} /> <p className="sidebar__text">Board Editor</p></NavLink>
@@ -17,6 +19,7 @@ const Sidebar = ({isAdmin}) => {
 				<NavLink to="/settings" activeClassName="sidebar__link--active" className="sidebar__link list-group-item list-group-item-action"><FontAwesomeIcon icon={faCogs} /> <p className="sidebar__text">Settings</p></NavLink>
 			</div>
 		</section>
+		</Fragment>
 	)
 }
 
