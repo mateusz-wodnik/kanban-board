@@ -4,20 +4,41 @@ import { bindActionCreators } from 'redux';
 import { createTeamRequest, addTeamUserRequest, removeTeamUserRequest } from './TeamActions';
 import Team from './Team';
 
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContext } from 'react-dnd'
+
 class TeamContainer extends Component {
+	constructor (props) {
+		super(props)
+	}
 	componentDidMount() {
 		this.props.createTeamRequest()
 	}
 
+	handleAdd(id) {
+		console.log('add', id)
+	}
+
+	handleRemove(id) {
+		console.log('remove', id)
+	}
+
 	render() {
 		return(
-			<Team
-				teamUsers={this.props.teamUsers}
-				allUsers={this.props.allUsers}
-				addTeamUser={this.props.addTeamUserRequest}
-				removeTeamUser={this.props.removeTeamUserRequest}
-				kanbanId={this.props.kanbanId}
-			/>
+			<section className="manage-users">
+				<Team
+					users={this.props.teamUsers}
+					removeTeamUser={this.props.removeTeamUserRequest}
+					kanbanId={this.props.kanbanId}
+					handleDrop={this.handleRemove}
+				/>
+				<Team
+					users={this.props.notTeamUsers}
+					addTeamUser={this.props.addTeamUserRequest}
+					kanbanId={this.props.kanbanId}
+					handleDrop={this.handleAdd}
+				/>
+			</section>
 		)
 	}
 }
@@ -28,10 +49,10 @@ const mapStateToProps = (state) => {
 		// return only users in team
 		teamUsers: state.team.filter(user => state.kanban.users.includes(user._id)),
 		// return only users not in team
-		allUsers: state.team.filter(user => !state.kanban.users.includes(user._id)),
+		notTeamUsers: state.team.filter(user => !state.kanban.users.includes(user._id)),
 	} : {
 		teamUsers: [],
-		allUsers: [],
+		notTeamUsers: [],
 	}
 	return {
 		...users(),
@@ -43,7 +64,7 @@ const mapDispathToProps = (dispatch) => {
 	return bindActionCreators({ addTeamUserRequest, removeTeamUserRequest, createTeamRequest}, dispatch);
 }
 
-export default connect(
+export default DragDropContext(HTML5Backend)(connect(
 	mapStateToProps,
 	mapDispathToProps,
-)(TeamContainer)
+)(TeamContainer))

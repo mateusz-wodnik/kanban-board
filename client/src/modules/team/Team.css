@@ -1,11 +1,15 @@
 .manage-users {
     display: flex;
     justify-content: space-between;
+    height: 100%;
 }
 
 .manage-users__col {
     display: flex;
     flex-flow: row wrap;
+    align-content: flex-start;
+    border: 5px solid;
+    width: 50%;
 }
 
 .manage-users__col--in {
@@ -14,5 +18,15 @@
 
 .manage-users__col--out {
     justify-content: flex-end;
+}
 
+.target {
+    background: rgba(255, 215, 0, 0.1);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {background: rgba(255, 215, 0, 0.1);}
+    50% {background: rgba(255, 215, 0, 0.3);}
+    100% {background: rgba(255, 215, 0, 0.1);}
 }

@@ -24,6 +24,10 @@ var _note = require('../models/note');
 
 var _note2 = _interopRequireDefault(_note);
 
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -74,7 +78,7 @@ function updateKanban(req, res) {
 	    _req$body$admins = _req$body.admins,
 	    admins = _req$body$admins === undefined ? req.session.userId : _req$body$admins,
 	    _req$body$users = _req$body.users,
-	    users = _req$body$users === undefined ? '' : _req$body$users,
+	    users = _req$body$users === undefined ? req.session.userId : _req$body$users,
 	    _req$body$remove = _req$body.remove,
 	    remove = _req$body$remove === undefined ? false : _req$body$remove,
 	    body = _objectWithoutProperties(_req$body, ['admins', 'users', 'remove']);

@@ -1,6 +1,7 @@
 import Kanban from '../models/kanban';
 import Lane from '../models/lane'
 import Note from '../models/note'
+import mongoose from 'mongoose'
 
 export function getKanbans(req, res) {
 	console.log('Received GET request')
@@ -40,11 +41,12 @@ export function addKanban(req, res) {
 
 export function updateKanban(req, res) {
 	console.log(`Received PUT`)
-	const {admins= req.session.userId, users= '', remove=false, ...body} = req.body
+	const {admins= req.session.userId, users= req.session.userId, remove=false, ...body} = req.body
 	const update = remove ? {$set: {...body}, $pull: {users}} : {$set: {...body}, $addToSet: {admins, users}};
 	Kanban.findOneAndUpdate(
 		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},
-		update)
+		update
+	)
 		.populate('lanes')
 		.then(kanban => {
 				if(!kanban) throw Error('kanban not found // you have no credentials to modify')
