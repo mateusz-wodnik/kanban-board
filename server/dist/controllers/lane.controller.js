@@ -23,6 +23,8 @@ var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 function getLanes(req, res) {
 	console.log('Received GET request');
 	_lane2.default.find({ $or: [{ admins: req.session.userId }, { users: req.session.userId }] }, function (err, docs) {
@@ -52,7 +54,17 @@ function addLane(req, res) {
 
 function updateLane(req, res) {
 	console.log('Received PUT');
-	_lane2.default.update({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, req.body, function (err) {
+	var query = req.query.notes;
+	console.log(query);
+
+	var _req$body2 = req.body,
+	    notes = _req$body2.notes,
+	    body = _objectWithoutProperties(_req$body2, ['notes']);
+
+	var update = req.body;
+	if (query && notes) update = query === 'true' ? { $pull: { notes: notes } } : { $addToSet: { notes: notes } };
+	console.log(update);
+	_lane2.default.update({ $and: [{ _id: req.params.id }, { admins: req.session.userId }] }, update, function (err) {
 		return res.send(err || { _id: req.params.id });
 	});
 }

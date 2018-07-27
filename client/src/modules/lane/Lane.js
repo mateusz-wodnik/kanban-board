@@ -39,7 +39,7 @@ class Lane extends React.Component {
 	}
 
 	render() {
-		const { lane, deleteLaneRequest, laneNotes } = this.props;
+		const { lane, deleteLaneRequest, laneNotes, edit } = this.props;
 		const laneId = lane._id
 		return (
 			<section id={laneId} className="lane card" style={{background: lane.color}}>
@@ -50,7 +50,7 @@ class Lane extends React.Component {
 						contentEditable={!!this.props.edit} suppressContentEditableWarning
 					>{lane.name}</h5>
 					<span className="lane__count badge badge-pill badge-light">{laneNotes.length}</span>
-					{this.props.edit ?
+					{edit ?
 						<React.Fragment>
 							<button
 								onClick={() => deleteLaneRequest(laneId)}
@@ -64,7 +64,7 @@ class Lane extends React.Component {
 						</React.Fragment> : null
 					}
 				</header>
-				<Notes laneId={laneId} notes={laneNotes}/>
+				<Notes laneId={laneId} notes={laneNotes} updateLaneRequest={this.props.updateLaneRequest}/>
 					{this.props.edit ?
 						<div className="card-footer">
 							<input

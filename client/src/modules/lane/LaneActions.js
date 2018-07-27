@@ -38,16 +38,18 @@ export function createLaneRequest(kanbanId, lane) {
 	}
 }
 
-export function updateLane(lane) {
+export function updateLane(id, lane, notes) {
 	return {
 		type: UPDATE_LANE,
 		lane,
+		id,
+		notes
 	}
 }
 
-export function updateLaneRequest(id, lane) {
+export function updateLaneRequest(id, lane, notes='') {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/lanes/${id}`, {
+		return fetch(`http://localhost:3000/api/lanes/${id}?notes=${notes}`, {
 			method: "PUT",
 			credentials: 'include',
 			headers: {
@@ -56,7 +58,7 @@ export function updateLaneRequest(id, lane) {
 			},
 			body: JSON.stringify(lane)
 		})
-		.then(() => dispatch(updateLane(id, lane)))
+		.then(() => dispatch(updateLane(id, lane, notes)))
 	}
 }
 

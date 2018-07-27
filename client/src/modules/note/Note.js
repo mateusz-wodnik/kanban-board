@@ -1,5 +1,6 @@
 import React from 'react';
 import './Note.css';
+import { DragSource } from 'react-dnd/lib/index'
 
 class Note extends React.Component {
 	constructor(props) {
@@ -56,8 +57,8 @@ class Note extends React.Component {
 	}
 
 	render() {
-		const {note, laneId, deleteNoteRequest, priority, isAdmin, team} = this.props
-		return (
+		const { note, laneId, deleteNoteRequest, priority, isAdmin, team, connectDragSource } = this.props
+		return connectDragSource(
 			<div className={`note card`} style={{borderColor: priority[note.priority]}}>
 				<div className="btn-group card-header" role="group" aria-label="First group">
 					<button
@@ -102,4 +103,31 @@ class Note extends React.Component {
 	}
 }
 
-export default Note;
+const type = 'note'
+
+const spec = {
+	beginDrag(props) {
+		// console.log(props)
+		return props
+	},
+	endDrag(props, monitor, component) {
+		// console.log(monitor, component)
+		// console.log(monitor.getItem().laneId)
+		// console.log(props)
+		const notes = props.note._id
+		props.updateLaneRequest(props.laneId, {notes}, true)
+		if(!monitor.didDrop()) return
+	}
+}
+
+const collect = (connect, monitor) => {
+	return {
+		connectDragSource: connect.dragSource(),
+		connectDragPreview: connect.dragPreview(),
+		isDragging: monitor.isDragging(),
+	}
+}
+
+export default DragSource(type, spec, collect)(Note);
+
+

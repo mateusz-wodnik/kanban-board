@@ -31,9 +31,15 @@ export function addLane(req, res) {
 
 export function updateLane(req, res) {
 	console.log(`Received PUT`)
+	const query = req.query.notes
+	console.log(query)
+	const { notes, ...body } = req.body
+	let update = req.body
+	if(query && notes) update = query === 'true' ? {$pull: {notes}} : {$addToSet: {notes}}
+	console.log(update)
 	Lane.update(
 		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},
-		req.body,
+		update,
 		err => res.send(err || {_id: req.params.id})
 	)
 }
