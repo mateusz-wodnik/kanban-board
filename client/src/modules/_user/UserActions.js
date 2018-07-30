@@ -5,7 +5,9 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 
 export function userGet () {
 	return (dispatch) => {
-		return fetch('http://localhost:3000/api/users/user', {credentials: 'include'})
+		return fetch('http://localhost:3000/api/users/user', {
+			credentials: 'include'
+		})
 			.then(res => res.json())
 			.then(res => {
 				if(!res) throw Error('User data not found')
@@ -29,7 +31,6 @@ export function userAuth(body) {
 		})
 			.then(res => res.json())
 			.then(res => {
-				console.log(res)
 				dispatch(fetchKanban(res.kanbans[0]._id))
 				dispatch(userState(res))
 			})

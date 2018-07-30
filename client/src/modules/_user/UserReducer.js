@@ -9,7 +9,6 @@ export default function lanes(state = initialState, action) {
 		case USER_LOGOUT:
 			return initialState
 
-
 		default:
 			return state
 	}
