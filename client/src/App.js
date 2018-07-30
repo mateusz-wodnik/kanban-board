@@ -9,7 +9,6 @@ import { hot } from 'react-hot-loader';
 import Kanban from './modules/kanban/Kanban'
 import NavbarContainer from './modules/navbar/NavbarContainer'
 import Sidebar from './modules/sidebar/Sidebar'
-import BoardEditor from './modules/boardEditor/BoardEditor'
 
 import { userAuth, userGet } from './modules/_user/UserActions'
 import AnalyticsContainer from './modules/analytics/AnalyticsContainer'
@@ -17,6 +16,7 @@ import Auth from './modules/auth/Auth'
 import { createTeamRequest } from './modules/team/TeamActions'
 import TeamContainer from './modules/team/TeamContainer'
 import CalendarContainer from './modules/calendar/CalendarContainer'
+import BoardEditorContainer from './modules/boardEditor/BoardEditorContainer'
 
 class App extends Component {
 	componentDidMount() {
@@ -40,7 +40,7 @@ class App extends Component {
 					<Route exact path='/' component={this.isUserLogged(Kanban)}/>
 					<Route path='/board' component={this.isUserLogged(Kanban)}/>
 					<Route path='/board-editor' component={this.isUserLogged(Kanban)}/>
-					<Route path='/create-board' component={this.isUserLogged(BoardEditor)}/>
+					<Route path='/create-board' component={this.isUserLogged(BoardEditorContainer)}/>
 					<Route path='/analytics' component={this.isUserLogged(AnalyticsContainer)}/>
 					<Route path='/calendar' component={this.isUserLogged(CalendarContainer)}/>
 					<Route path='/team' component={this.isUserLogged(TeamContainer)}/>
