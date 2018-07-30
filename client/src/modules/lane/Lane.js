@@ -6,7 +6,14 @@ class Lane extends React.Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			isAddVisible: false
+			isAddVisible: false,
+			isEdited: false
+		}
+	}
+
+	captionEdit = (e) => {
+		if(e.target.classList.contains('lane__name') || e.target.classList.contains('lane__color')) {
+			this.setState({isEdited: true})
 		}
 	}
 
@@ -32,6 +39,7 @@ class Lane extends React.Component {
 			color: laneUpdates[1].value
 		}
 		this.props.updateLaneRequest(lane.id, laneBody)
+		this.setState({isEdited: false})
 	}
 
 	handleColorChange = (e) => {
@@ -40,9 +48,10 @@ class Lane extends React.Component {
 
 	render() {
 		const { lane, deleteLaneRequest, laneNotes, edit } = this.props;
+		const { isEdited } = this.state;
 		const laneId = lane._id
 		return (
-			<section id={laneId} className="lane card" style={{background: lane.color}}>
+			<section onInput={this.captionEdit} id={laneId} className="lane card" style={{background: lane.color}}>
 				<header className="card-header">
 					<h5
 						name="name"
@@ -66,18 +75,18 @@ class Lane extends React.Component {
 				</header>
 				<Notes laneId={laneId} notes={laneNotes} updateLaneRequest={this.props.updateLaneRequest}/>
 					{this.props.edit ?
-						<div className="card-footer">
+						<div className="card-footer d-flex justify-content-between">
 							<input
 								onChange={this.handleColorChange}
-								id="laneColor"
-								className={`${this.props.edit ? ' editLane' : ''}`}
+								name="laneColor"
+								className={`lane__color h-100${this.props.edit ? ' editLane' : ''}`}
 								type="color"
 								defaultValue={lane.color}
 							/>
 							<button
 								onClick={this.handleEditLane}
-								className="btn"
-							>'✓' : '✎'</button>
+								className={`lane__confirm btn ${isEdited ? 'btn-warning' : 'btn-success'}`}
+							>{isEdited ? '✎' : '✓' }</button>
 						</div> : null}
 
 			</section>
