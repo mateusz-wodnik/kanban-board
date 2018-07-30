@@ -9,7 +9,7 @@ const Kanban = new Schema({
 	creationDate: { type: Date, default: Date.now },
 	admins: [{ type: Schema.ObjectId, ref: 'User' }],
 	users: [{ type: Schema.ObjectId, ref: 'User' }],
-	isAdmin: {type: Boolean}
+	isAdmin: {type: Boolean},
 });
 
 
