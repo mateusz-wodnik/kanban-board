@@ -20,7 +20,7 @@ export function createLaneRequest(kanbanId, lane) {
 			lane,
 			kanbanId,
 		}
-		return fetch('http://localhost:3000/api/lanes', {
+		return fetch('/api/lanes', {
 			method: "POST",
 			credentials: 'include',
 			headers: {
@@ -49,7 +49,7 @@ export function updateLane(id, lane, notes) {
 
 export function updateLaneRequest(id, lane, notes='') {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/lanes/${id}?notes=${notes}`, {
+		return fetch(`/api/lanes/${id}?notes=${notes}`, {
 			method: "PUT",
 			credentials: 'include',
 			headers: {
@@ -72,7 +72,7 @@ export function deleteLane(laneId) {
 
 export function deleteLaneRequest(laneId) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/lanes/${laneId}`, {
+		return fetch(`/api/lanes/${laneId}`, {
 			credentials: 'include',
 			method: "DELETE",
 		})

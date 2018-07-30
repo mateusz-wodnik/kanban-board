@@ -15,7 +15,7 @@ export function createKanban(raw, kanban, lanes, notes) {
 
 export function createKanbanRequest(kanban) {
 	return (dispatch) => {
-		return fetch('http://localhost:3000/api/kanbans', {
+		return fetch('/api/kanbans', {
 			method: "POST",
 			credentials: 'include',
 			headers: {
@@ -45,7 +45,7 @@ export function createKanbanRequest(kanban) {
 
 export function fetchKanban(id) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/kanbans/${id}`, {
+		return fetch(`/api/kanbans/${id}`, {
 			credentials: 'include',
 		})
 			.then(res => res.json())
@@ -69,7 +69,7 @@ export function fetchKanban(id) {
 
 export function updateKanbanRequest(kanban, kanbanId) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/kanbans/${kanbanId}`, {
+		return fetch(`/api/kanbans/${kanbanId}`, {
 			method: "PUT",
 			credentials: 'include',
 			headers: {
@@ -106,7 +106,7 @@ export function deleteKanban(kanbanId) {
 
 export function deleteKanbanRequest(kanbanId) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/kanbans/${kanbanId}`, {
+		return fetch(`/api/kanbans/${kanbanId}`, {
 			method: "DELETE"
 		})
 			.then(() => dispatch(deleteKanban(kanbanId)))

@@ -17,7 +17,7 @@ export function createNoteRequest(laneId, note) {
 			note,
 			laneId,
 		}
-		return fetch(`http://localhost:3000/api/notes`, {
+		return fetch(`/api/notes`, {
 			method: "POST",
 			credentials: 'include',
 			headers: {
@@ -55,7 +55,7 @@ export function updateNote(_id, note) {
 export function updateNoteRequest(_id, note) {
 	console.log(note)
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/notes/${_id}`, {
+		return fetch(`/api/notes/${_id}`, {
 			method: "PUT",
 			credentials: 'include',
 			headers: {
@@ -71,7 +71,7 @@ export function updateNoteRequest(_id, note) {
 
 export function takeTask(_id, taken) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/notes/${_id}/takeTask`, {
+		return fetch(`/api/notes/${_id}/takeTask`, {
 			method: "PUT",
 			credentials: 'include',
 			headers: {
@@ -95,7 +95,7 @@ export function deleteNote(noteId, laneId) {
 
 export function deleteNoteRequest(noteId, laneId) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/notes/${noteId}`, {
+		return fetch(`/api/notes/${noteId}`, {
 			credentials: 'include',
 			method: "DELETE",
 		})
