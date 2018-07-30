@@ -35,16 +35,18 @@ class AnalyticsContainer extends Component {
 			const hours = [0, toHours(new Date(note.dueDate)) - toHours(new Date())]
 			return {name: note.name, hours}
 		}).sort((a, b) => a.hours[1] < b.hours[1])
-		console.log(output)
 		return output
 	}
 
 	render() {
-		return <Analytics
-			lanes={this.handleData()}
-			priority={this.handlePriority()}
-			date={this.handleDate()}
-		/>
+		const { handleDate, handlePriority, handleData } = this
+		return (
+			<Analytics
+				lanes={handleData()}
+				priority={handlePriority()}
+				date={handleDate()}
+			/>
+		)
 	}
 }
 
