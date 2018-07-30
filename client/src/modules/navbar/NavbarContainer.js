@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createLaneRequest } from '../lane/LaneActions';
 import { connect } from 'react-redux';
-import { fetchKanban, getKanbansRequest } from '../kanban/KanbanActions';
+import { fetchKanban } from '../kanban/KanbanActions';
 import { userLogoutRequest } from '../_user/UserActions';
 import { bindActionCreators } from 'redux';
 import Navbar from './Navbar'
@@ -70,7 +70,6 @@ const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		addLane: createLaneRequest,
 		fetchKanban,
-		getKanbansRequest,
 		userLogoutRequest
 	}, dispatch);
 }

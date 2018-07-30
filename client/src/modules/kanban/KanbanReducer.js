@@ -14,11 +14,9 @@ export default function lanes(state = initialState, action) {
 			return {...state, ...action.kanban};
 
 		case ADD_TEAM_USER:
-			console.log(action)
 			return {...state, users: [...state.users, action.user]}
 
 		case REMOVE_TEAM_USER:
-			console.log(action)
 			return {...state, users: state.users.filter(user => user !== action.user)}
 
 		case DELETE_KANBAN:

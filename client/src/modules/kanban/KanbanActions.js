@@ -30,7 +30,6 @@ export function createKanbanRequest(kanban) {
 			const raw = {...res}
 			let lanes = []
 			let notes = []
-			console.log(res)
 			res.lanes = res.lanes.map(lane => {
 				lane.notes = lane.notes.map(note => {
 					notes.push(note)
@@ -41,7 +40,7 @@ export function createKanbanRequest(kanban) {
 			})
 			dispatch(createKanban(raw, res, lanes, notes));
 		})
-		.catch(err => console.log(err))
+		.catch(console.error)
 	}
 }
 
@@ -55,7 +54,6 @@ export function fetchKanban(id) {
 				const raw = {...res}
 				let lanes = []
 				let notes = []
-				console.log(res)
 				res.lanes = res.lanes.map(lane => {
 					lane.notes = lane.notes.map(note => {
 						notes.push(note)
@@ -66,26 +64,8 @@ export function fetchKanban(id) {
 				})
 				dispatch(createKanban(raw, res, lanes, notes));
 			})
-			.catch(err => console.log(err))
+			.catch(console.error)
 	};
-}
-
-export function getKanbansRequest() {
-	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/kanbans`)
-			.then(res => res.json())
-			.then(res => {
-				console.log(res)
-			})
-	}
-}
-
-export function updateKanban(kanban, kanbanId) {
-	return {
-		type: UPDATE_KANBAN,
-		kanban,
-		kanbanId
-	}
 }
 
 export function updateKanbanRequest(kanban, kanbanId) {
@@ -104,7 +84,6 @@ export function updateKanbanRequest(kanban, kanbanId) {
 				const raw = {...res}
 				let lanes = []
 				let notes = []
-				console.log(res)
 				res.lanes = res.lanes.map(lane => {
 					lane.notes = lane.notes.map(note => {
 						notes.push(note)
@@ -115,7 +94,7 @@ export function updateKanbanRequest(kanban, kanbanId) {
 				})
 				dispatch(createKanban(raw, res, lanes, notes));
 			})
-			.catch(err => console.log(err))
+			.catch(console.error)
 	}
 }
 
@@ -132,13 +111,4 @@ export function deleteKanbanRequest(kanbanId) {
 			{ method: "DELETE"})
 			.then(() => dispatch(deleteKanban(kanbanId)))
 	}
-}
-
-
-
-export function createKanbans(kanbans) {
-	return {
-		type: CREATE_KANBANS,
-		kanbans
-	};
 }
