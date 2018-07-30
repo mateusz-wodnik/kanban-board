@@ -16,6 +16,7 @@ import AnalyticsContainer from './modules/analytics/AnalyticsContainer'
 import Auth from './modules/auth/Auth'
 import { createTeamRequest } from './modules/team/TeamActions'
 import TeamContainer from './modules/team/TeamContainer'
+import CalendarContainer from './modules/calendar/CalendarContainer'
 
 class App extends Component {
 	componentDidMount() {
@@ -41,6 +42,7 @@ class App extends Component {
 					<Route path='/board-editor' component={this.isUserLogged(Kanban)}/>
 					<Route path='/create-board' component={this.isUserLogged(BoardEditor)}/>
 					<Route path='/analytics' component={this.isUserLogged(AnalyticsContainer)}/>
+					<Route path='/calendar' component={this.isUserLogged(CalendarContainer)}/>
 					<Route path='/team' component={this.isUserLogged(TeamContainer)}/>
 				</div>
 			</div>
