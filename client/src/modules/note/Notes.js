@@ -26,17 +26,10 @@ const collect = (connect, monitor) => {
 }
 
 const spec = {
-	// hover(props, monitor, component) {
-	// 	// console.log(monitor.getItem().laneId)
-	// 	console.log(props.laneId)
-	// }
-	drop(props, monitor, component) {
+	drop(props, monitor) {
 		const notes = monitor.getItem().note._id
 		props.updateLaneRequest(props.laneId, {notes}, false)
 	}
-	// canDrop(props, monitor) {
-	// 	return !props.users.some(user => monitor.getItem().user._id === user._id)
-	// }
 }
 
 export default DropTarget('note', spec, collect)(Notes);
