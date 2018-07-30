@@ -5,7 +5,7 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 
 export function userGet () {
 	return (dispatch) => {
-		return fetch('http://localhost:3000/api/users/user', {
+		return fetch('/api/users/user', {
 			credentials: 'include',
 		})
 			.then(res => res.json())
@@ -20,7 +20,7 @@ export function userGet () {
 
 export function userAuth(body) {
 	return (dispatch) => {
-		return fetch('http://localhost:3000/api/users/login', {
+		return fetch('/api/users/login', {
 			method: "POST",
 			credentials: 'include',
 			headers: {
@@ -40,7 +40,7 @@ export function userAuth(body) {
 
 export function userLogoutRequest() {
 	return (dispatch) => {
-		return fetch('http://localhost:3000/api/users/logout', {
+		return fetch('/api/users/logout', {
 			credentials: 'include',
 		})
 			.then(res => dispatch(userLogout()))
@@ -56,7 +56,7 @@ export function userLogout() {
 
 export function userRegister(body) {
 	return (dispatch) => {
-		return fetch('http://localhost:3000/api/users/register', {
+		return fetch('/api/users/register', {
 			method: "POST",
 			credentials: 'include',
 			headers: {
