@@ -26,9 +26,6 @@
 }
 
 .lane__add {
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*right: 0;*/
     margin-left: 10px;
 }
 
@@ -36,8 +33,4 @@
     display: flex;
     align-items: center;
     margin-left: 10px;
-}
-
-.lane__color {
-
 }

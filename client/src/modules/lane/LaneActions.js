@@ -34,7 +34,7 @@ export function createLaneRequest(kanbanId, lane) {
 				return res.json()
 			})
 			.then(res => dispatch(createLane(res)))
-			.catch(err => console.log(err))
+			.catch(console.error)
 	}
 }
 
