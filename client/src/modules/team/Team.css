@@ -10,6 +10,7 @@
     align-content: flex-start;
     border: 5px solid;
     width: 50%;
+    background-position: center;
 }
 
 .manage-users__col--in {

@@ -15,14 +15,6 @@ class TeamContainer extends Component {
 		this.props.createTeamRequest()
 	}
 
-	handleAdd(id) {
-		console.log('add', id)
-	}
-
-	handleRemove(id) {
-		console.log('remove', id)
-	}
-
 	render() {
 		return(
 			<section className="manage-users">
@@ -30,13 +22,15 @@ class TeamContainer extends Component {
 					users={this.props.teamUsers}
 					removeTeamUser={this.props.removeTeamUserRequest}
 					kanbanId={this.props.kanbanId}
-					handleDrop={this.handleRemove}
+					identifier={'in'}
+					name={'In project'}
 				/>
 				<Team
 					users={this.props.notTeamUsers}
 					addTeamUser={this.props.addTeamUserRequest}
 					kanbanId={this.props.kanbanId}
-					handleDrop={this.handleAdd}
+					indentifier={'out'}
+					name={'Out of project'}
 				/>
 			</section>
 		)
