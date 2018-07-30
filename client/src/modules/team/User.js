@@ -2,10 +2,9 @@ import React from 'react';
 import { DragSource } from 'react-dnd/lib/index'
 
 const User = ({ user, kanbanId, addTeamUser, removeTeamUser, handleDrop, isDragging, connectDragSource}) => {
-	const { _id, firstname, lastname, username, email } = user
+	const { _id, firstname, lastname } = user
 	return connectDragSource(
 		<div className="user card list-group-item" style={{opacity: isDragging ? 0 : 1}}>
-			{/*<img className="card-img-top" src=".../100px180/" alt="Card image cap" />*/}
 				<div className="card-body">
 					<h5 className="card-title">{firstname} {lastname}</h5>
 					<button
@@ -17,6 +16,8 @@ const User = ({ user, kanbanId, addTeamUser, removeTeamUser, handleDrop, isDragg
 	)
 }
 
+
+// React DnD config
 const type = 'user'
 
 const spec = {

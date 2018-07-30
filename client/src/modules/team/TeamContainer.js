@@ -16,19 +16,20 @@ class TeamContainer extends Component {
 	}
 
 	render() {
+		const { teamUsers, removeTeamUserRequest, kanbanId, notTeamUsers, addTeamUserRequest } = this.props
 		return(
 			<section className="manage-users">
 				<Team
-					users={this.props.teamUsers}
-					removeTeamUser={this.props.removeTeamUserRequest}
-					kanbanId={this.props.kanbanId}
+					users={teamUsers}
+					removeTeamUser={removeTeamUserRequest}
+					kanbanId={kanbanId}
 					identifier={'in'}
 					name={'In project'}
 				/>
 				<Team
-					users={this.props.notTeamUsers}
-					addTeamUser={this.props.addTeamUserRequest}
-					kanbanId={this.props.kanbanId}
+					users={notTeamUsers}
+					addTeamUser={addTeamUserRequest}
+					kanbanId={kanbanId}
 					indentifier={'out'}
 					name={'Out of project'}
 				/>

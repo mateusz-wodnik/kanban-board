@@ -15,8 +15,8 @@ const Team = ({users, addTeamUser, removeTeamUser,kanbanId, handleDrop,
 							kanbanId={kanbanId}
 							addTeamUser={addTeamUser}
 							removeTeamUser={removeTeamUser}
-							key={idx}
 							handleDrop={handleDrop}
+							key={idx}
 				/>
 			)}
 		</div>
