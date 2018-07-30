@@ -7,7 +7,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import { hot } from 'react-hot-loader';
 
 import Kanban from './modules/kanban/Kanban'
-import Navbar from './modules/navbar/Navbar'
+import NavbarContainer from './modules/navbar/NavbarContainer'
 import Sidebar from './modules/sidebar/Sidebar'
 import BoardEditor from './modules/boardEditor/BoardEditor'
 
@@ -34,7 +34,7 @@ class App extends Component {
 		const {isLogged, isAdmin, user} = this.props
 		return (
 			<div className="app container-fluid p-0">
-				<Navbar />
+				<NavbarContainer />
 				<Sidebar isAdmin={isAdmin}/>
 				<div className="content">
 					<Route exact path='/' component={this.isUserLogged(Kanban)}/>
