@@ -21,10 +21,9 @@ class CalendarContainer extends Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
 		events: state.notes.map(note => {
-			console.log(note)
 			return {
 				id: note._id,
 				title: note.name,
