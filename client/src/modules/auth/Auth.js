@@ -6,10 +6,6 @@ import { userAuth, userRegister } from '../_user/UserActions'
 import { connect } from 'react-redux';
 
 class Auth extends React.Component {
-	constructor (props) {
-		super(props)
-	}
-
 	handleRegister = (e) =>{
 		e.preventDefault()
 		const {firstname, lastname, password, passwordconfirm, username, email} = e.target.form.elements
@@ -36,10 +32,11 @@ class Auth extends React.Component {
 	}
 
 	render() {
+		const { handleLogin, handleRegister } = this
 		return(
 			<section className="register">
-				<Login handleLogin={this.handleLogin}/>
-				<Register handleRegister={this.handleRegister}/>
+				<Login handleLogin={handleLogin}/>
+				<Register handleRegister={handleRegister}/>
 			</section>
 		)
 	}
