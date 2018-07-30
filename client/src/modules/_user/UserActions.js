@@ -1,20 +1,20 @@
-import { fetchKanban } from '../kanban/KanbanActions'
+import { fetchKanban } from '../kanban/KanbanActions';
 
-export const USER_AUTH = 'USER_AUTH'
-export const USER_LOGOUT = 'USER_LOGOUT'
+export const USER_AUTH = 'USER_AUTH';
+export const USER_LOGOUT = 'USER_LOGOUT';
 
 export function userGet () {
 	return (dispatch) => {
 		return fetch('http://localhost:3000/api/users/user', {
-			credentials: 'include'
+			credentials: 'include',
 		})
 			.then(res => res.json())
 			.then(res => {
-				if(!res) throw Error('User data not found')
-				dispatch(fetchKanban(res.kanbans[0]._id))
-				dispatch(userState(res))
+				if(!res) throw Error('User data not found');
+				dispatch(fetchKanban(res.kanbans[0]._id));
+				dispatch(userState(res));
 			})
-			.catch(err => console.log(err))
+			.catch(console.error);
 	}
 }
 
@@ -25,16 +25,16 @@ export function userAuth(body) {
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
 		})
 			.then(res => res.json())
 			.then(res => {
-				dispatch(fetchKanban(res.kanbans[0]._id))
-				dispatch(userState(res))
+				dispatch(fetchKanban(res.kanbans[0]._id));
+				dispatch(userState(res));
 			})
-			.catch(err => console.log(err))
+			.catch(console.error);
 	}
 }
 
@@ -44,13 +44,13 @@ export function userLogoutRequest() {
 			credentials: 'include',
 		})
 			.then(res => dispatch(userLogout()))
-			.catch(err => console.log(err))
+			.catch(err => console.log(err));
 	}
 }
 
 export function userLogout() {
 	return {
-		type: USER_LOGOUT
+		type: USER_LOGOUT,
 	}
 }
 
@@ -61,16 +61,15 @@ export function userRegister(body) {
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
 		})
 			.then(res => res.json())
 			.then(res => {
-				dispatch(userState(res))
-
+				dispatch(userState(res));
 			})
-			.catch(err => console.log(err))
+			.catch(console.error);
 	}
 }
 

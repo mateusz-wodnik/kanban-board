@@ -1,6 +1,6 @@
 import React from 'react';
-import Note from './NoteContainer'
-import { DropTarget } from 'react-dnd/lib/index'
+import Note from './NoteContainer';
+import { DropTarget } from 'react-dnd/lib/index';
 
 const Notes = ({ notes, laneId, connectDropTarget, updateLaneRequest }) => {
 	return connectDropTarget(
@@ -14,21 +14,21 @@ const Notes = ({ notes, laneId, connectDropTarget, updateLaneRequest }) => {
 				/>
 			))}
 		</div>
-	)
+	);
 }
 
 const collect = (connect, monitor) => {
 	return {
 		connectDropTarget: connect.dropTarget(),
 		hovered: monitor.isOver(),
-		item: monitor.getItem()
+		item: monitor.getItem(),
 	}
 }
 
 const spec = {
 	drop(props, monitor) {
-		const notes = monitor.getItem().note._id
-		props.updateLaneRequest(props.laneId, {notes}, false)
+		const notes = monitor.getItem().note._id;
+		props.updateLaneRequest(props.laneId, {notes}, false);
 	}
 }
 

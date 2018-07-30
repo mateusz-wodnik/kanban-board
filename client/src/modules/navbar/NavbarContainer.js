@@ -4,30 +4,30 @@ import { connect } from 'react-redux';
 import { fetchKanban } from '../kanban/KanbanActions';
 import { userLogoutRequest } from '../_user/UserActions';
 import { bindActionCreators } from 'redux';
-import Navbar from './Navbar'
+import Navbar from './Navbar';
 
 class NavbarContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			kanbans: [],
-			isAddVisible: false
+			isAddVisible: false,
 		}
 	}
 
 	handleAddLane = () => {
 		if(this.state.isAddVisible) {
-			const name = document.querySelector('#newLaneName').value
-			this.props.addLane(this.props.kanban._id, {name})
-			this.setState({isAddVisible: false})
+			const name = document.querySelector('#newLaneName').value;
+			this.props.addLane(this.props.kanban._id, {name});
+			this.setState({isAddVisible: false});
 		} else {
-			this.setState({isAddVisible: true})
+			this.setState({isAddVisible: true});
 		}
 	}
 
 	render() {
-		const {user, edit, fetchKanban, kanbans, kanban, userLogoutRequest} = this.props
-		const { isAddVisible } = this.state
+		const {user, edit, fetchKanban, kanbans, kanban, userLogoutRequest} = this.props;
+		const { isAddVisible } = this.state;
 		return (
 			<Navbar
 				user={user}
@@ -40,7 +40,7 @@ class NavbarContainer extends Component {
 				handleAddLane={this.handleAddLane}
 				AddNameModal={this.AddNameModal}
 			/>
-		)
+		);
 	}
 
 	AddNameModal = () => (
@@ -55,22 +55,21 @@ class NavbarContainer extends Component {
 			aria-label="Lane name"
 			aria-describedby="basic-addon1"
 		/>
-	)
-
+	);
 }
 
 const mapStateToProps = state => ({
 	edit: state.edit,
 	kanbans: state.user.kanbans || [],
-	kanban: state.kanban ,
-	user: state.user
-})
+	kanban: state.kanban,
+	user: state.user,
+});
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		addLane: createLaneRequest,
 		fetchKanban,
-		userLogoutRequest
+		userLogoutRequest,
 	}, dispatch);
 }
 

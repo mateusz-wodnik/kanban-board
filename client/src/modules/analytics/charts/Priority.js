@@ -5,7 +5,7 @@ import {
 	Tooltip,
 	Legend,
 	Cell,
-} from 'recharts'
+} from 'recharts';
 
 const PriorityChart = ({data}) => (
 	<PieChart className="chart" width={400} height={300}>
@@ -24,6 +24,6 @@ const PriorityChart = ({data}) => (
 		</Pie>
 		<Legend layout={'vertical'} align={'left'} verticalAlign={'middle'}/>
 	</PieChart>
-)
+);
 
 export default PriorityChart;

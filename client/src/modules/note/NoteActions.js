@@ -7,7 +7,7 @@ export function createNote(laneId, note) {
 	return {
 		type: CREATE_NOTE,
 		laneId,
-		note
+		note,
 	}
 }
 
@@ -15,33 +15,32 @@ export function createNoteRequest(laneId, note) {
 	return (dispatch) => {
 		const body = {
 			note,
-			laneId
+			laneId,
 		}
 		return fetch(`http://localhost:3000/api/notes`, {
 			method: "POST",
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
 		})
 			.then(res => {
-				if(!res.ok) throw Error('Cannot create new note')
-				return res.json()
+				if(!res.ok) throw Error('Cannot create new note');
+				return res.json();
 			})
 			.then(res => {
-				console.log(res)
-				dispatch(createNote(laneId, res))
+				dispatch(createNote(laneId, res));
 			})
-			.catch(err => console.log(err))
+			.catch(console.error);
 	}
 }
 
 export function createNotes(notes) {
 	return {
 		type: CREATE_NOTES,
-		notes
+		notes,
 	}
 }
 
@@ -49,7 +48,7 @@ export function updateNote(_id, note) {
 	return {
 		type: UPDATE_NOTE,
 		_id,
-		note
+		note,
 	}
 }
 
@@ -61,11 +60,12 @@ export function updateNoteRequest(_id, note) {
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(note)
+			body: JSON.stringify(note),
 		})
 			.then(res => dispatch(updateNote(_id, note)))
+			.catch(console.error);
 	}
 }
 
@@ -76,11 +76,12 @@ export function takeTask(_id, taken) {
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(taken)
+			body: JSON.stringify(taken),
 		})
 			.then(res => dispatch(updateNote(_id, taken)))
+			.catch(console.error);
 	}
 }
 
@@ -88,7 +89,7 @@ export function deleteNote(noteId, laneId) {
 	return {
 		type: DELETE_NOTE,
 		noteId,
-		laneId
+		laneId,
 	}
 }
 
@@ -96,8 +97,9 @@ export function deleteNoteRequest(noteId, laneId) {
 	return (dispatch) => {
 		return fetch(`http://localhost:3000/api/notes/${noteId}`, {
 			credentials: 'include',
-			method: "DELETE"
+			method: "DELETE",
 		})
 			.then(res => dispatch(deleteNote(noteId, laneId)))
+			.catch(console.error);
 	}
 }

@@ -5,22 +5,22 @@ import {
 	XAxis,
 	Tooltip,
 	Cell,
-} from 'recharts'
+} from 'recharts';
 
 const LanesChart = ({data, className}) => (
 	<BarChart className={`chart ${className}`} width={400} height={300} data={data}>
 		<XAxis dataKey="name"/>
-		<Tooltip formatter={(val, name, props) => {
+		<Tooltip formatter={(val, name) => {
 			if(name === 'notes') {
 				name = 'Notes number'
 				return val += '%'
 			}
-			if(name === 'notesNumber') return name = 'Notes number'
+			if(name === 'notesNumber') return name = 'Notes number';
 		}}/>
 		<Bar dataKey="notes">
 			{data.map((lane, idx) => <Cell key={idx} fill={lane.color}/>)}
 		</Bar>
 	</BarChart>
-)
+);
 
 export default LanesChart;

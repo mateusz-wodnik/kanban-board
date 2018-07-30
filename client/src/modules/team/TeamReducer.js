@@ -1,4 +1,4 @@
-import { CREATE_TEAM } from './TeamActions'
+import { CREATE_TEAM } from './TeamActions';
 
 const initialState = [];
 

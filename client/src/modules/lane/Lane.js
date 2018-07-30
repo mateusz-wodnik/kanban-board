@@ -1,6 +1,6 @@
-import React from 'react'
-import Notes from '../note/Notes'
-import './Lane.css'
+import React from 'react';
+import Notes from '../note/Notes';
+import './Lane.css';
 
 const Lane = ({ lane,
 								deleteLaneRequest,
@@ -14,7 +14,8 @@ const Lane = ({ lane,
 								handleColorChange,
 								handleEditLane,
 								handleAddNote,
-								captionEdit,}) => (
+								captionEdit,
+}) => (
 	<section onInput={captionEdit} id={laneId} className="lane card" style={{background: lane.color}}>
 		<header className="card-header">
 			<h5

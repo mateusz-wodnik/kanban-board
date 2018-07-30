@@ -20,6 +20,6 @@ const Priority = ({ name, color, handleColorChange }) => (
 			</div>
 		</div>
 	</div>
-)
+);
 
 export default Priority;

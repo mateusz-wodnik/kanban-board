@@ -6,5 +6,5 @@ const lane = new schema.Entity('lanes', {
 	notes: [note],
 });
 
-export const lanes = [lane]
+export const lanes = [lane];
 

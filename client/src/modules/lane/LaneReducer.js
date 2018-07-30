@@ -14,12 +14,12 @@ export default function lanes(state = initialState, action) {
 
 		case CREATE_KANBAN:
 		case CREATE_LANES:
-			return action.lanes
+			return action.lanes;
 
 		case UPDATE_LANE:
 			return state.map(lane => {
-				const notes = action.notes ? lane.notes.filter(note => note !== action.lane.notes) : [...lane.notes, action.lane.notes]
-				const out = action.lane.notes ? { ...lane, notes } : {...lane, ...action.lane}
+				const notes = action.notes ? lane.notes.filter(note => note !== action.lane.notes) : [...lane.notes, action.lane.notes];
+				const out = action.lane.notes ? { ...lane, notes } : {...lane, ...action.lane};
 				return lane._id === action.id ? out : lane;
 			});
 
@@ -38,14 +38,14 @@ export default function lanes(state = initialState, action) {
 		case DELETE_NOTE:
 			return state.map(lane => {
 				if(lane._id === action.laneId) {
-					const notes = lane.notes.filter(note => note !== action.noteId)
-					return {...lane, notes}
+					const notes = lane.notes.filter(note => note !== action.noteId);
+					return {...lane, notes};
 				}
-				return lane
+				return lane;
 			})
 
 		case USER_LOGOUT:
-			return initialState
+			return initialState;
 
 		default:
 			return state;

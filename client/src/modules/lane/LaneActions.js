@@ -18,23 +18,23 @@ export function createLaneRequest(kanbanId, lane) {
 	return (dispatch) => {
 		const body = {
 			lane,
-			kanbanId
+			kanbanId,
 		}
 		return fetch('http://localhost:3000/api/lanes', {
 			method: "POST",
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(body)
+			body: JSON.stringify(body),
 		})
 			.then(res => {
-				if(!res.ok) throw Error('Cannot create new lane')
-				return res.json()
+				if(!res.ok) throw Error('Cannot create new lane');
+				return res.json();
 			})
 			.then(res => dispatch(createLane(res)))
-			.catch(console.error)
+			.catch(console.error);
 	}
 }
 
@@ -43,7 +43,7 @@ export function updateLane(id, lane, notes) {
 		type: UPDATE_LANE,
 		lane,
 		id,
-		notes
+		notes,
 	}
 }
 
@@ -54,18 +54,19 @@ export function updateLaneRequest(id, lane, notes='') {
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(lane)
+			body: JSON.stringify(lane),
 		})
-		.then(() => dispatch(updateLane(id, lane, notes)))
+			.then(() => dispatch(updateLane(id, lane, notes)))
+			.catch(console.error);
 	}
 }
 
 export function deleteLane(laneId) {
 	return {
 		type: DELETE_LANE,
-		laneId
+		laneId,
 	}
 }
 
@@ -73,15 +74,16 @@ export function deleteLaneRequest(laneId) {
 	return (dispatch) => {
 		return fetch(`http://localhost:3000/api/lanes/${laneId}`, {
 			credentials: 'include',
-			method: "DELETE"
+			method: "DELETE",
 		})
 			.then(() => dispatch(deleteLane(laneId)))
+			.catch(console.error);
 	}
 }
 
 export function createLanes(lanes) {
 	return {
 		type: CREATE_LANES,
-		lanes
+		lanes,
 	};
 }

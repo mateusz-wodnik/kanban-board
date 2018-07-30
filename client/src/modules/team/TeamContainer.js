@@ -4,20 +4,23 @@ import { bindActionCreators } from 'redux';
 import { createTeamRequest, addTeamUserRequest, removeTeamUserRequest } from './TeamActions';
 import Team from './Team';
 
-import HTML5Backend from 'react-dnd-html5-backend'
-import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 
 class TeamContainer extends Component {
-	constructor (props) {
-		super(props)
-	}
 	componentDidMount() {
-		this.props.createTeamRequest()
+		this.props.createTeamRequest();
 	}
 
 	render() {
-		const { teamUsers, removeTeamUserRequest, kanbanId, notTeamUsers, addTeamUserRequest } = this.props
-		return(
+		const {
+			teamUsers,
+			removeTeamUserRequest,
+			kanbanId,
+			notTeamUsers,
+			addTeamUserRequest,
+		} = this.props;
+		return (
 			<section className="manage-users">
 				<Team
 					users={teamUsers}
@@ -34,7 +37,7 @@ class TeamContainer extends Component {
 					name={'Out of project'}
 				/>
 			</section>
-		)
+		);
 	}
 }
 
@@ -51,15 +54,19 @@ const mapStateToProps = (state) => {
 	}
 	return {
 		...users(),
-		kanbanId: state.kanban._id
+		kanbanId: state.kanban._id,
 	};
 }
 
 const mapDispathToProps = (dispatch) => {
-	return bindActionCreators({ addTeamUserRequest, removeTeamUserRequest, createTeamRequest}, dispatch);
+	return bindActionCreators({
+		addTeamUserRequest,
+		removeTeamUserRequest,
+		createTeamRequest,
+	}, dispatch);
 }
 
 export default DragDropContext(HTML5Backend)(connect(
 	mapStateToProps,
 	mapDispathToProps,
-)(TeamContainer))
+)(TeamContainer));

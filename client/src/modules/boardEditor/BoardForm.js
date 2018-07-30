@@ -1,6 +1,6 @@
 import React from 'react';
-import NewLane from './NewLane'
-import Priority from './Priority'
+import NewLane from './NewLane';
+import Priority from './Priority';
 
 
 const BoardForm = ({
@@ -10,7 +10,7 @@ const BoardForm = ({
 										 priority,
 										 handleColorChange,
 										 handleSave,
-										 handleAddLane
+										 handleAddLane,
 }) => (
 	<form className="board-editor__form w-50">
 		<div className="form-group">
@@ -47,6 +47,6 @@ const BoardForm = ({
 		</div>
 		<button onClick={handleSave} className="btn">Create board</button>
 	</form>
-)
+);
 
 export default BoardForm;

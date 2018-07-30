@@ -1,37 +1,33 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
-import './App.css'
+import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
+import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 
 import { hot } from 'react-hot-loader';
 
-import Kanban from './modules/kanban/Kanban'
-import NavbarContainer from './modules/navbar/NavbarContainer'
-import Sidebar from './modules/sidebar/Sidebar'
+import Kanban from './modules/kanban/Kanban';
+import NavbarContainer from './modules/navbar/NavbarContainer';
+import Sidebar from './modules/sidebar/Sidebar';
 
-import { userAuth, userGet } from './modules/_user/UserActions'
-import AnalyticsContainer from './modules/analytics/AnalyticsContainer'
-import Auth from './modules/auth/Auth'
-import { createTeamRequest } from './modules/team/TeamActions'
-import TeamContainer from './modules/team/TeamContainer'
-import CalendarContainer from './modules/calendar/CalendarContainer'
-import BoardEditorContainer from './modules/boardEditor/BoardEditorContainer'
+import { userAuth, userGet } from './modules/_user/UserActions';
+import AnalyticsContainer from './modules/analytics/AnalyticsContainer';
+import Auth from './modules/auth/Auth';
+import { createTeamRequest } from './modules/team/TeamActions';
+import TeamContainer from './modules/team/TeamContainer';
+import CalendarContainer from './modules/calendar/CalendarContainer';
+import BoardEditorContainer from './modules/boardEditor/BoardEditorContainer';
 
 class App extends Component {
 	componentDidMount() {
-		console.log('mounted')
-		console.log('elo')
-		this.props.userGet()
-		this.props.createTeamRequest()
+		this.props.userGet();
+		this.props.createTeamRequest();
 	}
 
-	isUserLogged = (component) => (
-		Object.keys(this.props.user).length ? component : Auth
-	)
+	isUserLogged = (component) => Object.keys(this.props.user).length ? component : Auth;
 
 	render() {
-		const {isLogged, isAdmin, user} = this.props
+		const { isAdmin } = this.props;
 		return (
 			<div className="app container-fluid p-0">
 				<NavbarContainer />
@@ -53,13 +49,13 @@ class App extends Component {
 const mapStateToProps = state => ({
 	isLogged: Object.keys(state.user).length,
 	isAdmin: state.kanban.admins ? state.kanban.admins.includes(state.user._id) : false,
-	user: state.user
-})
+	user: state.user,
+});
 
 const mapDispatchToProps = {
 	userAuth,
 	userGet,
-	createTeamRequest
+	createTeamRequest,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(hot(module)(App));

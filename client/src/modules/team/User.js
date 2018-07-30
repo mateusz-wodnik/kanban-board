@@ -1,5 +1,5 @@
 import React from 'react';
-import { DragSource } from 'react-dnd/lib/index'
+import { DragSource } from 'react-dnd/lib/index';
 
 const User = ({ user, kanbanId, addTeamUser, removeTeamUser, handleDrop, isDragging, connectDragSource}) => {
 	const { _id, firstname, lastname } = user
@@ -13,24 +13,21 @@ const User = ({ user, kanbanId, addTeamUser, removeTeamUser, handleDrop, isDragg
 					>{addTeamUser ? 'Add' : 'Remove'}</button>
 				</div>
 		</div>
-	)
+	);
 }
 
 
 // React DnD config
-const type = 'user'
+const type = 'user';
 
 const spec = {
 	beginDrag(props) {
-		console.log(props)
-		return props
+		return props;
 	},
-	endDrag(props, monitor, component) {
-		console.log(monitor, component)
-		if(!monitor.didDrop()) return
-		const { addTeamUser, removeTeamUser, kanbanId }  = props
-		addTeamUser ? addTeamUser(props.user._id, kanbanId) : removeTeamUser(props.user._id, kanbanId)
-
+	endDrag(props, monitor) {
+		if(!monitor.didDrop()) return;
+		const { addTeamUser, removeTeamUser, kanbanId }  = props;
+		addTeamUser ? addTeamUser(props.user._id, kanbanId) : removeTeamUser(props.user._id, kanbanId);
 	}
 }
 

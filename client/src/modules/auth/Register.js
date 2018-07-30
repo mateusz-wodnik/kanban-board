@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Register = ({handleRegister}) => (
 	<form className="register__form w-50">
@@ -62,6 +62,6 @@ const Register = ({handleRegister}) => (
 			className="btn btn-primary"
 		>Submit</button>
 	</form>
-)
+);
 
-export default Register
+export default Register;

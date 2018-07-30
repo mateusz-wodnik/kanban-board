@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 
 class Auth extends React.Component {
 	handleRegister = (e) =>{
-		e.preventDefault()
-		const {firstname, lastname, password, passwordconfirm, username, email} = e.target.form.elements
-		if(password.value !== passwordconfirm.value) return
+		e.preventDefault();
+		const {firstname, lastname, password, passwordconfirm, username, email} = e.target.form.elements;
+		if(password.value !== passwordconfirm.value) return;
 		const body = {
 			firstname: firstname.value,
 			lastname: lastname.value,
@@ -17,22 +17,21 @@ class Auth extends React.Component {
 			password: password.value,
 			email: email.value,
 		}
-		this.props.userRegister(body)
+		this.props.userRegister(body);
 	}
 
 	handleLogin = (e) => {
-		e.preventDefault()
-		const {email, password} = e.target.form.elements
+		e.preventDefault();
+		const {email, password} = e.target.form.elements;
 		const body = {
 			email: email.value,
-			password: password.value
+			password: password.value,
 		}
-		this.props.userAuth(body)
-
+		this.props.userAuth(body);
 	}
 
 	render() {
-		const { handleLogin, handleRegister } = this
+		const { handleLogin, handleRegister } = this;
 		return(
 			<section className="register">
 				<Login handleLogin={handleLogin}/>
@@ -44,7 +43,7 @@ class Auth extends React.Component {
 
 const mapDispatchToProps = {
 	userAuth,
-	userRegister
+	userRegister,
 }
 
 export default connect(null, mapDispatchToProps)(Auth);

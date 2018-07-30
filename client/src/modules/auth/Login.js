@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Login = ({handleLogin}) => (
 	<form className="register__form w-50">
@@ -26,6 +26,6 @@ const Login = ({handleLogin}) => (
 			className="btn btn-primary"
 		>Submit</button>
 	</form>
-)
+);
 
-export default Login
+export default Login;

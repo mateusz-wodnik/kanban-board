@@ -1,8 +1,20 @@
 import React from 'react';
 import './Note.css';
-import { DragSource } from 'react-dnd/lib/index'
+import { DragSource } from 'react-dnd/lib/index';
 
-const Note = ({note, laneId, isEditable, progress, hours, deleteNoteRequest, priority, isAdmin, team, connectDragSource, handleUpdate, handleTaken}) => {
+const Note = ({ note,
+								laneId,
+								isEditable,
+								progress,
+								hours,
+								deleteNoteRequest,
+								priority,
+								isAdmin,
+								team,
+								connectDragSource,
+								handleUpdate,
+								handleTaken,
+}) => {
 	return connectDragSource(
 		<div className={`note card`} style={{borderColor: priority[note.priority]}}>
 			<div className="btn-group card-header" role="group" aria-label="First group">
@@ -44,18 +56,18 @@ const Note = ({note, laneId, isEditable, progress, hours, deleteNoteRequest, pri
 				<p className="mr-1">{hours}</p>
 			</div>
 		</div>
-	)
+	);
 }
 
-const type = 'note'
+const type = 'note';
 
 const spec = {
 	beginDrag(props) {
-		return props
+		return props;
 	},
 	endDrag(props) {
-		const notes = props.note._id
-		props.updateLaneRequest(props.laneId, {notes}, true)
+		const notes = props.note._id;
+		props.updateLaneRequest(props.laneId, {notes}, true);
 	}
 }
 

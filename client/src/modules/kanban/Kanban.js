@@ -14,17 +14,17 @@ class Kanban extends React.Component {
 					isAdmin={this.props.isAdmin}
 				/>
 			</div>
-		)
+		);
 	}
 }
 
 const mapStateToProps = state => ({
 	lanes: state.lanes,
-	userId: state.user._id
+	userId: state.user._id,
 })
 
 const mapDispatchToProps = {
-	createLane
+	createLane,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Kanban);

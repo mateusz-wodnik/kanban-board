@@ -6,7 +6,7 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
-} from 'recharts'
+} from 'recharts';
 
 const TimeLineChart = ({data}) => (
 	<BarChart width={2000} height={300} data={data} layout='vertical'
@@ -17,6 +17,6 @@ const TimeLineChart = ({data}) => (
 		<Tooltip/>
 		<Bar dataKey="hours" fill="#8884d8" />
 	</BarChart>
-)
+);
 
-export default TimeLineChart
+export default TimeLineChart;

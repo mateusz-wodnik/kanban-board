@@ -45,6 +45,6 @@ const AddNoteModal = ({handleAddNote}) => (
 			name="newNote"
 			placeholder="Due date: 2018-06-12 19:30"/>
 	</form>
-)
+);
 
-export default AddNoteModal
+export default AddNoteModal;

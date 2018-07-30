@@ -29,6 +29,6 @@ const NewLane = ({ lane, id }) => (
 			</div>
 		</div>
 	</fieldset>
-)
+);
 
 export default NewLane;

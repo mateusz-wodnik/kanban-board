@@ -1,5 +1,4 @@
 export const CREATE_KANBAN = 'CREATE_KANBAN';
-export const CREATE_KANBANS = 'CREATE_KANBANS';
 export const UPDATE_KANBAN = 'UPDATE_KANBAN';
 export const DELETE_KANBAN = 'DELETE_KANBAN';
 
@@ -10,7 +9,7 @@ export function createKanban(raw, kanban, lanes, notes) {
 		kanban,
 		lanes,
 		notes,
-		raw
+		raw,
 	}
 }
 
@@ -21,50 +20,50 @@ export function createKanbanRequest(kanban) {
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(kanban)
+			body: JSON.stringify(kanban),
 		})
 		.then(res => res.json())
 		.then(res => {
-			const raw = {...res}
-			let lanes = []
-			let notes = []
+			const raw = {...res};
+			let lanes = [];
+			let notes = [];
 			res.lanes = res.lanes.map(lane => {
 				lane.notes = lane.notes.map(note => {
-					notes.push(note)
-					return note._id
+					notes.push(note);
+					return note._id;
 				})
-				lanes.push(lane)
-				return lane._id
+				lanes.push(lane);
+				return lane._id;
 			})
 			dispatch(createKanban(raw, res, lanes, notes));
 		})
-		.catch(console.error)
+		.catch(console.error);
 	}
 }
 
 export function fetchKanban(id) {
 	return (dispatch) => {
 		return fetch(`http://localhost:3000/api/kanbans/${id}`, {
-			credentials: 'include'
+			credentials: 'include',
 		})
 			.then(res => res.json())
 			.then(res => {
-				const raw = {...res}
-				let lanes = []
-				let notes = []
+				const raw = {...res};
+				let lanes = [];
+				let notes = [];
 				res.lanes = res.lanes.map(lane => {
 					lane.notes = lane.notes.map(note => {
-						notes.push(note)
-						return note._id
-					})
-					lanes.push(lane)
-					return lane._id
-				})
+						notes.push(note);
+						return note._id;
+					});
+					lanes.push(lane);
+					return lane._id;
+				});
 				dispatch(createKanban(raw, res, lanes, notes));
 			})
-			.catch(console.error)
+			.catch(console.error);
 	};
 }
 
@@ -75,40 +74,42 @@ export function updateKanbanRequest(kanban, kanbanId) {
 			credentials: 'include',
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(kanban)
+			body: JSON.stringify(kanban),
 		})
 			.then(res => res.json())
 			.then(res => {
-				const raw = {...res}
-				let lanes = []
-				let notes = []
+				const raw = {...res};
+				let lanes = [];
+				let notes = [];
 				res.lanes = res.lanes.map(lane => {
 					lane.notes = lane.notes.map(note => {
-						notes.push(note)
-						return note._id
-					})
-					lanes.push(lane)
-					return lane._id
-				})
+						notes.push(note);
+						return note._id;
+					});
+					lanes.push(lane);
+					return lane._id;
+				});
 				dispatch(createKanban(raw, res, lanes, notes));
 			})
-			.catch(console.error)
+			.catch(console.error);
 	}
 }
 
 export function deleteKanban(kanbanId) {
 	return {
 		type: DELETE_KANBAN,
-		kanbanId
+		kanbanId,
 	}
 }
 
 export function deleteKanbanRequest(kanbanId) {
 	return (dispatch) => {
-		return fetch(`http://localhost:3000/api/kanbans/${kanbanId}`,
-			{ method: "DELETE"})
+		return fetch(`http://localhost:3000/api/kanbans/${kanbanId}`, {
+			method: "DELETE"
+		})
 			.then(() => dispatch(deleteKanban(kanbanId)))
+			.catch(console.error);
 	}
 }
