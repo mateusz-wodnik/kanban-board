@@ -41,6 +41,14 @@ Client was developed using:
 * Recharts (http://www.recharts.org)
 * SASS (original syntax)
 * HTML5
+
+Server was developed using:
+* Gulp
+* Node
+* Express
+* Mongoose
+* MongoDB
+* bcrypt (https://www.npmjs.com/package/bcrypt)
 ```bash
 # To install dev-dependencies, just go to the root folder and run
 npm i
