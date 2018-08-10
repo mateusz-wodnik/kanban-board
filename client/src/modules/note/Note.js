@@ -27,23 +27,18 @@ const Note = ({ note,
 					onClick={handleTaken}
 					type="button"
 					className={`btn btn-light${!note.taken ? '' : ' disabled'}`}
-				>{note.taken ? team.find(user => user._id === note.taken).username : 'take'}</button>
-				<button type="button" className="btn btn-light">3</button>
-				<button type="button" className="btn btn-light">4</button>
+				>{team.length && note.taken ? team.find(user => user._id === note.taken).username : 'take'}</button>
 			</div>
 			<div className="card-body">
 				<h5 className="note__header card-title">{note.name}</h5>
 				<p className="note__task card-text">{note.task}</p>
 			</div>
 			<div className="btn-group card-footer" role="group" aria-label="First group">
-				<button type="button" className="btn btn-light">1</button>
-				<button type="button" className="btn btn-light">2</button>
 				<button
 					onClick={() => deleteNoteRequest(note._id, laneId)}
 					type="button"
-					className={`note__delete btn btn-light${isAdmin ? '' : ' disabled'}`}
+					className={`note__delete btn btn-danger${isAdmin ? '' : ' disabled'}`}
 				>🛇</button>
-				<button type="button" className="btn btn-light">4</button>
 			</div>
 			<div className="progress justify-content-between">
 				<div className="progress-bar"

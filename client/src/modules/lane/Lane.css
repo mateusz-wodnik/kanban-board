@@ -1,7 +1,7 @@
 .lane {
     background: lightgrey;
     padding-bottom: 20px;
-    width: 320px;
+    max-width: 500px;
 }
 
 .lane .card-header {

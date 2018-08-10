@@ -11,7 +11,7 @@ export function createTeamRequest () {
 		})
 			.then(res => res.json())
 			.then(res => dispatch(createTeam(res)))
-			.catch(console.error);
+			.catch(() => console.error("You're not logged in"));
 	}
 }
 

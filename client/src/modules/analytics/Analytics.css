@@ -24,7 +24,7 @@
 }
 
 @media (max-width: 768px) {
-    .card:not(:last-child) {
+    .analytics .card:not(:last-child) {
         width: 100%;
     }
 }

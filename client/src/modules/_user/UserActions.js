@@ -11,10 +11,10 @@ export function userGet () {
 			.then(res => res.json())
 			.then(res => {
 				if(!res) throw Error('User data not found');
-				dispatch(fetchKanban(res.kanbans[0]._id));
+				if(res.kanbans.length) dispatch(fetchKanban(res.kanbans[0]._id));
 				dispatch(userState(res));
 			})
-			.catch(console.error);
+			.catch(() => console.error("You're not logged in"));
 	}
 }
 
@@ -31,10 +31,10 @@ export function userAuth(body) {
 		})
 			.then(res => res.json())
 			.then(res => {
-				dispatch(fetchKanban(res.kanbans[0]._id));
+				if(res.kanbans.length) dispatch(fetchKanban(res.kanbans[0]._id));
 				dispatch(userState(res));
 			})
-			.catch(console.error);
+			.catch(() => console.error("Couldn't log in"));
 	}
 }
 

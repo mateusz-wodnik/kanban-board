@@ -18,12 +18,12 @@ const Navbar = ({ user,
 			contentEditable={!!edit} suppressContentEditableWarning
 		>{user.username}</Link>
 		<div className="navbar-nav flex-row">
-			<button
+			{user._id && <button
 				onClick={userLogoutRequest}
 				className="btn btn-warning nav-item"
-			>logout</button>
+			>logout</button>}
 			{isAddVisible ? AddNameModal() : null}
-			<select
+			{user.kanbans && <select
 				onChange={e => fetchKanban(e.target.value)}
 				className="custom-select nav-item"
 				id="selectBoard"
@@ -31,7 +31,7 @@ const Navbar = ({ user,
 				{kanbans.map(kanban =>
 					<option key={kanban._id} value={kanban._id}>{kanban.name}</option>)
 				}
-			</select>
+			</select>}
 			{kanban.admins && kanban.admins.includes(user._id) ?
 				<button
 					onClick={handleAddLane}

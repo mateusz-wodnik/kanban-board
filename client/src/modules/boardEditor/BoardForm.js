@@ -12,7 +12,7 @@ const BoardForm = ({
 										 handleSave,
 										 handleAddLane,
 }) => (
-	<form className="board-editor__form w-50">
+	<form className="board-editor__form container ml-0">
 		<div className="form-group">
 			<label htmlFor="boardName">Board name</label>
 			<input
@@ -45,7 +45,7 @@ const BoardForm = ({
 				<Priority key={idx} name={name} color={priority[name]} handleColorChange={handleColorChange} />
 			)}
 		</div>
-		<button onClick={handleSave} className="btn">Create board</button>
+		<button onClick={handleSave} className="btn btn-success">Create board</button>
 	</form>
 );
 

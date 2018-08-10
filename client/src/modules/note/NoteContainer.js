@@ -53,8 +53,8 @@ class NoteContainer extends Component {
 		});
 	}
 
-	handleTaken = () => {
-		this.props.takeTask(this.props.note._id, {taken: this.props.user._id});
+	handleTakeTask = () => {
+		this.props.takeTask(thicd ..s.props.note._id, {taken: this.props.user._id});
 	}
 
 	render() {
@@ -80,6 +80,7 @@ class NoteContainer extends Component {
 				progress={progress}
 				hours={hours}
 				updateLaneRequest={updateLaneRequest}
+				handleTaken={this.handleTakeTask}
 			/>
 		);
 	}
