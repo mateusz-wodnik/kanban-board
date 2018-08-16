@@ -31,10 +31,15 @@ export function updateLane(req, res) {
 	const { notes, ...body } = req.body;
 	let update = req.body;
 	if(query && notes) update = query === 'true' ? {$pull: {notes}} : {$addToSet: {notes}};
+	console.log(notes)
 	Lane.update(
 		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},
 		update,
-		err => res.send(err || {_id: req.params.id}),
+		(err, raw) => {
+			// console.log(err)
+			console.log(raw.nModified)
+			err ? res.send(401, err) : res.send({_id: req.params.id})
+		}
 	);
 }
 

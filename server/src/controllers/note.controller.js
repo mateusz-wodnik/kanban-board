@@ -48,6 +48,30 @@ export function takeTask(req, res) {
 	);
 }
 
+export function moveNote(req, res) {
+	const {note, target} = req.params
+	Note.findOne({$and: [{_id: note}, {$or: [{admins: req.session.userId}, {taken: req.session.userId}]}]})
+		.then(note => {
+			Lane.find({$or: [{_id: target}, {notes: note}]})
+				.then(lanes => {
+					lanes.forEach(lane => {
+						if(lane._id == target) {
+							console.log(note)
+							lane.notes.addToSet(note._id)
+							lane.save()
+							return
+						}
+						lane.notes.pull(note)
+						lane.save()
+					})
+					console.log(lanes)
+					res.send(lanes)
+				})
+				.catch(err => res.send(403, err))
+		})
+		.catch(console.error)
+}
+
 export function deleteNote(req, res) {
 	Note.findOne(
 		{$and: [{_id: req.params.id}, {admins: req.session.userId}]},

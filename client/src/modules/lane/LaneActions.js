@@ -58,10 +58,11 @@ export function updateLaneRequest(id, lane, notes='') {
 			},
 			body: JSON.stringify(lane),
 		})
-			.then(() => dispatch(updateLane(id, lane, notes)))
+			.then(() => dispatch(updateLane(id, lane)))
 			.catch(console.error);
 	}
 }
+
 
 export function deleteLane(laneId) {
 	return {

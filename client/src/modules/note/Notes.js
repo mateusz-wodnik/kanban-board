@@ -1,16 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Note from './NoteContainer';
 import { DropTarget } from 'react-dnd/lib/index';
+import { bindActionCreators } from 'redux';
+import { moveNoteRequest } from './NoteActions';
 
-const Notes = ({ notes, laneId, connectDropTarget, updateLaneRequest }) => {
+const Notes = ({ notes, laneId, connectDropTarget }) => {
 	return connectDropTarget(
 		<div className="card-body">
+			{console.log(notes)}
 			{notes.map(note => (
 				<Note
 					laneId={laneId}
 					key={note._id}
 					note={note}
-					updateLaneRequest={updateLaneRequest}
 				/>
 			))}
 		</div>
@@ -27,9 +30,13 @@ const collect = (connect, monitor) => {
 
 const spec = {
 	drop(props, monitor) {
-		const notes = monitor.getItem().note._id;
-		props.updateLaneRequest(props.laneId, {notes}, false);
+		const note = monitor.getItem().note._id;
+		props.moveNoteRequest(note, props.laneId)
 	}
 }
 
-export default DropTarget('note', spec, collect)(Notes);
+const mapDispathToProps = (dispatch) => {
+	return bindActionCreators({ moveNoteRequest }, dispatch);
+}
+
+export default connect(null, mapDispathToProps)(DropTarget('note', spec, collect)(Notes));

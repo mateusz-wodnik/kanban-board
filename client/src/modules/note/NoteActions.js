@@ -1,3 +1,5 @@
+import { updateLane } from '../lane/LaneActions'
+
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const CREATE_NOTES = 'CREATE_NOTES';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
@@ -65,6 +67,22 @@ export function updateNoteRequest(_id, note) {
 			body: JSON.stringify(note),
 		})
 			.then(res => dispatch(updateNote(_id, note)))
+			.catch(console.error);
+	}
+}
+
+export function moveNoteRequest(note, target) {
+	return (dispatch) => {
+		return fetch(`/api/notes/move/${note}/${target}`, {
+			method: "PUT",
+			credentials: 'include',
+		})
+			.then(res=> res.json())
+			.then(res => {
+				res.forEach(lane => {
+					dispatch(updateLane(lane._id, lane))
+				})
+			})
 			.catch(console.error);
 	}
 }

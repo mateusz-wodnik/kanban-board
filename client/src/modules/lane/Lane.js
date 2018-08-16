@@ -4,7 +4,6 @@ import './Lane.css';
 
 const Lane = ({ lane,
 								deleteLaneRequest,
-								updateLaneRequest,
 								laneNotes,
 								edit,
 								isEdited,
@@ -38,7 +37,7 @@ const Lane = ({ lane,
 				</React.Fragment> : null
 			}
 		</header>
-		<Notes laneId={laneId} notes={laneNotes} updateLaneRequest={updateLaneRequest}/>
+		<Notes laneId={laneId} name={lane.name} notes={laneNotes} />
 			{edit ?
 				<div className="card-footer d-flex justify-content-between">
 					<input

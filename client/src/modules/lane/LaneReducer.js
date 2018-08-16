@@ -18,9 +18,12 @@ export default function lanes(state = initialState, action) {
 
 		case UPDATE_LANE:
 			return state.map(lane => {
-				const notes = action.notes ? lane.notes.filter(note => note !== action.lane.notes) : [...lane.notes, action.lane.notes];
-				const out = action.lane.notes ? { ...lane, notes } : {...lane, ...action.lane};
-				return lane._id === action.id ? out : lane;
+				// const notes = action.notes ?
+				// 	lane.notes.filter(note => note !== action.lane.notes)
+				// 	: [...lane.notes, action.lane.notes];
+				console.log(action.lane)
+				const updated = { ...lane, ...action.lane }
+				return lane._id === action.id ? updated : lane;
 			});
 
 		case DELETE_LANE:

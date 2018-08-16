@@ -60,10 +60,7 @@ const spec = {
 	beginDrag(props) {
 		return props;
 	},
-	endDrag(props) {
-		const notes = props.note._id;
-		props.updateLaneRequest(props.laneId, {notes}, true);
-	}
+	endDrag(props) {}
 }
 
 const collect = (connect, monitor) => {

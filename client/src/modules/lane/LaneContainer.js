@@ -53,7 +53,7 @@ class LaneContainer extends Component {
 	}
 
 	render() {
-		const { lane, deleteLaneRequest, updateLaneRequest, laneNotes, edit } = this.props;
+		const { lane, deleteLaneRequest, laneNotes, edit } = this.props;
 		const { isEdited, isAddVisible } = this.state;
 		const { handleColorChange, handleEditLane, handleAddNote, captionEdit } = this;
 		const laneId = lane._id;
@@ -61,7 +61,6 @@ class LaneContainer extends Component {
 			<Lane
 				lane={lane}
 				deleteLaneRequest={deleteLaneRequest}
-				updateLaneRequest={updateLaneRequest}
 				laneNotes={laneNotes}
 				edit={edit}
 				isEdited={isEdited}
