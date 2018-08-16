@@ -29,17 +29,6 @@ export function addTeamUser(user) {
 	}
 }
 
-export function addTeamUserRequest (kanban, user) {
-	return (dispatch) => {
-		fetch(`/api/kanbans/${kanban}/${user}`)
-			.then(res => {
-				console.log(res)
-				dispatch(addTeamUser(user))
-			})
-			.catch(console.error)
-	}
-}
-
 export function removeTeamUser(user) {
 	return {
 		type: REMOVE_TEAM_USER,
@@ -47,9 +36,18 @@ export function removeTeamUser(user) {
 	}
 }
 
-export function removeTeamUserRequest (users, kanbanId) {
+export function moveTeamUserRequest (kanban, user, remove=false) {
 	return (dispatch) => {
-		dispatch(updateKanbanRequest({users, remove: true}, kanbanId));
-		dispatch(removeTeamUser(users));
+		fetch(`/api/kanbans/${kanban}/${user}${remove ? '?remove=true' : ''}`, {
+			method: "PUT",
+			credentials: 'include'
+		})
+			.then(res => res.json())
+			.then(res => {
+				console.log(res)
+				remove ? dispatch(removeTeamUser(user)) : dispatch(addTeamUser(user))
+			})
+			.catch(console.error)
 	}
 }
+

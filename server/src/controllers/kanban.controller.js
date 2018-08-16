@@ -106,6 +106,7 @@ export function getKanban(req, res) {
 
 
 export function addUserToProject (req, res) {
+	console.log('move user')
 	const remove = req.query.remove
 	const { kanban, user } = req.params
 	const update = remove ? {$pull: {users: user}}  : {$addToSet: {users: user}}
@@ -119,9 +120,22 @@ export function addUserToProject (req, res) {
 				update,
 				{multi: true}
 			)
+				.then(res => console.log(res))
 			Lane.find({_id: {$in: kanban.lanes}}, 'notes')
-				.then(notes => console.log(notes))
+				.then(notes => {
+					const allNotes = []
+					notes.forEach(item => {
+						allNotes.push(...item.notes)
+					})
+					console.log(allNotes)
+					Note.update(
+						{_id: {$in: allNotes}},
+						update,
+						{multi: true}
+					)
+						.then(res => console.log(res))
+				})
 				.catch(console.error)
-			res.send('ok')
+			res.send({user})
 		})
 }

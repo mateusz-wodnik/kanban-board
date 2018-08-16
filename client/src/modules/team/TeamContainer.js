@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createTeamRequest, addTeamUserRequest, removeTeamUserRequest } from './TeamActions';
+import { createTeamRequest, moveTeamUserRequest } from './TeamActions';
 import Team from './Team';
 
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -14,24 +14,23 @@ class TeamContainer extends Component {
 
 	render() {
 		const {
-			teamUsers,
-			removeTeamUserRequest,
 			kanbanId,
+			teamUsers,
 			notTeamUsers,
-			addTeamUserRequest,
+			moveTeamUserRequest,
 		} = this.props;
 		return (
 			<section className="manage-users">
 				<Team
 					users={teamUsers}
-					removeTeamUser={removeTeamUserRequest}
+					removeTeamUser={moveTeamUserRequest}
 					kanbanId={kanbanId}
 					identifier={'in'}
 					name={'In project'}
 				/>
 				<Team
 					users={notTeamUsers}
-					addTeamUser={addTeamUserRequest}
+					addTeamUser={moveTeamUserRequest}
 					kanbanId={kanbanId}
 					indentifier={'out'}
 					name={'Out of project'}
@@ -60,8 +59,7 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch) => {
 	return bindActionCreators({
-		addTeamUserRequest,
-		removeTeamUserRequest,
+		moveTeamUserRequest,
 		createTeamRequest,
 	}, dispatch);
 }

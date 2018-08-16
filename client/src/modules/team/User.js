@@ -8,7 +8,7 @@ const User = ({ user, kanbanId, addTeamUser, removeTeamUser, handleDrop, isDragg
 				<div className="card-body">
 					<h5 className="card-title">{firstname} {lastname}</h5>
 					<button
-						onClick={() => addTeamUser ? addTeamUser(_id, kanbanId) : removeTeamUser(_id, kanbanId)}
+						onClick={() => addTeamUser ? addTeamUser(kanbanId, _id) : removeTeamUser(kanbanId, _id, true)}
 						className={`btn ${addTeamUser ? 'btn-primary' : 'btn-danger'}`}
 					>{addTeamUser ? 'Add' : 'Remove'}</button>
 				</div>
@@ -27,7 +27,8 @@ const spec = {
 	endDrag(props, monitor) {
 		if(!monitor.didDrop()) return;
 		const { addTeamUser, removeTeamUser, kanbanId }  = props;
-		addTeamUser ? addTeamUser(kanbanId, props.user._id) : removeTeamUser(kanbanId, props.user._id);
+		console.log(addTeamUser, removeTeamUser)
+		addTeamUser ? addTeamUser(kanbanId, props.user._id) : removeTeamUser(kanbanId, props.user._id, true);
 	}
 }
 
