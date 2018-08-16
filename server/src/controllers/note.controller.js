@@ -18,6 +18,7 @@ export function addNote(req, res) {
 		{$and: [{_id: laneId}, {admins: req.session.userId}]},
 		(err, lane) => {
 			note.admins = req.session.userId;
+			note.users = lane.users
 			const newNote = new Note(note);
 			newNote.save((err, note) => {
 				if (err) return res.status(500).send(err);
@@ -40,11 +41,23 @@ export function updateNote(req, res) {
 }
 
 export function takeTask(req, res) {
-	const taken = req.body;
+	const remove = req.query.remove
+	const { note, user } = req.params
+	console.log(note, user)
 	Note.update(
-		{$and: [{_id: req.params.id}, {$or: [{users: req.session.userId},{admins: req.session.userId}]}]},
-		taken,
-		err => res.send(err || {_id: req.params.id}),
+		{$and: [
+			{_id: note},
+			// {taken: {$exists: true}},
+			{$or: [
+				{users: req.session.userId},
+				{admins: req.session.userId}
+			]}
+		]},
+		{taken: user},
+		(err, raw) => {
+			if(err) return res.json(401, err)
+			res.send(raw)
+		}
 	);
 }
 

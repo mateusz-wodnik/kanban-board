@@ -54,7 +54,7 @@ class NoteContainer extends Component {
 	}
 
 	handleTakeTask = () => {
-		this.props.takeTask(this.props.note._id, {taken: this.props.user._id});
+		this.props.takeTask(this.props.note._id, this.props.user._id);
 	}
 
 	render() {

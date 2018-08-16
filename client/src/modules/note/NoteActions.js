@@ -87,18 +87,13 @@ export function moveNoteRequest(note, target) {
 	}
 }
 
-export function takeTask(_id, taken) {
+export function takeTask(note, user) {
 	return (dispatch) => {
-		return fetch(`/api/notes/${_id}/takeTask`, {
+		return fetch(`/api/notes/task/${note}/${user}`, {
 			method: "PUT",
 			credentials: 'include',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(taken),
 		})
-			.then(res => dispatch(updateNote(_id, taken)))
+			.then(res => dispatch(updateNote(note, user)))
 			.catch(console.error);
 	}
 }

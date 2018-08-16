@@ -13,7 +13,7 @@ router.route('/notes/:id').put(NoteController.updateNote);
 
 router.route('/notes/move/:note/:target').put(NoteController.moveNote);
 
-router.route('/notes/:id/takeTask').put(NoteController.takeTask);
+router.route('/notes/task/:note/:user').put(NoteController.takeTask);
 
 router.route('/notes/:id').delete(NoteController.deleteNote);
 

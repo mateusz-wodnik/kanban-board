@@ -27,7 +27,7 @@ const spec = {
 	endDrag(props, monitor) {
 		if(!monitor.didDrop()) return;
 		const { addTeamUser, removeTeamUser, kanbanId }  = props;
-		addTeamUser ? addTeamUser(props.user._id, kanbanId) : removeTeamUser(props.user._id, kanbanId);
+		addTeamUser ? addTeamUser(kanbanId, props.user._id) : removeTeamUser(kanbanId, props.user._id);
 	}
 }
 

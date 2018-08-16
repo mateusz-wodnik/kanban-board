@@ -29,10 +29,14 @@ export function addTeamUser(user) {
 	}
 }
 
-export function addTeamUserRequest (users, kanbanId) {
+export function addTeamUserRequest (kanban, user) {
 	return (dispatch) => {
-		dispatch(updateKanbanRequest({users}, kanbanId));
-		dispatch(addTeamUser(users));
+		fetch(`/api/kanbans/${kanban}/${user}`)
+			.then(res => {
+				console.log(res)
+				dispatch(addTeamUser(user))
+			})
+			.catch(console.error)
 	}
 }
 

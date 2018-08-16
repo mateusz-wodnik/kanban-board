@@ -7,6 +7,8 @@ router.route('/kanbans').get(KanbanController.getKanbans);
 
 router.route('/kanbans').post(KanbanController.addKanban);
 
+router.route('/kanbans/:kanban/:user').put(KanbanController.addUserToProject);
+
 router.route('/kanbans/:id').put(KanbanController.updateKanban);
 
 router.route('/kanbans/:id').delete(KanbanController.deleteKanban);

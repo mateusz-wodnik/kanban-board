@@ -51,13 +51,19 @@ export function updateKanban(req, res) {
 					{_id: {$in: kanban.lanes}},
 					{$addToSet: {admins, users}},
 					{multi: true},
-					err => {if(err) throw err},
+					(err, raw) => {
+						console.log(raw)
+						if(err) throw err
+					},
 				);
 				Note.update(
 					{_id: {$in: notes}},
 					{$addToSet: {admins, users}},
 					{multi: true},
-					err => {if(err) throw err},
+					(err, raw) => {
+						if(err) throw err
+						console.log(raw)
+					},
 				);
 				res.send('Kanban updated');
 		})
@@ -96,4 +102,26 @@ export function getKanban(req, res) {
 			res.send(kanban);
 		})
 		.catch(console.error)
+}
+
+
+export function addUserToProject (req, res) {
+	const remove = req.query.remove
+	const { kanban, user } = req.params
+	const update = remove ? {$pull: {users: user}}  : {$addToSet: {users: user}}
+	Kanban.findOneAndUpdate(
+		{_id: kanban},
+		update
+	)
+		.then(kanban => {
+			Lane.update(
+				{_id: {$in: kanban.lanes}},
+				update,
+				{multi: true}
+			)
+			Lane.find({_id: {$in: kanban.lanes}}, 'notes')
+				.then(notes => console.log(notes))
+				.catch(console.error)
+			res.send('ok')
+		})
 }

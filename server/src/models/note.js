@@ -5,7 +5,7 @@ const Note = new Schema({
 	name: { type: 'String', default: 'New note' },
 	task: { type: 'String', default: 'New task' },
 	priority: { type: 'String', default: 'normal' },
-	dueDate: { type: Date },
+	dueDate: { type: Date, default: null },
 	creationDate: { type: Date, default: Date.now },
 	taken: { type: Schema.ObjectId, ref: 'User' },
 	admins: [{ type: Schema.ObjectId, ref: 'User' }],
