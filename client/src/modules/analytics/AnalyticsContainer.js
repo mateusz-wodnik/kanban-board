@@ -29,22 +29,28 @@ class AnalyticsContainer extends Component {
 		return Object.values(out);
 	}
 
-	handleDate = () => {
-		const toHours = (diff) => Math.ceil(diff / (1000 * 3600));
-		const output = this.props.notes.map(note => {
-			const hours = [0, toHours(new Date(note.dueDate)) - toHours(new Date())];
-			return {name: note.name, hours};
-		}).sort((a, b) => a.hours[1] < b.hours[1]);
-		return output;
+	handleUsers = () => {
+		const team = this.props.team || [];
+		const kanban = this.props.kanban.users || []
+		const inProject = [];
+		const outProject = [];
+		team.forEach(user => {
+			if(kanban.includes(user._id)) return inProject.push(user._id)
+			outProject.push(user._id)
+		})
+		return([
+			{name: 'In project', value: inProject.length},
+			{name: 'Out of project', value: outProject.length}
+		])
 	}
 
 	render() {
-		const { handleDate, handlePriority, handleData } = this;
+		const { handlePriority, handleData, handleUsers } = this;
 		return (
 			<Analytics
 				lanes={handleData()}
 				priority={handlePriority()}
-				date={handleDate()}
+				users={handleUsers()}
 			/>
 		);
 	}
@@ -54,6 +60,7 @@ const mapStateToProps = (state) => ({
 	kanban: state.kanban,
 	lanes: state.lanes,
 	notes: state.notes,
+	team: state.team,
 	priorities: state.kanban.priority,
 })
 

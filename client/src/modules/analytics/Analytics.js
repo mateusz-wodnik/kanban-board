@@ -1,10 +1,10 @@
 import React from 'react';
 import LanesChart from './charts/Lanes'
 import PriorityChart from './charts/Priority'
-import TimeLineChart from './charts/TimeLine'
+import UsersChart from './charts/Users'
 import './Analytics.css'
 
-const Analytics = ({ lanes, priority, date }) => (
+const Analytics = ({ lanes, priority, users }) => (
 	<section className="analytics">
 		<div className="card notes-share">
 				<LanesChart data={lanes}/>
@@ -18,11 +18,11 @@ const Analytics = ({ lanes, priority, date }) => (
 				<h5 className="card-title">Notes priority</h5>
 			</div>
 		</div>
-		<div className="card notes-timeline">
+		<div className="card users-count">
+			<UsersChart data={users} />
 			<div className="card-body">
-				<h5 className="card-title">Timeline</h5>
+				<h5 className="card-title">Users in/out project</h5>
 			</div>
-			<TimeLineChart data={date}/>
 		</div>
 	</section>
 )
