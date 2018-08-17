@@ -87,13 +87,13 @@ export function moveNoteRequest(note, target) {
 	}
 }
 
-export function takeTask(note, user) {
+export function takeTask(note, user, remove) {
 	return (dispatch) => {
-		return fetch(`/api/notes/task/${note}/${user}`, {
+		return fetch(`/api/notes/task/${note}/${user}${remove ? '?remove=true' : ''}`, {
 			method: "PUT",
 			credentials: 'include',
 		})
-			.then(res => dispatch(updateNote(note, user)))
+			.then(res => dispatch(updateNote(note, {taken: remove ? null : user})))
 			.catch(console.error);
 	}
 }

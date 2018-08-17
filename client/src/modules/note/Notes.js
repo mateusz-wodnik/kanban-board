@@ -8,7 +8,6 @@ import { moveNoteRequest } from './NoteActions';
 const Notes = ({ notes, laneId, connectDropTarget }) => {
 	return connectDropTarget(
 		<div className="card-body">
-			{console.log(notes)}
 			{notes.map(note => (
 				<Note
 					laneId={laneId}
@@ -28,6 +27,8 @@ const collect = (connect, monitor) => {
 	}
 }
 
+
+// React DnD TARGET
 const spec = {
 	drop(props, monitor) {
 		const note = monitor.getItem().note._id;

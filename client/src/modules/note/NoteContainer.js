@@ -7,17 +7,15 @@ import { updateLaneRequest } from '../lane/LaneActions';
 
 
 class NoteContainer extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			isEditable: false,
-			progress: 0,
-			hours: '',
-		}
+	state = {
+		isEditable: false,
+		progress: 0,
+		hours: '',
 	}
 
 	handleUpdate = (e) => {
 		e.target.classList.toggle('check');
+		console.log(e.target)
 		const items = [...e.target.closest('.note').querySelector('.card-body').children];
 		items.forEach(item => {
 			item.contentEditable = true;
@@ -35,11 +33,6 @@ class NoteContainer extends Component {
 		this.setState({isEditable: true});
 	}
 
-	componentDidMount() {
-		const note = this.props.note;
-		this.handleDate(note.creationDate, note.dueDate);
-	}
-
 	handleDate = (start, end) => {
 		const startDate = new Date(start);
 		const endDate = new Date(end);
@@ -53,12 +46,19 @@ class NoteContainer extends Component {
 		});
 	}
 
-	handleTakeTask = () => {
-		this.props.takeTask(this.props.note._id, this.props.user._id);
+	handleTakeTask = (remove) => {
+		console.log(remove)
+		this.props.takeTask(this.props.note._id, this.props.user, remove);
+	}
+
+	componentDidMount() {
+		const note = this.props.note;
+		this.handleDate(note.creationDate, note.dueDate);
 	}
 
 	render() {
 		const {
+			user,
 			note,
 			laneId,
 			deleteNoteRequest,
@@ -68,31 +68,34 @@ class NoteContainer extends Component {
 			updateLaneRequest,
 		} = this.props;
 		const { isEditable, progress, hours } = this.state;
+		const { handleUpdate, handleTakeTask } = this;
 		return (
 			<Note
-				note={note}
-				laneId={laneId}
-				deleteNoteRequest={deleteNoteRequest}
-				priority={priority}
-				isAdmin={isAdmin}
-				team={team}
+				user={user}
 				isEditable={isEditable}
 				progress={progress}
 				hours={hours}
+				note={note}
+				laneId={laneId}
+				priority={priority}
+				isAdmin={isAdmin}
+				team={team}
 				updateLaneRequest={updateLaneRequest}
-				handleTaken={this.handleTakeTask}
+				deleteNoteRequest={deleteNoteRequest}
+				handleUpdate={handleUpdate}
+				handleTaken={handleTakeTask}
 			/>
 		);
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
 	return {
 		team: state.team,
-		user: state.user,
+		user: state.user._id,
 		edit: state.edit,
 		priority: state.kanban.priority,
-		isAdmin: state.kanban.admins ? state.kanban.admins.includes(state.user._id) : false,
+		isAdmin: ownProps.note.admins.includes(state.user._id)
 	}
 }
 

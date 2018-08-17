@@ -24,10 +24,15 @@ const Note = ({ note,
 					className={`btn btn-light${isAdmin ? '' : ' disabled'}`}
 				>{isEditable ? '✓' : '✎'}</button>
 				<button
-					onClick={handleTaken}
+					onClick={() => handleTaken()}
 					type="button"
 					className={`btn btn-light${!note.taken ? '' : ' disabled'}`}
-				>{team.length && note.taken ? team.find(user => user._id === note.taken).username : 'take'}</button>
+				>{note.taken ? 'taken' : 'take'}</button>
+				{isAdmin && note.taken && <button
+					onClick={() => handleTaken(true)}
+					type="button"
+					className={`btn btn-light`}
+				>✘</button>}
 			</div>
 			<div className="card-body">
 				<h5 className="note__header card-title">{note.name}</h5>
@@ -54,13 +59,14 @@ const Note = ({ note,
 	);
 }
 
+
+// React DnD SOURCE
 const type = 'note';
 
 const spec = {
 	beginDrag(props) {
 		return props;
 	},
-	endDrag(props) {}
 }
 
 const collect = (connect, monitor) => {

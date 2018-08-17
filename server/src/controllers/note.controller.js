@@ -47,13 +47,12 @@ export function takeTask(req, res) {
 	Note.update(
 		{$and: [
 			{_id: note},
-			// {taken: {$exists: true}},
 			{$or: [
 				{users: req.session.userId},
 				{admins: req.session.userId}
 			]}
 		]},
-		{taken: user},
+		{taken: remove ? null : user},
 		(err, raw) => {
 			if(err) return res.json(401, err)
 			res.send(raw)
