@@ -67,6 +67,7 @@ export function userRegister(body) {
 		})
 			.then(res => res.json())
 			.then(res => {
+				if(res.errors) throw res.message
 				dispatch(userState(res));
 			})
 			.catch(console.error);

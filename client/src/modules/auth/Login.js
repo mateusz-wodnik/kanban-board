@@ -12,6 +12,7 @@ const Login = ({handleLogin}) => (
 				id="email"
 				name="email"
 				placeholder="Email"
+				required="true"
 			/>
 			<input
 				type="password"
@@ -19,6 +20,7 @@ const Login = ({handleLogin}) => (
 				id="password"
 				name="password"
 				placeholder="Password"
+				required="true"
 			/>
 		</div>
 		<button

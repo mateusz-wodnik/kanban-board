@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 class Auth extends React.Component {
 	handleRegister = (e) =>{
-		e.preventDefault();
+		// e.preventDefault();
 		const {firstname, lastname, password, passwordconfirm, username, email} = e.target.form.elements;
 		if(password.value !== passwordconfirm.value) return;
 		const body = {

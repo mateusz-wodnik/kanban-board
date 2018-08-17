@@ -12,6 +12,7 @@ const Register = ({handleRegister}) => (
 				id="username"
 				name="username"
 				placeholder="Username"
+				required={true}
 			/>
 		</div>
 		<div className="form-group">
@@ -21,6 +22,7 @@ const Register = ({handleRegister}) => (
 				id="firstname"
 				name="firstname"
 				placeholder="First name"
+				required={true}
 			/>
 			<input
 				type="text"
@@ -28,6 +30,7 @@ const Register = ({handleRegister}) => (
 				id="lastname"
 				name="lastname"
 				placeholder="Last name"
+				required={true}
 			/>
 		</div>
 		<div className="form-group">
@@ -38,6 +41,7 @@ const Register = ({handleRegister}) => (
 				name="email"
 				aria-describedby="emailHelp"
 				placeholder="Enter email"
+				required={true}
 			/>
 			<small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
 		</div>
@@ -48,6 +52,7 @@ const Register = ({handleRegister}) => (
 				id="password"
 				name="password"
 				placeholder="Password"
+				required={true}
 			/>
 			<input
 				type="password"
@@ -55,10 +60,12 @@ const Register = ({handleRegister}) => (
 				id="passwordconfirm"
 				name="passwordconfirm"
 				placeholder="Confirm password"
+				required={true}
 			/>
 		</div>
 		<button
 			onClick={handleRegister}
+			type="submit"
 			className="btn btn-primary"
 		>Submit</button>
 	</form>

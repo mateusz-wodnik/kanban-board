@@ -2,7 +2,6 @@ import React from 'react';
 import NewLane from './NewLane';
 import Priority from './Priority';
 
-
 const BoardForm = ({
 										 kanban,
 										 lanes,
@@ -21,6 +20,7 @@ const BoardForm = ({
 				className="form-control"
 				placeholder="Board name"
 				defaultValue={kanban.name}
+				required={true}
 			/>
 		</div>
 		<div className="form-group" onChange={(e) => handleChange(e.target)}>

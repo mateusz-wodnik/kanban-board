@@ -1,5 +1,3 @@
-import { updateKanbanRequest } from '../kanban/KanbanActions';
-
 export const CREATE_TEAM = 'CREATE_TEAM';
 export const ADD_TEAM_USER = 'ADD_TEAM_USER';
 export const REMOVE_TEAM_USER = 'REMOVE_TEAM_USER';

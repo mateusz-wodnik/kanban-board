@@ -66,6 +66,7 @@ class BoardEditorContainer extends Component {
 			lanes: this.state.lanes,
 		}
 		this.props.createKanbanRequest(body);
+		this.props.history.push("/board")
 	}
 
 	render() {

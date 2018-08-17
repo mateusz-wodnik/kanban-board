@@ -27,6 +27,7 @@ const Navbar = ({ user,
 				onChange={e => fetchKanban(e.target.value)}
 				className="custom-select nav-item"
 				id="selectBoard"
+				value={kanban._id}
 			>
 				{kanbans.map(kanban =>
 					<option key={kanban._id} value={kanban._id}>{kanban.name}</option>)
