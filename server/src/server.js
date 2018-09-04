@@ -34,6 +34,6 @@ app.use('/api', users);
 import './mongoConfig.js'
 
 // Serve static files
-app.use(express.static(`${__dirname}/../../client/build`))
+app.use(express.static(`${__dirname}/build`))
 
 server.listen(port, () => {console.log(`server listens on port: ${port}`)});
