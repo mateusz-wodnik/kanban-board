@@ -9,14 +9,14 @@ import { hot } from 'react-hot-loader';
 import Kanban from './modules/kanban/Kanban';
 import NavbarContainer from './modules/navbar/NavbarContainer';
 import Sidebar from './modules/sidebar/Sidebar';
-
-import { userAuth, userGet } from './modules/_user/UserActions';
 import AnalyticsContainer from './modules/analytics/AnalyticsContainer';
 import Auth from './modules/auth/Auth';
-import { createTeamRequest } from './modules/team/TeamActions';
 import TeamContainer from './modules/team/TeamContainer';
 import CalendarContainer from './modules/calendar/CalendarContainer';
 import BoardEditorContainer from './modules/boardEditor/BoardEditorContainer';
+
+import { userAuth, userGet } from './modules/_user/UserActions';
+import { createTeamRequest } from './modules/team/TeamActions';
 
 class App extends Component {
 	componentDidMount() {

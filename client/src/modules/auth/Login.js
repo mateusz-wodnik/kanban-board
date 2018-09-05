@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Login = ({handleLogin}) => (
-	<form className="register__form w-50">
+	<form className="auth__form" onSubmit={handleLogin}>
 		<header>
 			<h2>Login</h2>
 		</header>
@@ -23,10 +23,7 @@ const Login = ({handleLogin}) => (
 				required="true"
 			/>
 		</div>
-		<button
-			onClick={handleLogin}
-			className="btn btn-primary"
-		>Submit</button>
+		<button className="btn btn-primary" type="submit">Submit</button>
 	</form>
 );
 

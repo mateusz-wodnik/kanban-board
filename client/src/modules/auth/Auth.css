@@ -1,8 +1,15 @@
-.register {
+.auth {
     display: flex;
+    flex-flow: row wrap;
 }
 
-.register__form {
+.auth__form {
     padding: 20px;
+    flex: 1;
     background: rgba(0,0,0,0.1);
+    min-width: 260px
 }
+
+.auth__form > .form-group {
+    max-width: 400px
+} 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Register = ({handleRegister}) => (
-	<form className="register__form w-50">
+	<form className="auth__form" onSubmit={handleRegister}>
 		<header>
 			<h2>Register</h2>
 		</header>
@@ -63,11 +63,7 @@ const Register = ({handleRegister}) => (
 				required={true}
 			/>
 		</div>
-		<button
-			onClick={handleRegister}
-			type="submit"
-			className="btn btn-primary"
-		>Submit</button>
+		<button type="submit" className="btn btn-primary">Submit</button>
 	</form>
 );
 
