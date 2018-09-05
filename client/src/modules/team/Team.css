@@ -8,6 +8,7 @@
 .manage-users__col {
     display: flex;
     flex-flow: row wrap;
+    align-items: flex-start;
     align-content: flex-start;
     border: 5px solid;
     min-width: 220px;
@@ -29,8 +30,14 @@
     animation: pulse 1.5s infinite;
 }
 
+.user {
+    cursor: grab;
+    margin: 10px;
+}
+
 @keyframes pulse {
     0% {background: rgba(255, 215, 0, 0.1);}
     50% {background: rgba(255, 215, 0, 0.3);}
     100% {background: rgba(255, 215, 0, 0.1);}
 }
+
