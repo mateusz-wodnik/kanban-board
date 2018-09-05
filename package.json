@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rm -rf production && mkdir -p production && npm run build-client && npm run build-server && node production/server.js",
+    "start": "mkdir -p production && cd production && rm -rf * && cd .. && npm run build-client && npm run build-server && node production/server.js",
     "build-client": "cd client && npm i && npm run build && cp -r build ../production",
-    "build-server": "cd server && npm i && gulp server && cp -r package.json dist && cd dist && npm i && cp -r * ../../production",
+    "build-server": "cd server && npm i && gulp server && cp -r package.json dist && cp -r .gitignore dist && cd dist && npm i && cp -r * ../../production",
     "dev": "npm run client & npm run server",
     "client": "cd client && npm start",
     "server": "cd server && gulp"
