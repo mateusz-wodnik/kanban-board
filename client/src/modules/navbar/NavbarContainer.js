@@ -26,16 +26,10 @@ class NavbarContainer extends Component {
 	}
 
 	render() {
-		const {user, edit, fetchKanban, kanbans, kanban, userLogoutRequest} = this.props;
 		const { isAddVisible } = this.state;
 		return (
 			<Navbar
-				user={user}
-				edit={edit}
-				fetchKanban={fetchKanban}
-				kanbans={kanbans}
-				kanban={kanban}
-				userLogoutRequest={userLogoutRequest}
+				props={this.props}
 				isAddVisible={isAddVisible}
 				handleAddLane={this.handleAddLane}
 				AddNameModal={this.AddNameModal}
