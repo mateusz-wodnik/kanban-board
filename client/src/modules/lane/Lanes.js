@@ -2,7 +2,7 @@ import React from 'react';
 import Lane from './LaneContainer';
 
 const Lanes = ({ lanes, userId, isEditor }) => (
-	<div className="container-fluid d-flex p-0 flex-wrap">
+	<div className="d-flex flex-wrap">
 		{lanes.map(lane => {
 			return lane.active ?
 				<Lane

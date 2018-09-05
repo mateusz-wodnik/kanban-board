@@ -1,14 +1,20 @@
-.lane {
-    background: lightgrey;
-    padding-bottom: 20px;
-    max-width: 500px;
-}
 
 .lane .card-header {
     display: flex;
     justify-content: space-between;
 }
 
+.lane {
+    background: lightgrey;
+    padding-bottom: 20px;
+    flex: 1 400px
+}
+
+.lane > .card-body {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
 .add-note-modal {
     z-index: 1;
     position: absolute;
