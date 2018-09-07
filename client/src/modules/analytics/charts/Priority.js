@@ -9,7 +9,6 @@ import {
 
 const PriorityChart = ({data}) => (
 	<PieChart className="chart" width={400} height={300}>
-		{console.log(data)}
 		<Tooltip/>
 		<Pie
 			data={data}

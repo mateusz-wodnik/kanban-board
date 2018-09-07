@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import "./Navbar.css"
 
 const Navbar = ({ props, isAddVisible, AddNameModal, handleAddLane }) => {
-	const { user, edit, fetchKanban, kanbans, kanban, userLogoutRequest } = props
+	const { user, edit, kanban } = props
 	return (
 		<nav className="navbar navbar-dark bg-dark">
 			<Link

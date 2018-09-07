@@ -55,7 +55,6 @@ export function updateNote(_id, note) {
 }
 
 export function updateNoteRequest(_id, note) {
-	console.log(note)
 	return (dispatch) => {
 		return fetch(`/api/notes/${_id}`, {
 			method: "PUT",

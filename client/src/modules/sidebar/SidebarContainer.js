@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { createLaneRequest } from '../lane/LaneActions';
 import { connect } from 'react-redux';
 import { fetchKanban } from '../kanban/KanbanActions';
 import { userLogoutRequest } from '../_user/UserActions';
@@ -7,26 +6,22 @@ import { bindActionCreators } from 'redux';
 import Sidebar from './Sidebar';
 
 class SidebarContainer extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isAddVisible: false,
-		}
-		console.log(props)
-	}
-
 	render() {
-		const { isAddVisible } = this.state;
-		console.log(this.props)
+		const { isAdmin,
+				user,
+				kanban,
+				kanbans,
+				fetchKanban,
+				userLogoutRequest,
+		} = this.props
 		return (
 			<Sidebar
-				props={this.props}
-				isAdmin={this.props.isAdmin}
-				user={this.props.user}
-				kanban={this.props.kanban}
-				kanbans={this.props.kanbans}
-				fetchKanban={this.props.fetchKanban}
-				userLogoutRequest={this.props.userLogoutRequest}
+				isAdmin={isAdmin}
+				user={user}
+				kanban={kanban}
+				kanbans={kanbans}
+				fetchKanban={fetchKanban}
+				userLogoutRequest={userLogoutRequest}
 			/>
 		);
 	}

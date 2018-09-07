@@ -15,7 +15,6 @@ class NoteContainer extends Component {
 
 	handleUpdate = (e) => {
 		e.target.classList.toggle('check');
-		console.log(e.target)
 		const items = [...e.target.closest('.note').querySelector('.card-body').children];
 		items.forEach(item => {
 			item.contentEditable = true;
@@ -47,7 +46,6 @@ class NoteContainer extends Component {
 	}
 
 	handleTakeTask = (remove) => {
-		console.log(remove)
 		this.props.takeTask(this.props.note._id, this.props.user, remove);
 	}
 

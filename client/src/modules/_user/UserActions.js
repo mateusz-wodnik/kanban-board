@@ -44,7 +44,7 @@ export function userLogoutRequest() {
 			credentials: 'include',
 		})
 			.then(res => dispatch(userLogout()))
-			.catch(err => console.log(err));
+			.catch(console.error);
 	}
 }
 

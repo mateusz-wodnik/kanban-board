@@ -43,7 +43,6 @@ export function updateNote(req, res) {
 export function takeTask(req, res) {
 	const remove = req.query.remove
 	const { note, user } = req.params
-	console.log(note, user)
 	Note.update(
 		{$and: [
 			{_id: note},
@@ -68,7 +67,6 @@ export function moveNote(req, res) {
 				.then(lanes => {
 					lanes.forEach(lane => {
 						if(lane._id == target) {
-							console.log(note)
 							lane.notes.addToSet(note._id)
 							lane.save()
 							return
@@ -76,7 +74,6 @@ export function moveNote(req, res) {
 						lane.notes.pull(note)
 						lane.save()
 					})
-					console.log(lanes)
 					res.send(lanes)
 				})
 				.catch(err => res.send(403, err))

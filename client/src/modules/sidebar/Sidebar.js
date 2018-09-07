@@ -16,7 +16,6 @@ const Sidebar = ({ isAdmin, user, kanban, kanbans, fetchKanban, userLogoutReques
 	<section className="sidebar">
 	<input id="toggleSidebar" className="btn btn-primary" type="checkbox" />
 		<div className="sidebar__nav list-group">
-		{console.log(isAdmin)}
 			{ user && user.kanbans && 
 				<select
 					onChange={e => fetchKanban(e.target.value)}

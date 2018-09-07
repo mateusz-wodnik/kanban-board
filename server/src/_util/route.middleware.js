@@ -6,7 +6,6 @@ export function requiresLogin(req, res, next) {
 }
 
 export function requiresAdmin(req, res, next) {
-	console.log(req.session.userId)
 	if (req.session && req.session.isAdmin) return next();
 	const err = new Error('You must be granted Admin permission to view this page.');
 	err.status = 401;

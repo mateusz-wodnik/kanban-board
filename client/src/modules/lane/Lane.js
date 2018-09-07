@@ -3,17 +3,17 @@ import Notes from '../note/Notes';
 import './Lane.css';
 
 const Lane = ({ lane,
-								deleteLaneRequest,
-								laneNotes,
-								edit,
-								isEdited,
-								laneId,
-								AddNoteModal,
-								isAddVisible,
-								handleColorChange,
-								handleEditLane,
-								handleAddNote,
-								captionEdit,
+				deleteLaneRequest,
+				laneNotes,
+				edit,
+				isEdited,
+				laneId,
+				AddNoteModal,
+				isAddVisible,
+				handleColorChange,
+				handleEditLane,
+				handleAddNote,
+				captionEdit,
 }) => (
 	<section onInput={captionEdit} id={laneId} className="lane card" style={{background: lane.color}}>
 		<header className="card-header">

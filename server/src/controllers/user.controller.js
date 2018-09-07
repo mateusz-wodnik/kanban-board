@@ -29,7 +29,6 @@ export function getUsers(req, res) {
 }
 
 export function loginUser (req, res) {
-	console.log('Received User POST login request')
 	User.authentication(req.body.email, req.body.password, (err, user) => {
 		if(err) return res.status(401).send(err);
 		if(!user) return res.status(401).send('No user found');

@@ -35,7 +35,6 @@ export function addKanban(req, res) {
 }
 
 export function updateKanban(req, res) {
-	console.log(`Received PUT`)
 	const {admins= req.session.userId, users= req.session.userId, remove=false, ...body} = req.body
 	const update = remove ? {$set: {...body}, $pull: {users}} : {$set: {...body}, $addToSet: {admins, users}};
 	Kanban.findOneAndUpdate(
@@ -51,8 +50,7 @@ export function updateKanban(req, res) {
 					{_id: {$in: kanban.lanes}},
 					{$addToSet: {admins, users}},
 					{multi: true},
-					(err, raw) => {
-						console.log(raw)
+					(err) => {
 						if(err) throw err
 					},
 				);
@@ -60,9 +58,8 @@ export function updateKanban(req, res) {
 					{_id: {$in: notes}},
 					{$addToSet: {admins, users}},
 					{multi: true},
-					(err, raw) => {
+					(err) => {
 						if(err) throw err
-						console.log(raw)
 					},
 				);
 				res.send('Kanban updated');
@@ -106,7 +103,6 @@ export function getKanban(req, res) {
 
 
 export function addUserToProject (req, res) {
-	console.log('move user')
 	const remove = req.query.remove
 	const { kanban, user } = req.params
 	const update = remove ? {$pull: {users: user}}  : {$addToSet: {users: user}}
@@ -120,20 +116,22 @@ export function addUserToProject (req, res) {
 				update,
 				{multi: true}
 			)
-				.then(res => console.log(res))
+				.then((res, err) => {
+					if(err) throw err
+				})
+				.catch(console.error)
 			Lane.find({_id: {$in: kanban.lanes}}, 'notes')
 				.then(notes => {
 					const allNotes = []
 					notes.forEach(item => {
 						allNotes.push(...item.notes)
 					})
-					console.log(allNotes)
 					Note.update(
 						{_id: {$in: allNotes}},
 						update,
 						{multi: true}
 					)
-						.then(res => console.log(res))
+						.then(res => res)
 				})
 				.catch(console.error)
 			res.send({user})

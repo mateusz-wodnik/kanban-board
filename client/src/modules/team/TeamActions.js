@@ -42,7 +42,6 @@ export function moveTeamUserRequest (kanban, user, remove=false) {
 		})
 			.then(res => res.json())
 			.then(res => {
-				console.log(res)
 				remove ? dispatch(removeTeamUser(user)) : dispatch(addTeamUser(user))
 			})
 			.catch(console.error)
