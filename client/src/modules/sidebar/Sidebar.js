@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,14 +8,25 @@ import {
 	faChartPie,
 	faColumns,
 	faCalendarAlt,
-	faUsers ,
+	faUsers,
+	faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
-const Sidebar = ({isAdmin}) => (
-	<Fragment>
+const Sidebar = ({ isAdmin, user, kanban, kanbans, fetchKanban, userLogoutRequest }) => (
 	<section className="sidebar">
 	<input id="toggleSidebar" className="btn btn-primary" type="checkbox" />
 		<div className="sidebar__nav list-group">
+		{console.log(isAdmin)}
+			{ user && user.kanbans && 
+				<select
+					onChange={e => fetchKanban(e.target.value)}
+					className="custom-select form-control navbar__select"
+					id="selectBoard"
+					value={kanban._id}
+				>
+					{kanbans.map(kanban => <option key={kanban._id} value={kanban._id}>{kanban.name}</option>)}
+				</select>
+			}
 			<NavLink to="/board"
 							 activeClassName="sidebar__link--active"
 							 className="sidebar__link list-group-item list-group-item-action"
@@ -46,9 +57,9 @@ const Sidebar = ({isAdmin}) => (
 							 className={`sidebar__link list-group-item list-group-item-action${isAdmin ? '' :' disabled'}`}
 			><FontAwesomeIcon icon={faUsers} /><p className="sidebar__text">Team</p>
 			</NavLink>
+			<button onClick={userLogoutRequest} className="btn btn-warning form-control navbar__btn" ><FontAwesomeIcon icon={faSignOutAlt} /></button>
 		</div>
 	</section>
-	</Fragment>
 );
 
 export default Sidebar;

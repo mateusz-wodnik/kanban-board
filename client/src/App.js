@@ -8,7 +8,7 @@ import { hot } from 'react-hot-loader';
 
 import Kanban from './modules/kanban/Kanban';
 import NavbarContainer from './modules/navbar/NavbarContainer';
-import Sidebar from './modules/sidebar/Sidebar';
+import SidebarContainer from './modules/sidebar/SidebarContainer';
 import AnalyticsContainer from './modules/analytics/AnalyticsContainer';
 import Auth from './modules/auth/Auth';
 import TeamContainer from './modules/team/TeamContainer';
@@ -31,7 +31,7 @@ class App extends Component {
 		return (
 			<div className="app container-fluid p-0">
 				<NavbarContainer />
-				<Sidebar isAdmin={isAdmin}/>
+				<SidebarContainer isAdmin={isAdmin}/>
 				<div className="content">
 					<Route exact path='/' component={this.isUserLogged(Kanban)}/>
 					<Route path='/board' component={this.isUserLogged(Kanban)}/>

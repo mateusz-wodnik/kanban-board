@@ -7,13 +7,14 @@
 .lane {
     background: lightgrey;
     padding-bottom: 20px;
-    flex: 1 400px
+    flex: 1 400px;
 }
 
 .lane > .card-body {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
+    align-items: flex-start
 }
 .add-note-modal {
     z-index: 1;

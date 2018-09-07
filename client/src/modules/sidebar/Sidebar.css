@@ -1,8 +1,19 @@
 .sidebar {
-    grid-area: sidebar;
     display: flex;
     flex-flow: column;
     background: linear-gradient(to right, lightgrey 90%, rgba(0,0,0,0.3));
+    position: fixed;
+    z-index: 1;
+}
+
+.sidebar__nav {
+    width: 55px;
+    transition: 0.8s;
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+    /* background: grey; */
+    left: -60px
 }
 
 .sidebar__link {
@@ -29,14 +40,11 @@
     margin: 0;
 }
 
-.sidebar__nav {
-    width: 55px;
-    transition: 0.8s;
-}
 
 #toggleSidebar {
     appearance: button;
-    margin-left: auto;
+    position: fixed;
+    margin: auto;
     border: none;
     background-color: lightgrey;
     background-image: url("./hamburger.svg")!important;
@@ -57,6 +65,7 @@
 
 #toggleSidebar:checked ~ .sidebar__nav {
     width: 200px;
+    left: 0;
 }
 
 @keyframes play60 {
@@ -74,5 +83,18 @@
     }
     100% {
         background-position: 0px 0px
+    }
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: initial;
+    }
+    .sidebar__nav {
+        position: initial
+    }
+    #toggleSidebar {
+        position: initial;
+        margin: 0 0 0 auto;
     }
 }
